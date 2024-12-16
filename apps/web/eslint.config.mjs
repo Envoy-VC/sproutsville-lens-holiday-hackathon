@@ -1,4 +1,5 @@
 import eslintRecommendedConfig from '@envoy1084/style-guide/eslint/flat/_base';
+import { ignores } from '@envoy1084/style-guide/eslint/flat/comments';
 import eslintReactConfig from '@envoy1084/style-guide/eslint/flat/react';
 import eslintTypescriptConfig from '@envoy1084/style-guide/eslint/flat/typescript';
 import pluginQuery from '@tanstack/eslint-plugin-query';
@@ -28,6 +29,7 @@ export default [
         },
       },
     },
+    ignores: ['src/__generated__'],
     rules: {
       'no-console': ['off'],
       '@typescript-eslint/explicit-function-return-type': 'off',
