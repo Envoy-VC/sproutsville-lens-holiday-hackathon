@@ -6,7 +6,6 @@ import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 export default defineConfig({
-  clearScreen: false,
   envPrefix: ['VITE_'],
   plugins: [
     TanStackRouterVite({}),
