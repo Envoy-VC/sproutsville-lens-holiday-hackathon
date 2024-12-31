@@ -11,8 +11,15 @@
 // Import Routes
 import { Route as rootRoute } from './app/__root';
 import { Route as IndexImport } from './app/index';
+import { Route as PlayImport } from './app/play';
 
 // Create/Update Routes
+
+const PlayRoute = PlayImport.update({
+  id: '/play',
+  path: '/play',
+  getParentRoute: () => rootRoute,
+} as any);
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -31,6 +38,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport;
       parentRoute: typeof rootRoute;
     };
+    '/play': {
+      id: '/play';
+      path: '/play';
+      fullPath: '/play';
+      preLoaderRoute: typeof PlayImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
@@ -38,32 +52,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute;
+  '/play': typeof PlayRoute;
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
+  '/play': typeof PlayRoute;
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute;
   '/': typeof IndexRoute;
+  '/play': typeof PlayRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/';
+  fullPaths: '/' | '/play';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/';
-  id: '__root__' | '/';
+  to: '/' | '/play';
+  id: '__root__' | '/' | '/play';
   fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
+  PlayRoute: typeof PlayRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PlayRoute: PlayRoute,
 };
 
 export const routeTree = rootRoute
@@ -76,11 +95,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/play"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/play": {
+      "filePath": "play.tsx"
     }
   }
 }
