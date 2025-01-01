@@ -44,6 +44,10 @@ export class GameScene extends Phaser.Scene {
         frameHeight: 64,
       });
     });
+
+    for (let i = 1; i <= 20; i++) {
+      this.load.image(`Cloud${i}`, `assets/tileset/clouds/Cloud ${i}.png`);
+    }
   }
 
   create() {
@@ -91,10 +95,13 @@ export class GameScene extends Phaser.Scene {
       }
     });
 
-    this.player = new Player(
-      { x: 50, y: 1650, sprite: 'trader', speed: 50 },
-      this
-    );
+    this.player = new Player({
+      x: 50,
+      y: 1650,
+      sprite: 'trader',
+      speed: 50,
+      scene: this,
+    });
     createAnimations(this, 'trader');
 
     // Set Collision with World Bounds and Collision Layer

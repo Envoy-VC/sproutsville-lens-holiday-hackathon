@@ -6,7 +6,7 @@ const RootComponent = () => {
   return (
     <ProviderTree>
       <Outlet />
-      {import.meta.env.MODE === 'development' && (
+      {import.meta.env.MODE === 'q' && (
         <TanStackRouterDevtools position='bottom-right' />
       )}
     </ProviderTree>
