@@ -84,7 +84,7 @@ export class GameScene extends Phaser.Scene {
           .setScale(zoom)
           .setAlpha(0);
         return;
-      } else if (layer.name.includes('Trees') || layer.name.includes('House')) {
+      } else if (layer.name.includes('Trees')) {
         map.createLayer(layer.name, tilesets, 0, 0)!.setScale(zoom).setDepth(2);
       } else {
         map.createLayer(layer.name, tilesets, 0, 0)!.setScale(zoom).setDepth(0);

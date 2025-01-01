@@ -3,9 +3,14 @@ import { useState } from 'react';
 import { cn } from '~/lib/utils';
 
 import { useNavigate } from '@tanstack/react-router';
+import { ConnectKitButton } from 'connectkit';
+import { useAccount, useDisconnect } from 'wagmi';
 
 export const HomeMenu = () => {
   const navigate = useNavigate();
+
+  const { address } = useAccount();
+  const { disconnectAsync } = useDisconnect();
 
   const items = [
     {
@@ -28,18 +33,25 @@ export const HomeMenu = () => {
       onClick: () => true,
     },
     {
-      name: 'Quit',
-      key: 'quit',
-      onClick: () => {
-        window.open('about:blank', '_self')?.close();
+      name: 'Sign Out',
+      key: 'sign-out',
+      onClick: async () => {
+        await disconnectAsync();
       },
     },
   ];
 
   const [hovered, setHovered] = useState<string | null>(null);
 
+  if (!address)
+    return (
+      <div className='mx-auto w-fit border'>
+        <ConnectKitButton />
+      </div>
+    );
+
   return (
-    <div className='isolate flex w-full max-w-sm flex-col items-center rounded-[4rem] bg-white/30 pt-12 pb-6 ring-2 ring-black/10'>
+    <div className='isolate mx-auto flex w-full max-w-sm flex-col items-center rounded-[4rem] bg-white/30 pt-12 pb-6 ring-2 ring-black/10'>
       {items.map((item) => (
         <button
           key={item.key}
