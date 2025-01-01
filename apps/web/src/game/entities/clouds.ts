@@ -1,10 +1,46 @@
 import Phaser from 'phaser';
 
 export class CloudsOverlay {
+  private fadeOverlay: Phaser.GameObjects.Rectangle | null = null;
+
   animateClouds(scene: Phaser.Scene) {
     const numClouds = 200;
     const screenWidth = scene.cameras.main.width;
     const screenHeight = scene.cameras.main.height;
+
+    this.fadeOverlay = scene.add
+      .rectangle(
+        0,
+        0,
+        scene.cameras.main.width,
+        scene.cameras.main.height,
+        0x000000
+      )
+      .setOrigin(0, 0)
+      .setAlpha(0)
+      .setDepth(50)
+      .setScrollFactor(0);
+
+    scene.tweens.add({
+      targets: this.fadeOverlay,
+      alpha: 1,
+      duration: 2000,
+      ease: 'Sine.easeInOut',
+      onComplete: () => {
+        scene.time.delayedCall(1000, () => {
+          scene.tweens.add({
+            targets: this.fadeOverlay,
+            alpha: 0,
+            duration: 2000,
+            ease: 'Sine.easeInOut',
+            onComplete: () => {
+              this.fadeOverlay?.destroy();
+              this.fadeOverlay = null;
+            },
+          });
+        });
+      },
+    });
 
     for (let i = 0; i < numClouds; i++) {
       // Random cloud image (Cloud1.png to Cloud20.png)
@@ -16,13 +52,14 @@ export class CloudsOverlay {
         (screenHeight / numClouds) * (i + 3)
       );
       const randomScale = Phaser.Math.FloatBetween(3, 3.5);
+      const randomDepth = Phaser.Math.Between(51, 100);
 
       // Add cloud sprite at the left side, just off-screen
       const cloud = scene.add
         .sprite(startX, startY, `Cloud${cloudIndex}`)
         .setScale(randomScale)
         .setAlpha(Phaser.Math.FloatBetween(0.6, 1))
-        .setDepth(100) // Clouds should be above the player
+        .setDepth(randomDepth)
         .setOrigin(0, 0) // Top-left origin
         .setScrollFactor(0); // Clouds are fixed in screen space
 
@@ -48,10 +85,10 @@ export class CloudsOverlay {
         },
       });
 
-      // Optional: Drift clouds slightly up/down for added natural movement
+      // Drift clouds slightly up/down for added natural movement
       scene.tweens.add({
         targets: cloud,
-        y: startY + Phaser.Math.Between(-50, 50), // Random vertical drift
+        y: startY + Phaser.Math.Between(-30, 30), // Random vertical drift
         duration: 3000 * parallaxSpeed, // Vertical drift speed
         yoyo: true, // Move back and forth
         repeat: -1, // Repeat indefinitely

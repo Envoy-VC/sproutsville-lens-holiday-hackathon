@@ -15,6 +15,18 @@
 body {
   margin: 0px;
   padding: 0px;
+  cursor: url('/ui/cursor.png'), auto;
+}
+
+button,
+a,
+input,
+.cursor-pointer {
+  cursor: url('/ui/cursor-pointer.png'), auto;
+}
+
+*:focus {
+  outline: none;
 }
 
 @font-face {
@@ -137,4 +149,21 @@ body {
 .hide-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+/** Cover Whole Button with Image */
+.game-button {
+  background-image: url('/ui/button.png');
+  transition: background-image 0.3s steps(2);
+  background-size: 100% 100%;
+}
+
+.game-button:hover {
+  background-image: url('/ui/button-hovered.png');
+  background-size: 100% 100%;
+}
+
+.game-dialog {
+  background-image: url('/ui/frame.png');
+  background-size: 100% 100%;
 }

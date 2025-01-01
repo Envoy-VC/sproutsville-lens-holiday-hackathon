@@ -25,10 +25,20 @@ export class Player {
 
     // on map click, log world coordinates in tiles
     scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-      const worldPoint = scene.cameras.main.getWorldPoint(pointer.x, pointer.y);
-      const tileX = Math.floor(worldPoint.x / 16);
-      const tileY = Math.floor(worldPoint.y / 16);
+      console.log({
+        worldX: pointer.worldX,
+        worldY: pointer.worldY,
+        x: pointer.x,
+        y: pointer.y,
+      });
+
+      const tileX = Math.floor(pointer.worldX / 16);
+      const tileY = Math.floor(pointer.worldY / 16);
       console.log(`Tile X: ${tileX}, Tile Y: ${tileY}`);
+      const targetX = scene.map.tileToWorldX(tileX, scene.cameras.main);
+      const targetY = scene.map.tileToWorldY(tileY, scene.cameras.main);
+
+      console.log(`Target X: ${targetX}, Target Y: ${targetY}`);
     });
 
     playerEmitter.on('teleport', (props) => {
@@ -40,16 +50,11 @@ export class Player {
     });
   }
 
-  teleport({ tileX, tileY, scene }: TeleportProps) {
-    const targetX = scene.map.tileToWorldX(tileX);
-    const targetY = scene.map.tileToWorldY(tileY);
-
+  teleport({ tileX, tileY }: TeleportProps) {
+    const targetX = tileX * 16;
+    const targetY = tileY * 16;
     if (!targetX || !targetY) return;
-
-    this.sprite.setPosition(
-      targetX + scene.map.tileWidth / 2,
-      targetY + scene.map.tileHeight / 2
-    );
+    this.sprite.setPosition(targetX, targetY);
   }
 
   update({ scene }: UpdateProps) {

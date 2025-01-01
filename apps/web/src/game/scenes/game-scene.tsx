@@ -21,7 +21,6 @@ export class GameScene extends Phaser.Scene {
   public interactionLayer!: Phaser.Tilemaps.TilemapLayer;
   public player!: Player;
   public cursors!: CursorKeys;
-  public minimap!: Minimap;
 
   public config: GameSceneProps['config'];
 
@@ -117,38 +116,9 @@ export class GameScene extends Phaser.Scene {
 
     // Set Camera to Follow Player
     this.cameras.main.startFollow(this.player.sprite);
-
-    // Create Minimap
-    this.minimap = new Minimap({
-      scene: this,
-      map,
-      toFollow: this.player.sprite,
-      zoom: 0.25,
-    });
-
-    this.cameras.main.ignore(this.minimap.playerPointer);
-    const minimapWidth = 300;
-    const minimapHeight = 150;
-    const minimapX = 715;
-    const minimapY = 10;
-    const blackFrame = this.add.graphics({
-      x: minimapX - 4,
-      y: minimapY - 4,
-    });
-    blackFrame.fillStyle(0x000000, 1);
-
-    blackFrame.fillRect(
-      minimapX - 4,
-      minimapY - 4,
-      minimapWidth + 8,
-      minimapHeight + 8
-    );
-
-    blackFrame.setDepth(3);
   }
 
   update(time: number, delta: number) {
     this.player.update({ scene: this, time, delta });
-    this.minimap.update({ scene: this, time, delta });
   }
 }
