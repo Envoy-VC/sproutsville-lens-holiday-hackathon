@@ -14,6 +14,11 @@
     "watch": "graphql-codegen -w"
   },
   "dependencies": {
+    "@ai16z/adapter-postgres": "v0.1.4-alpha.3",
+    "@ai16z/client-direct": "v0.1.4-alpha.3",
+    "@ai16z/eliza": "v0.1.4-alpha.3",
+    "@ai16z/plugin-bootstrap": "v0.1.4-alpha.3",
+    "@ai16z/plugin-node": "v0.1.4-alpha.3",
     "@apollo/client": "^3.12.3",
     "@hookform/resolvers": "^3.9.1",
     "@lens-protocol/client": "0.0.0-canary-20241216110702",
@@ -26,6 +31,7 @@
     "@tanstack/react-query": "^5.61.4",
     "@tanstack/react-router": "^1.82.8",
     "@tanstack/router-devtools": "^1.82.8",
+    "@types/pathfinding": "^0.0.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "connectkit": "^1.8.2",
@@ -34,6 +40,7 @@
     "mitt": "^3.0.1",
     "next-themes": "^0.4.3",
     "p-retry": "^6.2.1",
+    "pathfinding": "^0.4.18",
     "phaser": "^3.87.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

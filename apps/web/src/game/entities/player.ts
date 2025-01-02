@@ -1,5 +1,5 @@
 import { playerEmitter } from '../event-emitter';
-import { registerMovement } from '../helpers/movement';
+import { createAnimations, registerMovement } from '../helpers/movement';
 import { CloudsOverlay } from './clouds';
 
 import { CreatePlayerProps, TeleportProps, UpdateProps } from '~/types/game';
@@ -17,6 +17,7 @@ export class Player {
       .setDepth(1)
       .setBodySize(32, 42)
       .setOffset(16, 24);
+    createAnimations(scene, sprite);
 
     this.sprite.setCollideWorldBounds(true);
     this.speed = speed;
@@ -24,22 +25,22 @@ export class Player {
     this.cloudsOverlay = new CloudsOverlay();
 
     // on map click, log world coordinates in tiles
-    scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-      console.log({
-        worldX: pointer.worldX,
-        worldY: pointer.worldY,
-        x: pointer.x,
-        y: pointer.y,
-      });
+    // scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+    //   console.log({
+    //     worldX: pointer.worldX,
+    //     worldY: pointer.worldY,
+    //     x: pointer.x,
+    //     y: pointer.y,
+    //   });
 
-      const tileX = Math.floor(pointer.worldX / 16);
-      const tileY = Math.floor(pointer.worldY / 16);
-      console.log(`Tile X: ${tileX}, Tile Y: ${tileY}`);
-      const targetX = scene.map.tileToWorldX(tileX, scene.cameras.main);
-      const targetY = scene.map.tileToWorldY(tileY, scene.cameras.main);
+    //   const tileX = Math.floor(pointer.worldX / 16);
+    //   const tileY = Math.floor(pointer.worldY / 16);
+    //   console.log(`Tile X: ${tileX}, Tile Y: ${tileY}`);
+    //   const targetX = scene.map.tileToWorldX(tileX, scene.cameras.main);
+    //   const targetY = scene.map.tileToWorldY(tileY, scene.cameras.main);
 
-      console.log(`Target X: ${targetX}, Target Y: ${targetY}`);
-    });
+    //   console.log(`Target X: ${targetX}, Target Y: ${targetY}`);
+    // });
 
     playerEmitter.on('teleport', (props) => {
       this.cloudsOverlay.animateClouds(this.scene);
@@ -58,6 +59,6 @@ export class Player {
   }
 
   update({ scene }: UpdateProps) {
-    registerMovement(scene.cursors, this.speed, this.sprite);
+    registerMovement('trader', scene.cursors, this.speed, this.sprite);
   }
 }

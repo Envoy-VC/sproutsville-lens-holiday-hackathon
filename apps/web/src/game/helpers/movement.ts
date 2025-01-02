@@ -45,7 +45,7 @@ export const createAnimations = (scene: Phaser.Scene, key: string) => {
   ];
   directions.forEach((direction) => {
     scene.anims.create({
-      key: `walk-${direction.key}`,
+      key: `${key}-walk-${direction.key}`,
       frames: scene.anims.generateFrameNumbers(key, {
         start: direction.rowIndex * framesPerRow,
         end: direction.rowIndex * framesPerRow + 8,
@@ -57,7 +57,7 @@ export const createAnimations = (scene: Phaser.Scene, key: string) => {
 
   directions.forEach((direction) => {
     scene.anims.create({
-      key: `idle-${direction.key}`,
+      key: `${key}-idle-${direction.key}`,
       frames: scene.anims.generateFrameNumbers(key, {
         start: direction.rowIndex * framesPerRow,
         end: direction.rowIndex * framesPerRow,
@@ -69,6 +69,7 @@ export const createAnimations = (scene: Phaser.Scene, key: string) => {
 };
 
 export const registerMovement = (
+  key: string,
   cursors: CursorKeys,
   speed: number,
   sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
@@ -83,16 +84,16 @@ export const registerMovement = (
   // Check input for movement
   if (left.isDown) {
     velocityX = -speed;
-    animationKey = 'walk-west';
+    animationKey = `${key}-walk-west`;
   } else if (right.isDown) {
     velocityX = speed;
-    animationKey = 'walk-east';
+    animationKey = `${key}-walk-east`;
   } else if (up.isDown) {
     velocityY = -speed;
-    animationKey = 'walk-north';
+    animationKey = `${key}-walk-north`;
   } else if (down.isDown) {
     velocityY = speed;
-    animationKey = 'walk-south';
+    animationKey = `${key}-walk-south`;
   }
 
   sprite.body.setVelocity(velocityX, velocityY);

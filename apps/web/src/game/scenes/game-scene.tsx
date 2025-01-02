@@ -2,7 +2,9 @@
 import Phaser from 'phaser';
 import Map from 'public/assets/sproutsville-main.json';
 
-import { Minimap, Player } from '../entities';
+import { MusicManager, Pathfinder } from '../classes';
+import { Farmer, Player } from '../entities';
+import { preloadAudio } from '../helpers/audio';
 import {
   type CursorKeys,
   createAnimations,
@@ -20,7 +22,10 @@ export class GameScene extends Phaser.Scene {
   public collisionLayer!: Phaser.Tilemaps.TilemapLayer;
   public interactionLayer!: Phaser.Tilemaps.TilemapLayer;
   public player!: Player;
+  public farmer!: Farmer;
   public cursors!: CursorKeys;
+  public musicManager!: MusicManager;
+  public pathfinder!: Pathfinder;
 
   public config: GameSceneProps['config'];
 
@@ -47,6 +52,7 @@ export class GameScene extends Phaser.Scene {
     for (let i = 1; i <= 20; i++) {
       this.load.image(`Cloud${i}`, `assets/tileset/clouds/Cloud ${i}.png`);
     }
+    preloadAudio(this);
   }
 
   create() {
@@ -101,7 +107,15 @@ export class GameScene extends Phaser.Scene {
       speed: 50,
       scene: this,
     });
-    createAnimations(this, 'trader');
+    this.farmer = new Farmer({
+      x: 100,
+      y: 1650,
+      sprite: 'farmer',
+      speed: 50,
+      scene: this,
+    });
+
+    this.physics.add.collider(this.player.sprite, this.farmer.sprite);
 
     // Set Collision with World Bounds and Collision Layer
     this.physics.world.setBounds(0, 0, mapWidth * zoom, mapHeight * zoom);
@@ -116,9 +130,17 @@ export class GameScene extends Phaser.Scene {
 
     // Set Camera to Follow Player
     this.cameras.main.startFollow(this.player.sprite);
+
+    // Set Music Manager
+    this.musicManager = new MusicManager(this);
+    this.musicManager.playSoundtrack();
+
+    // Set Pathfinder
+    this.pathfinder = new Pathfinder(this.collisionLayer);
   }
 
   update(time: number, delta: number) {
     this.player.update({ scene: this, time, delta });
+    this.farmer.update({ scene: this, time, delta });
   }
 }
