@@ -68,12 +68,9 @@ export const startAgent = async (
 
 const startAgents = async () => {
   const directClient = (await DirectClientInterface.start()) as DirectClient;
-
   for (const character of characters) {
     await startAgent(character, directClient);
   }
-
-  return directClient;
 };
 
 startAgents().catch((err: unknown) => {
