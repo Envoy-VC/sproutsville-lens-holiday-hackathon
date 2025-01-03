@@ -17,6 +17,8 @@
     "@apollo/client": "^3.12.3",
     "@hookform/resolvers": "^3.9.1",
     "@lens-protocol/client": "0.0.0-canary-20241216110702",
+    "@lens-protocol/graphql": "0.0.0-canary-20241127131427",
+    "@lens-protocol/metadata": "2.0.0-next.2",
     "@lens-protocol/storage-node-client": "0.0.0-next-20241217195719",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",

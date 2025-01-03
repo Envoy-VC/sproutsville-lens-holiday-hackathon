@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { playerEmitter } from '~/game/event-emitter';
 import { Position } from '~/game/helpers/constants';
@@ -43,7 +43,7 @@ export const TeleportButton = () => {
                     });
                     setOpen(false);
                   }}
-                ></IconButton>
+                />
               </div>
             );
           })}
