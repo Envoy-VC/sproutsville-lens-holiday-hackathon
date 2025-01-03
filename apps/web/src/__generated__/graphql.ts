@@ -1,4 +1,6 @@
 /* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -38,6 +40,8 @@ export type Scalars = {
   EvmAddress: { input: any; output: any };
   GeneratedNotificationId: { input: any; output: any };
   IdToken: { input: any; output: any };
+  /** A scalar that can represent any JSON value. */
+  JSON: { input: any; output: any };
   LegacyProfileId: { input: any; output: any };
   LegacyPublicationId: { input: any; output: any };
   LegacyRefreshToken: { input: any; output: any };
@@ -127,6 +131,16 @@ export type AccountBlocked = {
   blockedAt: Scalars['DateTime']['output'];
 };
 
+export type AccountBlockedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountCreatedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountFeedsStats = {
   __typename?: 'AccountFeedsStats';
   /** The total number of collects. */
@@ -150,6 +164,13 @@ export type AccountFeedsStatsRequest = {
   account: Scalars['EvmAddress']['input'];
   /** The feeds to get stats for. */
   forFeeds?: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountFollowedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  followedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  follower?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type AccountGraphsFollowStats = {
@@ -187,6 +208,11 @@ export type AccountManager = {
   manager: Scalars['EvmAddress']['output'];
   /** The permissions the account manager has. */
   permissions: AccountManagerPermissions;
+};
+
+export type AccountManagerAddedNotificationAttributes = {
+  managedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  manager?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type AccountManagerChallengeRequest = {
@@ -228,6 +254,16 @@ export type AccountManagerPermissionsInput = {
   canTransferTokens: Scalars['Boolean']['input'];
 };
 
+export type AccountManagerRemovedNotificationAttributes = {
+  managedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  manager?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountManagerUpdatedNotificationAttributes = {
+  managedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  manager?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountManagersRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
@@ -246,6 +282,14 @@ export type AccountMention = {
    * Use to replace mentions in the post content.
    */
   replace: MentionReplace;
+};
+
+export type AccountMentionedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  mentionedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  mentionedUsername?: InputMaybe<Scalars['UsernameValue']['input']>;
 };
 
 export type AccountMetadata = {
@@ -295,6 +339,10 @@ export type AccountOwnerChallengeRequest = {
   owner: Scalars['EvmAddress']['input'];
 };
 
+export type AccountOwnershipTransferredNotificationAttributes = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountPostReaction = {
   __typename?: 'AccountPostReaction';
   account: Account;
@@ -306,6 +354,12 @@ export enum AccountReportReason {
   Other = 'OTHER',
   RepetitiveSpam = 'REPETITIVE_SPAM',
 }
+
+export type AccountReportedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reportedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reporter?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
 
 export type AccountRequest = {
   /** The account address. */
@@ -335,9 +389,36 @@ export type AccountStatsRequest = {
   forGraphs?: Array<Scalars['EvmAddress']['input']>;
 };
 
+export type AccountUnblockedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountUnfollowedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+  unfollowedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  unfollower?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountUsernameAssignedNotificationAttributes = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountUsernameCreatedNotificationAttributes = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountUsernameRequest = {
   /** The namespace to get account assigned username */
   namespace?: Scalars['EvmAddress']['input'];
+};
+
+export type AccountUsernameUnassignedNotificationAttributes = {
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+  previousAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type AccountsAvailableRequest = {
@@ -369,7 +450,7 @@ export type AccountsBulkRequest = {
   usernames?: InputMaybe<Array<UsernameInput>>;
 };
 
-export type AccountsFilterRequest = {
+export type AccountsFilter = {
   /** The optional filter to narrow accounts by search query. */
   searchBy?: InputMaybe<UsernameSearchInput>;
 };
@@ -383,7 +464,7 @@ export enum AccountsOrderBy {
 export type AccountsRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<AccountsFilterRequest>;
+  filter?: InputMaybe<AccountsFilter>;
   /** The order by. */
   orderBy?: AccountsOrderBy;
   /** The page size. */
@@ -492,14 +573,27 @@ export type AddReactionResult = AddReactionFailure | AddReactionResponse;
 
 export type Admin = {
   __typename?: 'Admin';
+  account: Account;
   addedAt: Scalars['DateTime']['output'];
-  address: Scalars['EvmAddress']['output'];
 };
+
+export type AdminsForFilterRequest = {
+  /** The optional filter to narrow admins query */
+  searchBy?: InputMaybe<UsernameSearchInput>;
+};
+
+export enum AdminsForOrderBy {
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST',
+}
 
 export type AdminsForRequest = {
   /** The graph/app/sponsor/feed/username/group address */
   address: Scalars['EvmAddress']['input'];
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<AdminsForFilterRequest>;
+  /** The order by. */
+  orderBy?: AdminsForOrderBy;
   pageSize?: PageSize;
 };
 
@@ -671,11 +765,27 @@ export type AppSigner = {
   timestamp: Scalars['DateTime']['output'];
 };
 
+export type AppSignersFilterRequest = {
+  /**
+   * The optional filter to narrow signers.
+   * Uses fuzzy search on signer address
+   */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum AppSignersOrderBy {
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST',
+}
+
 export type AppSignersRequest = {
   /** The app address */
   app: Scalars['EvmAddress']['input'];
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<AppSignersFilterRequest>;
+  /** The order by. */
+  orderBy?: AppSignersOrderBy;
   /** The page size. */
   pageSize?: PageSize;
 };
@@ -687,11 +797,25 @@ export type AppUser = {
   lastActiveOn: Scalars['DateTime']['output'];
 };
 
+export type AppUsersFilterRequest = {
+  /** The optional filter to narrow app users query */
+  searchBy?: InputMaybe<UsernameSearchInput>;
+};
+
+export enum AppUsersOrderBy {
+  AccountScore = 'ACCOUNT_SCORE',
+  Alphabetical = 'ALPHABETICAL',
+  BestMatch = 'BEST_MATCH',
+}
+
 export type AppUsersRequest = {
-  /** The App to filter by. */
+  /** The App to get users for. */
   app: Scalars['EvmAddress']['input'];
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<AppUsersFilterRequest>;
+  /** The order by. */
+  orderBy?: AppUsersOrderBy;
   /** The page size. */
   pageSize?: PageSize;
 };
@@ -701,7 +825,7 @@ export type ApprovalGroupRule = {
   rule: Scalars['EvmAddress']['output'];
 };
 
-export type AppsFilterRequest = {
+export type AppsFilter = {
   /** The optional filter to get apps managed by address */
   managedBy?: InputMaybe<ManagedBy>;
   /**
@@ -720,7 +844,7 @@ export enum AppsOrderBy {
 export type AppsRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<AppsFilterRequest>;
+  filter?: InputMaybe<AppsFilter>;
   /** The order by. */
   orderBy?: AppsOrderBy;
   /** The page size. */
@@ -1029,7 +1153,7 @@ export type CreateAppRequest = {
    * If the app has verification enabled meaning
    * you can only do stuff with the app if its signed by one of the signers
    */
-  verification: Scalars['Boolean']['input'];
+  verification?: Scalars['Boolean']['input'];
 };
 
 export type CreateAppResponse = {
@@ -1129,6 +1253,22 @@ export type CreateRepostRequest = {
   post: Scalars['PostId']['input'];
 };
 
+export type CreateSnsSubscriptionRequest = {
+  /** The app to optionally assign this subscription to. */
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /**
+   * The topics to subscribe to. You can subscribe to multiple topics at once. This cannot be
+   * changed once the subscription is created.
+   */
+  topics: Array<SnsTopicInput>;
+  /**
+   * The webhook URL to send notifications to. It must be an HTTP or HTTPS URL that is
+   * accessible by the Lens API and is owned by you as it will be used to confirm the
+   * subscription.
+   */
+  webhook: Scalars['String']['input'];
+};
+
 export type CreateUnfollowRequest = {
   /** The account to unfollow. */
   account: Scalars['EvmAddress']['input'];
@@ -1216,6 +1356,10 @@ export type DeletePostResult =
   | SelfFundedTransactionRequest
   | SponsoredTransactionRequest
   | TransactionWillFail;
+
+export type DeleteSnsSubscriptionRequest = {
+  id: Scalars['UUID']['input'];
+};
 
 export type EditPostRequest = {
   contentUri: Scalars['URI']['input'];
@@ -1324,6 +1468,17 @@ export type EnableSignlessResult =
   | TransactionWillFail;
 
 export type EncryptionStrategy = LitProtocolEncryptionStrategy;
+
+export type EntityId = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+  group?: InputMaybe<Scalars['EvmAddress']['input']>;
+  post?: InputMaybe<Scalars['PostId']['input']>;
+  sponsorship?: InputMaybe<Scalars['EvmAddress']['input']>;
+  usernameNamespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
 
 export enum EntityType {
   Account = 'ACCOUNT',
@@ -1919,7 +2074,7 @@ export type FeedRulesInput = {
   unknownFeedRule?: InputMaybe<UnknownFeedRuleInput>;
 };
 
-export type FeedsFilterRequest = {
+export type FeedsFilter = {
   /** The optional filter to get feeds managed by address */
   managedBy?: InputMaybe<ManagedBy>;
   /**
@@ -1938,7 +2093,7 @@ export enum FeedsOrderBy {
 export type FeedsRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<FeedsFilterRequest>;
+  filter?: InputMaybe<FeedsFilter>;
   /** The order by. */
   orderBy?: FeedsOrderBy;
   /** The page size. */
@@ -2119,6 +2274,19 @@ export type ForbiddenError = {
   reason: Scalars['String']['output'];
 };
 
+export type GenerateNewAppServerApiKeyRequest = {
+  /** The app to generate the new server side api key for */
+  app: Scalars['EvmAddress']['input'];
+};
+
+export type GetSnsSubscriptionsRequest = {
+  /**
+   * The app to get subscriptions for. If not provided, all subscriptions owned by the logged in
+   * account will be returned.
+   */
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type Graph = {
   __typename?: 'Graph';
   address: Scalars['EvmAddress']['output'];
@@ -2170,7 +2338,7 @@ export type GraphRulesInput = {
   unknownGraphRule?: InputMaybe<UnknownGraphRuleInput>;
 };
 
-export type GraphsFilterRequest = {
+export type GraphsFilter = {
   /** The optional filter to get graphs managed by address */
   managedBy?: InputMaybe<ManagedBy>;
   /**
@@ -2189,7 +2357,7 @@ export enum GraphsOrderBy {
 export type GraphsRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<GraphsFilterRequest>;
+  filter?: InputMaybe<GraphsFilter>;
   /** The order by. */
   orderBy?: GraphsOrderBy;
   pageSize?: PageSize;
@@ -2198,12 +2366,8 @@ export type GraphsRequest = {
 export type Group = {
   __typename?: 'Group';
   address: Scalars['EvmAddress']['output'];
-  /**
-   * Check if the authenticated account is a member of the group.
-   * Will return null if the account is not logged in.
-   */
-  isMember?: Maybe<Scalars['Boolean']['output']>;
   metadata?: Maybe<GroupMetadata>;
+  operations?: Maybe<LoggedInGroupOperations>;
   owner: Scalars['EvmAddress']['output'];
   rules: GroupRulesConfig;
   timestamp: Scalars['DateTime']['output'];
@@ -2219,15 +2383,29 @@ export type GroupGatedFeedRule = {
   rule: Scalars['EvmAddress']['output'];
 };
 
+export type GroupMember = {
+  __typename?: 'GroupMember';
+  account: Account;
+  joinedAt: Scalars['DateTime']['output'];
+  lastActiveAt: Scalars['DateTime']['output'];
+};
+
+export type GroupMembersFilter = {
+  /** The optional filter to narrow members by search query. */
+  searchBy?: InputMaybe<UsernameSearchInput>;
+};
+
 export enum GroupMembersOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
   FirstJoined = 'FIRST_JOINED',
+  LastActive = 'LAST_ACTIVE',
   LastJoined = 'LAST_JOINED',
 }
 
 export type GroupMembersRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<GroupMembersFilter>;
   /** The group */
   group: Scalars['EvmAddress']['input'];
   /** The order by. */
@@ -2293,7 +2471,7 @@ export type GroupStatsResponse = {
   totalMembers: Scalars['Int']['output'];
 };
 
-export type GroupsFilterRequest = {
+export type GroupsFilter = {
   /** The optional filter to get groups managed by address */
   managedBy?: InputMaybe<ManagedBy>;
   /** The optional filter to get groups where account is a member */
@@ -2314,7 +2492,7 @@ export enum GroupsOrderBy {
 export type GroupsRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<GroupsFilterRequest>;
+  filter?: InputMaybe<GroupsFilter>;
   /** The order by. */
   orderBy?: GroupsOrderBy;
   /** The page size. */
@@ -2517,7 +2695,7 @@ export type LoggedInAccountOperations = {
    * - It first checks for a Graph address specified within the query scope.
    * - If no Graph address is found, it defaults to using the Global Graph.
    */
-  canFollow: TriStateValue;
+  canFollow: OperationValidationOutcome;
   canUnblock: Scalars['Boolean']['output'];
   /**
    * Check if the authenticated account can unfollow the target account.
@@ -2526,7 +2704,7 @@ export type LoggedInAccountOperations = {
    * - It first checks for a Graph address specified within the query scope.
    * - If no Graph address is found, it defaults to using the Global Graph.
    */
-  canUnfollow: Scalars['Boolean']['output'];
+  canUnfollow: OperationValidationOutcome;
   hasBlockedMe: Scalars['Boolean']['output'];
   hasReported: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
@@ -2568,14 +2746,25 @@ export type LoggedInAccountOperationsIsFollowingMeArgs = {
 
 export type LoggedInFeedPostOperations = {
   __typename?: 'LoggedInFeedPostOperations';
-  canPost: RulesOutcome;
+  canPost: OperationValidationOutcome;
+};
+
+export type LoggedInGroupOperations = {
+  __typename?: 'LoggedInGroupOperations';
+  canAddMember: OperationValidationOutcome;
+  canJoin: OperationValidationOutcome;
+  canLeave: OperationValidationOutcome;
+  canRemoveMember: OperationValidationOutcome;
+  isMember: Scalars['Boolean']['output'];
 };
 
 export type LoggedInPostOperations = {
   __typename?: 'LoggedInPostOperations';
-  canComment: TriStateValue;
-  canQuote: TriStateValue;
-  canRepost: TriStateValue;
+  canComment: OperationValidationOutcome;
+  canDelete: OperationValidationOutcome;
+  canEdit: OperationValidationOutcome;
+  canQuote: OperationValidationOutcome;
+  canRepost: OperationValidationOutcome;
   hasBookmarked: Scalars['Boolean']['output'];
   hasCommented: BooleanValue;
   hasQuoted: BooleanValue;
@@ -2588,6 +2777,18 @@ export type LoggedInPostOperations = {
 
 export type LoggedInPostOperationsHasReactedArgs = {
   request?: InputMaybe<HasReactedRequest>;
+};
+
+export type LoggedInUsernameNamespaceOperations = {
+  __typename?: 'LoggedInUsernameNamespaceOperations';
+  canMint: OperationValidationOutcome;
+};
+
+export type LoggedInUsernameOperations = {
+  __typename?: 'LoggedInUsernameOperations';
+  canAssign: OperationValidationOutcome;
+  canRemove: OperationValidationOutcome;
+  canUnassign: OperationValidationOutcome;
 };
 
 export enum MainContentFocus {
@@ -2920,6 +3121,10 @@ export enum MediaImageType {
   XMsBmp = 'X_MS_BMP',
 }
 
+export type MediaSnapshotNotificationAttributes = {
+  source?: InputMaybe<EntityId>;
+};
+
 /**
  * MediaVideo
  *
@@ -3105,6 +3310,10 @@ export enum MetadataLicenseType {
   TbnlNcNdPlLegal = 'TBNL_NC_ND_PL_LEGAL',
 }
 
+export type MetadataSnapshotNotificationAttributes = {
+  source?: InputMaybe<EntityId>;
+};
+
 export type MintMetadata = {
   __typename?: 'MintMetadata';
   /** The other attachments you want to include with it. */
@@ -3208,12 +3417,6 @@ export type Mutation = {
    */
   addReaction: AddReactionResult;
   /**
-   * Refresh the server side api key for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  appRefreshServerApiKey: Scalars['ServerAPIKey']['output'];
-  /**
    * Assign a username to an account.
    *
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
@@ -3276,9 +3479,10 @@ export type Mutation = {
   /**
    * Create a new group
    *
-   * You MUST be authenticated as a builder to use this mutation.
+   * You MUST be authenticated to use this mutation.
    */
   createGroup: CreateGroupResult;
+  createSnsSubscriptions: Array<SnsSubscription>;
   /**
    * Create a username.
    *
@@ -3297,6 +3501,7 @@ export type Mutation = {
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
    */
   deletePost: DeletePostResult;
+  deleteSnsSubscription: Scalars['Void']['output'];
   /**
    * Edit a post.
    *
@@ -3315,6 +3520,12 @@ export type Mutation = {
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
    */
   follow: FollowResult;
+  /**
+   * Generate a new app server side api key
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  generateNewAppServerApiKey: Scalars['ServerAPIKey']['output'];
   /**
    * Hides an account from the manager list of managed accounts.
    *
@@ -3473,6 +3684,30 @@ export type Mutation = {
    * You MUST be authenticated as a builder to use this mutation.
    */
   setDefaultAppFeed: SetDefaultAppFeedResult;
+  /**
+   * Set metadata for a feed
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setFeedMetadata: SetFeedMetadataResult;
+  /**
+   * Set metadata for a graph
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setGraphMetadata: SetGraphMetadataResult;
+  /**
+   * Set metadata for a group
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setGroupMetadata: SetGroupMetadataResult;
+  /**
+   * Set metadata for a namespace
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setNamespaceMetadata: SetNamespaceMetadataResult;
   /** You MUST be authenticated as Account Owner or Account Manager to use this mutation. */
   switchAccount: SwitchAccountResult;
   /**
@@ -3568,10 +3803,6 @@ export type MutationAddReactionArgs = {
   request: AddReactionRequest;
 };
 
-export type MutationAppRefreshServerApiKeyArgs = {
-  request: RefreshAppServerApiKeyRequest;
-};
-
 export type MutationAssignUsernameToAccountArgs = {
   request: AssignUsernameToAccountRequest;
 };
@@ -3612,6 +3843,10 @@ export type MutationCreateGroupArgs = {
   request: CreateGroupRequest;
 };
 
+export type MutationCreateSnsSubscriptionsArgs = {
+  request: CreateSnsSubscriptionRequest;
+};
+
 export type MutationCreateUsernameArgs = {
   request: CreateUsernameRequest;
 };
@@ -3624,12 +3859,20 @@ export type MutationDeletePostArgs = {
   request: DeletePostRequest;
 };
 
+export type MutationDeleteSnsSubscriptionArgs = {
+  request: DeleteSnsSubscriptionRequest;
+};
+
 export type MutationEditPostArgs = {
   request: EditPostRequest;
 };
 
 export type MutationFollowArgs = {
   request: CreateFollowRequest;
+};
+
+export type MutationGenerateNewAppServerApiKeyArgs = {
+  request: GenerateNewAppServerApiKeyRequest;
 };
 
 export type MutationHideManagedAccountArgs = {
@@ -3736,6 +3979,22 @@ export type MutationSetDefaultAppFeedArgs = {
   request: SetDefaultAppFeedRequest;
 };
 
+export type MutationSetFeedMetadataArgs = {
+  request: SetFeedMetadataRequest;
+};
+
+export type MutationSetGraphMetadataArgs = {
+  request: SetGraphMetadataRequest;
+};
+
+export type MutationSetGroupMetadataArgs = {
+  request: SetGroupMetadataRequest;
+};
+
+export type MutationSetNamespaceMetadataArgs = {
+  request: SetNamespaceMetadataRequest;
+};
+
 export type MutationSwitchAccountArgs = {
   request: SwitchAccountRequest;
 };
@@ -3789,7 +4048,14 @@ export type MuteRequest = {
   account: Scalars['EvmAddress']['input'];
 };
 
-export type NamespacesFilterRequest = {
+export type NamespaceRequest = {
+  /** The namespace */
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The transaction hash you created the namespace with. */
+  txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type NamespacesFilter = {
   /** The optional filter to get namespaces managed by address */
   managedBy?: InputMaybe<ManagedBy>;
   /**
@@ -3808,7 +4074,7 @@ export enum NamespacesOrderBy {
 export type NamespacesRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<NamespacesFilterRequest>;
+  filter?: InputMaybe<NamespacesFilter>;
   /** The order by. */
   orderBy?: NamespacesOrderBy;
   /** The page size. */
@@ -3820,8 +4086,6 @@ export type NamespacesResult = {
   items: Array<UsernameNamespace>;
   pageInfo: PaginatedResultInfo;
 };
-
-export type NestedPost = Post | PostReference;
 
 export type NetworkAddress = {
   __typename?: 'NetworkAddress';
@@ -3932,6 +4196,22 @@ export type OnboardingUserChallengeRequest = {
   wallet: Scalars['EvmAddress']['input'];
 };
 
+export type OperationValidationFailed = {
+  __typename?: 'OperationValidationFailed';
+  reason: Scalars['String']['output'];
+  unsatisfiedRules?: Maybe<Array<UnsatisfiedRule>>;
+};
+
+export type OperationValidationOutcome =
+  | OperationValidationFailed
+  | OperationValidationPassed;
+
+export type OperationValidationPassed = {
+  __typename?: 'OperationValidationPassed';
+  extraChecksRequired: Array<UnknownRule>;
+  restrictedSignerRequired: Scalars['Boolean']['output'];
+};
+
 export enum PageSize {
   Fifty = 'FIFTY',
   Ten = 'TEN',
@@ -4030,6 +4310,12 @@ export type PaginatedFollowingResult = {
 export type PaginatedGraphsResult = {
   __typename?: 'PaginatedGraphsResult';
   items: Array<Graph>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedGroupMembersResult = {
+  __typename?: 'PaginatedGroupMembersResult';
+  items: Array<GroupMember>;
   pageInfo: PaginatedResultInfo;
 };
 
@@ -4143,7 +4429,7 @@ export type Post = {
   actions: Array<PostAction>;
   app?: Maybe<App>;
   author: Account;
-  commentOn?: Maybe<NestedPost>;
+  commentOn?: Maybe<Post>;
   feed: Feed;
   id: Scalars['PostId']['output'];
   isDeleted: Scalars['Boolean']['output'];
@@ -4151,9 +4437,10 @@ export type Post = {
   mentions: Array<PostMention>;
   metadata: PostMetadata;
   operations?: Maybe<LoggedInPostOperations>;
-  quoteOf?: Maybe<NestedPost>;
-  root?: Maybe<NestedPost>;
+  quoteOf?: Maybe<Post>;
+  root?: Maybe<Post>;
   rules: PostRulesConfig;
+  slug: Scalars['PostId']['output'];
   stats: PostStats;
   timestamp: Scalars['DateTime']['output'];
 };
@@ -4203,15 +4490,40 @@ export type PostBookmarksRequest = {
   pageSize?: PageSize;
 };
 
+export type PostCreatedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
+  postTypes?: InputMaybe<Array<PostType>>;
+};
+
+export type PostDeletedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
+  postTypes?: InputMaybe<Array<PostType>>;
+};
+
 export type PostEdit = {
   __typename?: 'PostEdit';
   metadata: PostMetadata;
   timestamp: Scalars['DateTime']['output'];
 };
 
+export type PostEditedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
+  postTypes?: InputMaybe<Array<PostType>>;
+};
+
 export type PostEditsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   pageSize?: PageSize;
+  /** The post ID. */
   post: Scalars['PostId']['input'];
 };
 
@@ -4264,10 +4576,24 @@ export type PostReaction = {
   reaction: PostReactionType;
 };
 
+export type PostReactionAddedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  postId?: InputMaybe<Scalars['PostId']['input']>;
+  reactingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reactionType?: InputMaybe<PostReactionType>;
+};
+
 export enum PostReactionOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
   Default = 'DEFAULT',
 }
+
+export type PostReactionRemovedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  postId?: InputMaybe<Scalars['PostId']['input']>;
+  reactingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reactionType?: InputMaybe<PostReactionType>;
+};
 
 export type PostReactionStatus = {
   __typename?: 'PostReactionStatus';
@@ -4300,11 +4626,6 @@ export type PostReactionsRequest = {
   pageSize?: PageSize;
   /** The ID of the post to get reactions for. */
   post: Scalars['PostId']['input'];
-};
-
-export type PostReference = {
-  __typename?: 'PostReference';
-  id: Scalars['PostId']['output'];
 };
 
 export enum PostReferenceType {
@@ -4346,6 +4667,13 @@ export enum PostReportReason {
   Unrelated = 'UNRELATED',
   Violence = 'VIOLENCE',
 }
+
+export type PostReportedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reporter?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
 
 /** You must provide either a txHash or a postId, not both. */
 export type PostRequest = {
@@ -4423,7 +4751,7 @@ export enum PostVisibilityFilter {
   Visible = 'VISIBLE',
 }
 
-export type PostsFilterRequest = {
+export type PostsFilter = {
   apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   authors?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   metadata?: InputMaybe<PostMetadataFilter>;
@@ -4434,7 +4762,7 @@ export type PostsFilterRequest = {
 
 export type PostsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<PostsFilterRequest>;
+  filter?: InputMaybe<PostsFilter>;
   forFeeds?: Array<Scalars['EvmAddress']['input']>;
   pageSize?: PageSize;
 };
@@ -4516,12 +4844,13 @@ export type Query = {
   followers: PaginatedFollowersResult;
   followersYouKnow: PaginatedFollowersResult;
   following: PaginatedFollowingResult;
+  getSnsSubscriptions: Array<SnsSubscription>;
   graph?: Maybe<Graph>;
   /** Get the graphs. */
   graphs: PaginatedGraphsResult;
   group?: Maybe<Group>;
   /** Get the members of the group */
-  groupMembers: PaginatedAccountsResult;
+  groupMembers: PaginatedGroupMembersResult;
   /** Get the number of members in a Group */
   groupStats: GroupStatsResponse;
   /** Get the groups. */
@@ -4538,6 +4867,7 @@ export type Query = {
   mlAccountRecommendations: PaginatedAccountsResult;
   mlPostsExplore?: Maybe<PaginatedPostsResult>;
   mlPostsForYou: PaginatedPostsForYouResult;
+  namespace?: Maybe<UsernameNamespace>;
   /** Get the namespaces. */
   namespaces: NamespacesResult;
   /**
@@ -4567,7 +4897,6 @@ export type Query = {
   /** Get the status of a transaction by its hash. */
   transactionStatus: TransactionStatusResult;
   username?: Maybe<Username>;
-  usernameNamespace?: Maybe<UsernameNamespace>;
   /** Get the usernames for the account/owner. */
   usernames: PaginatedUsernamesResult;
   whoActedOnPost: PaginatedAccountsResult;
@@ -4679,6 +5008,10 @@ export type QueryFollowingArgs = {
   request: FollowingRequest;
 };
 
+export type QueryGetSnsSubscriptionsArgs = {
+  request: GetSnsSubscriptionsRequest;
+};
+
 export type QueryGraphArgs = {
   request: GraphRequest;
 };
@@ -4717,6 +5050,10 @@ export type QueryMlPostsExploreArgs = {
 
 export type QueryMlPostsForYouArgs = {
   request: MlpostsForYouRequest;
+};
+
+export type QueryNamespaceArgs = {
+  request: NamespaceRequest;
 };
 
 export type QueryNamespacesArgs = {
@@ -4779,10 +5116,6 @@ export type QueryUsernameArgs = {
   request: UsernameRequest;
 };
 
-export type QueryUsernameNamespaceArgs = {
-  request: UsernameNamespaceRequest;
-};
-
 export type QueryUsernamesArgs = {
   request: UsernamesRequest;
 };
@@ -4827,11 +5160,6 @@ export type RecommendAccount = {
 export type ReferencingPostInput = {
   /** The post to reference. */
   post: Scalars['PostId']['input'];
-};
-
-export type RefreshAppServerApiKeyRequest = {
-  /** The app to refresh the server side api key for */
-  app: Scalars['EvmAddress']['input'];
 };
 
 export type RefreshRequest = {
@@ -4927,6 +5255,7 @@ export type Repost = {
   id: Scalars['PostId']['output'];
   isDeleted: Scalars['Boolean']['output'];
   repostOf: Post;
+  slug: Scalars['PostId']['output'];
   timestamp: Scalars['DateTime']['output'];
 };
 
@@ -4968,19 +5297,6 @@ export type RolloverRefreshRequest = {
 
 export type RuleInput = {
   rules: Array<Scalars['EvmAddress']['input']>;
-};
-
-export type RulesFailed = {
-  __typename?: 'RulesFailed';
-  unsatisfiedRules: Array<UnsatisfiedRule>;
-};
-
-export type RulesOutcome = RulesFailed | RulesSucceeded;
-
-export type RulesSucceeded = {
-  __typename?: 'RulesSucceeded';
-  extraChecksRequired: Array<UnknownRule>;
-  restrictedSignerRequired: Scalars['Boolean']['output'];
 };
 
 export enum SelfFundedFallbackReason {
@@ -5100,6 +5416,54 @@ export type SetDefaultAppFeedResult =
   | SponsoredTransactionRequest
   | TransactionWillFail;
 
+export type SetFeedMetadataRequest = {
+  /** The feed to update */
+  feed: Scalars['EvmAddress']['input'];
+  /** The feed metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetFeedMetadataResult =
+  | SelfFundedTransactionRequest
+  | SponsoredTransactionRequest
+  | TransactionWillFail;
+
+export type SetGraphMetadataRequest = {
+  /** The graph to update */
+  graph: Scalars['EvmAddress']['input'];
+  /** The graph metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetGraphMetadataResult =
+  | SelfFundedTransactionRequest
+  | SponsoredTransactionRequest
+  | TransactionWillFail;
+
+export type SetGroupMetadataRequest = {
+  /** The group to update */
+  group: Scalars['EvmAddress']['input'];
+  /** The group metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetGroupMetadataResult =
+  | SelfFundedTransactionRequest
+  | SponsoredTransactionRequest
+  | TransactionWillFail;
+
+export type SetNamespaceMetadataRequest = {
+  /** The namespace metadata to set */
+  metadataUri: Scalars['String']['input'];
+  /** The namespace to update */
+  namespace: Scalars['EvmAddress']['input'];
+};
+
+export type SetNamespaceMetadataResult =
+  | SelfFundedTransactionRequest
+  | SponsoredTransactionRequest
+  | TransactionWillFail;
+
 export type SignedAuthChallenge = {
   id: Scalars['UUID']['input'];
   signature: Scalars['Signature']['input'];
@@ -5154,6 +5518,83 @@ export type SimplePaymentUsernameNamespaceRule = {
   amount: Amount;
   recipient: Scalars['EvmAddress']['output'];
   rule: Scalars['EvmAddress']['output'];
+};
+
+export enum SnsNotificationType {
+  AccountBlocked = 'ACCOUNT_BLOCKED',
+  AccountContentConsumed = 'ACCOUNT_CONTENT_CONSUMED',
+  AccountCreated = 'ACCOUNT_CREATED',
+  AccountFollowed = 'ACCOUNT_FOLLOWED',
+  AccountFollowRulesUpdated = 'ACCOUNT_FOLLOW_RULES_UPDATED',
+  AccountManagerAdded = 'ACCOUNT_MANAGER_ADDED',
+  AccountManagerRemoved = 'ACCOUNT_MANAGER_REMOVED',
+  AccountManagerUpdated = 'ACCOUNT_MANAGER_UPDATED',
+  AccountMentioned = 'ACCOUNT_MENTIONED',
+  AccountMetadataUpdated = 'ACCOUNT_METADATA_UPDATED',
+  AccountOwnershipTransferred = 'ACCOUNT_OWNERSHIP_TRANSFERRED',
+  AccountReported = 'ACCOUNT_REPORTED',
+  AccountUnblocked = 'ACCOUNT_UNBLOCKED',
+  AccountUnfollowed = 'ACCOUNT_UNFOLLOWED',
+  AccountUsernameAssigned = 'ACCOUNT_USERNAME_ASSIGNED',
+  AccountUsernameCreated = 'ACCOUNT_USERNAME_CREATED',
+  AccountUsernameUnassigned = 'ACCOUNT_USERNAME_UNASSIGNED',
+  CommentCreated = 'COMMENT_CREATED',
+  MediaSnapshotError = 'MEDIA_SNAPSHOT_ERROR',
+  MediaSnapshotSuccess = 'MEDIA_SNAPSHOT_SUCCESS',
+  MetadataSnapshotError = 'METADATA_SNAPSHOT_ERROR',
+  MetadataSnapshotSuccess = 'METADATA_SNAPSHOT_SUCCESS',
+  MlProfileSignal = 'ML_PROFILE_SIGNAL',
+  PostActionCompleted = 'POST_ACTION_COMPLETED',
+  PostCollected = 'POST_COLLECTED',
+  PostCreated = 'POST_CREATED',
+  PostDeleted = 'POST_DELETED',
+  PostEdited = 'POST_EDITED',
+  PostReactionAdded = 'POST_REACTION_ADDED',
+  PostReactionRemoved = 'POST_REACTION_REMOVED',
+  PostReported = 'POST_REPORTED',
+  QuoteCreated = 'QUOTE_CREATED',
+  RepostCreated = 'REPOST_CREATED',
+}
+
+export type SnsSubscription = {
+  __typename?: 'SnsSubscription';
+  account: Scalars['EvmAddress']['output'];
+  app?: Maybe<Scalars['EvmAddress']['output']>;
+  attributes: Scalars['JSON']['output'];
+  id: Scalars['UUID']['output'];
+  topic: SnsNotificationType;
+  topicArn: Scalars['String']['output'];
+  webhook: Scalars['URL']['output'];
+};
+
+export type SnsTopicInput = {
+  accountBlocked?: InputMaybe<AccountBlockedNotificationAttributes>;
+  accountCreated?: InputMaybe<AccountCreatedNotificationAttributes>;
+  accountFollowed?: InputMaybe<AccountFollowedNotificationAttributes>;
+  accountManagerAdded?: InputMaybe<AccountManagerAddedNotificationAttributes>;
+  accountManagerRemoved?: InputMaybe<AccountManagerRemovedNotificationAttributes>;
+  accountManagerUpdated?: InputMaybe<AccountManagerUpdatedNotificationAttributes>;
+  accountMentioned?: InputMaybe<AccountMentionedNotificationAttributes>;
+  accountOwnershipTransferred?: InputMaybe<AccountOwnershipTransferredNotificationAttributes>;
+  accountReported?: InputMaybe<AccountReportedNotificationAttributes>;
+  accountUnblocked?: InputMaybe<AccountUnblockedNotificationAttributes>;
+  accountUnfollowed?: InputMaybe<AccountUnfollowedNotificationAttributes>;
+  accountUsernameAssigned?: InputMaybe<AccountUsernameAssignedNotificationAttributes>;
+  accountUsernameCreated?: InputMaybe<AccountUsernameCreatedNotificationAttributes>;
+  accountUsernameUnassigned?: InputMaybe<AccountUsernameUnassignedNotificationAttributes>;
+  commentCreated?: InputMaybe<PostCreatedNotificationAttributes>;
+  mediaSnapshotError?: InputMaybe<MediaSnapshotNotificationAttributes>;
+  mediaSnapshotSuccess?: InputMaybe<MediaSnapshotNotificationAttributes>;
+  metadataSnapshotError?: InputMaybe<MetadataSnapshotNotificationAttributes>;
+  metadataSnapshotSuccess?: InputMaybe<MetadataSnapshotNotificationAttributes>;
+  postCreated?: InputMaybe<PostCreatedNotificationAttributes>;
+  postDeleted?: InputMaybe<PostDeletedNotificationAttributes>;
+  postEdited?: InputMaybe<PostEditedNotificationAttributes>;
+  postReactionAdded?: InputMaybe<PostReactionAddedNotificationAttributes>;
+  postReactionRemoved?: InputMaybe<PostReactionRemovedNotificationAttributes>;
+  postReported?: InputMaybe<PostReportedNotificationAttributes>;
+  quoteCreated?: InputMaybe<PostCreatedNotificationAttributes>;
+  repostCreated?: InputMaybe<PostCreatedNotificationAttributes>;
 };
 
 export type SpaceMetadata = {
@@ -5325,6 +5766,8 @@ export enum TimelineEventItemType {
 }
 
 export type TimelineFilter = {
+  /** The apps to filter by. */
+  apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The post event types to filter by. */
   eventType?: InputMaybe<Array<TimelineEventItemType>>;
   /** The optional metadata filter. */
@@ -5332,6 +5775,8 @@ export type TimelineFilter = {
 };
 
 export type TimelineHighlightsFilter = {
+  /** The apps to filter by. */
+  apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   metadata?: InputMaybe<PostMetadataFilter>;
 };
 
@@ -5483,12 +5928,6 @@ export type TransferPrimitiveOwnershipResult =
   | SelfFundedTransactionRequest
   | SponsoredTransactionRequest
   | TransactionWillFail;
-
-export enum TriStateValue {
-  No = 'NO',
-  Unknown = 'UNKNOWN',
-  Yes = 'YES',
-}
 
 export type UnassignUsernameFromAccountRequest = {
   namespace?: Scalars['EvmAddress']['input'];
@@ -5693,6 +6132,7 @@ export type Username = {
   /** The local name of the username (e.g., bob). */
   localName: Scalars['String']['output'];
   namespace: UsernameNamespace;
+  operations?: Maybe<LoggedInUsernameOperations>;
   /** The address that owns the username entry. */
   ownedBy: Scalars['EvmAddress']['output'];
   /** The timestamp when the username was created. */
@@ -5716,8 +6156,10 @@ export type UsernameNamespace = {
   metadata?: Maybe<UsernameNamespaceMetadata>;
   /** The namespace for example `lens` */
   namespace: Scalars['String']['output'];
+  operations?: Maybe<LoggedInUsernameNamespaceOperations>;
   owner: Scalars['EvmAddress']['output'];
   rules: UsernameNamespaceRulesConfig;
+  stats: UsernameNamespaceStats;
 };
 
 export type UsernameNamespaceRulesArgs = {
@@ -5735,13 +6177,6 @@ export type UsernameNamespaceMetadata = {
   id: Scalars['String']['output'];
 };
 
-export type UsernameNamespaceRequest = {
-  /** The namespace */
-  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the namespace with. */
-  txHash?: InputMaybe<Scalars['TxHash']['input']>;
-};
-
 export type UsernameNamespaceRule =
   | CharsetUsernameNamespaceRule
   | LengthUsernameNamespaceRule
@@ -5753,6 +6188,11 @@ export type UsernameNamespaceRulesConfig = {
   __typename?: 'UsernameNamespaceRulesConfig';
   anyOf: Array<UsernameNamespaceRule>;
   required: Array<UsernameNamespaceRule>;
+};
+
+export type UsernameNamespaceStats = {
+  __typename?: 'UsernameNamespaceStats';
+  totalUsernames: Scalars['Int']['output'];
 };
 
 /** You must provide either an id or a username, not both. */
@@ -5773,11 +6213,31 @@ export type UsernameSearchInput = {
   namespaces?: Array<Scalars['EvmAddress']['input']>;
 };
 
+export type UsernamesFilter = {
+  /** The optional filter to get usernames linked to an address */
+  linkedTo?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /**
+   * The optional filter to narrow usernames
+   * Uses fuzzy search by local name
+   */
+  localNameQuery?: InputMaybe<Scalars['String']['input']>;
+  /** The optional filter to get usernames for a namespace */
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The optional filter to get usernames owned by address */
+  owner?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export enum UsernamesOrderBy {
+  FirstMinted = 'FIRST_MINTED',
+  LastMinted = 'LAST_MINTED',
+}
+
 export type UsernamesRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The account or address to get owned usernames for. */
-  owner: Scalars['EvmAddress']['input'];
+  filter?: InputMaybe<UsernamesFilter>;
+  /** The order by. */
+  orderBy?: UsernamesOrderBy;
   /** The page size. */
   pageSize?: PageSize;
 };
@@ -5856,3 +6316,178 @@ export type _Service = {
   __typename?: '_Service';
   sdl?: Maybe<Scalars['String']['output']>;
 };
+
+export type CreateUsernameNamespaceMutationVariables = Exact<{
+  metadataUri: Scalars['URI']['input'];
+  namespace: Scalars['String']['input'];
+  symbol: Scalars['String']['input'];
+  admins?: InputMaybe<
+    Array<Scalars['EvmAddress']['input']> | Scalars['EvmAddress']['input']
+  >;
+}>;
+
+export type CreateUsernameNamespaceMutation = {
+  __typename?: 'Mutation';
+  createUsernameNamespace:
+    | { __typename?: 'CreateNamespaceResponse'; hash: any }
+    | { __typename?: 'SelfFundedTransactionRequest' }
+    | { __typename?: 'TransactionWillFail'; reason: string };
+};
+
+export const CreateUsernameNamespaceDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateUsernameNamespace' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'metadataUri' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'URI' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'namespace' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'symbol' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'admins' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: {
+                kind: 'NamedType',
+                name: { kind: 'Name', value: 'EvmAddress' },
+              },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createUsernameNamespace' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'metadataUri' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'metadataUri' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'namespace' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'namespace' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'symbol' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'symbol' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'admins' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'admins' },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'CreateNamespaceResponse' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'hash' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'TransactionWillFail' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'reason' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateUsernameNamespaceMutation,
+  CreateUsernameNamespaceMutationVariables
+>;
