@@ -23,7 +23,7 @@ export class CloudsOverlay {
 
     scene.tweens.add({
       targets: this.fadeOverlay,
-      alpha: 1,
+      alpha: 0.8,
       duration: 2000,
       ease: 'Sine.easeInOut',
       onComplete: () => {

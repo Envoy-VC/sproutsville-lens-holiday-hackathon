@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 
-export type InteractionType = 'onboarding';
+export type InteractionType = 'onboarding' | 'peasant-house';
 
 class GameState {
   public isInteractionModalOpen: boolean;
@@ -8,7 +8,7 @@ class GameState {
   constructor() {
     makeAutoObservable(this);
     this.interactionType = 'onboarding';
-    this.isInteractionModalOpen = false;
+    this.isInteractionModalOpen = true;
   }
 
   public setInteractionModalOpen(isOpen: boolean, type: InteractionType) {

@@ -47,6 +47,17 @@ export const useLensAccount = () => {
       return await signMessageAsync({ message });
     };
     let authenticated;
+    // if (client.currentSession.isSessionClient().valueOf()) {
+    //   const session = await client.resumeSession();
+    //   if (session.isErr()) {
+    //     throw session.error;
+    //   }
+    //   const result = await currentSession(session.value);
+    //   if (result.isErr()) {
+    //     throw result.error;
+    //   }
+    //   result.value.authenticationId;
+    // } else {
     if (type === 'builder') {
       const p = params as ChallengeRequest['builder'];
       authenticated = await client.login({ signMessage, [type]: p });
@@ -62,6 +73,7 @@ export const useLensAccount = () => {
     } else {
       throw new Error(`Invalid type: ${type}`);
     }
+    // }
 
     if (authenticated.isErr()) {
       throw authenticated.error;
@@ -71,7 +83,9 @@ export const useLensAccount = () => {
   }
 
   const registerUser = async (localName: string, name: string) => {
-    if (!address) return;
+    if (!address) {
+      throw new Error('Please connect your wallet');
+    }
     await login('onboardingUser', {
       wallet: evmAddress(address),
       app: evmAddress(Constants.SPROUTSVILLE_APP_ADDRESS),
@@ -90,9 +104,15 @@ export const useLensAccount = () => {
       },
     });
 
+    if (res.errors?.[0]) {
+      throw new Error(res.errors[0].message);
+    }
+
     if (
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- safe
       res.data?.createAccountWithUsername.__typename === 'CreateAccountResponse'
     ) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- safe
       return res.data.createAccountWithUsername.hash as string;
     }
     throw new Error('Failed to create account');

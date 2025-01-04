@@ -6,6 +6,7 @@ import { MusicManager, Pathfinder } from '../classes';
 import { Farmer, InteractionText, Player } from '../entities';
 import { preloadAudio } from '../helpers/audio';
 import { type CursorKeys, createCursorKeys } from '../helpers/movement';
+import { gameState } from '../state';
 
 interface GameSceneProps {
   config: {
@@ -23,12 +24,14 @@ export class GameScene extends Phaser.Scene {
   public musicManager!: MusicManager;
   public pathfinder!: Pathfinder;
   public interactionText!: InteractionText;
+  public previousModalState: boolean;
 
   public config: GameSceneProps['config'];
 
   constructor(props: GameSceneProps) {
     super({ key: 'GameScene' });
     this.config = props.config;
+    this.previousModalState = false;
   }
 
   preload() {
@@ -144,5 +147,17 @@ export class GameScene extends Phaser.Scene {
     this.player.update({ scene: this, time, delta });
     this.farmer.update({ scene: this, time, delta });
     this.interactionText.update({ scene: this, time, delta });
+
+    if (gameState.isInteractionModalOpen !== this.previousModalState) {
+      this.previousModalState = gameState.isInteractionModalOpen;
+
+      if (gameState.isInteractionModalOpen) {
+        // Disable keyboard input when the modal is open
+        this.input.keyboard?.disableGlobalCapture();
+      } else {
+        // Enable keyboard input when the modal is closed
+        this.input.keyboard?.enableGlobalCapture();
+      }
+    }
   }
 }

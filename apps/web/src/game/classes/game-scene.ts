@@ -13,6 +13,7 @@ export abstract class GameSceneAbstract extends Phaser.Scene {
   public abstract musicManager: MusicManager;
   public abstract pathfinder: Pathfinder;
   public abstract interactionText: InteractionText;
+  public abstract previousModalState: boolean;
 
   public abstract config: {
     mapSize: { x: number; y: number };

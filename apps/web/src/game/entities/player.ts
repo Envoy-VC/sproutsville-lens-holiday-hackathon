@@ -63,6 +63,6 @@ export class Player {
   }
 
   update({ scene }: UpdateProps) {
-    registerMovement('trader', scene.cursors, this.speed, this.sprite);
+    registerMovement('trader', scene.cursors, this.speed, this.sprite, scene);
   }
 }

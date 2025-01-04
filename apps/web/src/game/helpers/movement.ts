@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 
+import { CreatePlayerProps } from '~/types/game';
+
 export interface CursorKeys {
   up: Phaser.Input.Keyboard.Key;
   left: Phaser.Input.Keyboard.Key;
@@ -72,9 +74,12 @@ export const registerMovement = (
   key: string,
   cursors: CursorKeys,
   speed: number,
-  sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
+  sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
+  scene: CreatePlayerProps['scene']
 ) => {
   const { left, right, up, down } = cursors;
+
+  if (scene.previousModalState) return;
 
   // Reset velocity
   let velocityX = 0;

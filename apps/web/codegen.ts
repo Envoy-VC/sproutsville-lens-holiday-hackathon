@@ -1,8 +1,8 @@
-import { CodegenConfig } from '@graphql-codegen/cli';
+import { type CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   schema: 'https://api.testnet.lens.dev/graphql',
-  documents: ['src/**/*.{ts,tsx}'],
+  documents: ['src/**/graphql.{ts,tsx}'],
   generates: {
     './src/__generated__/': {
       preset: 'client',

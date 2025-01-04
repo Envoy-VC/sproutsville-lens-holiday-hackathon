@@ -1,27 +1,20 @@
-import React from 'react';
+import { cn } from '~/lib/utils';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '~/components/ui/dialog';
-
-import { GameButton } from './game-button';
+import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog';
 
 interface GameDialogProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   children?: React.ReactNode;
   trigger?: React.ReactNode;
+  contentCls?: string;
 }
 
 export const GameDialog = ({
   isOpen,
   setIsOpen,
   trigger,
+  contentCls,
   children,
 }: GameDialogProps) => {
   const onOpenChange = (isOpen: boolean) => {
@@ -30,7 +23,12 @@ export const GameDialog = ({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger>{trigger ? trigger : null}</DialogTrigger>
-      <DialogContent className='game-dialog aspect-video w-full max-w-2xl border-none bg-transparent'>
+      <DialogContent
+        className={cn(
+          'game-dialog aspect-video w-full max-w-xl border-none bg-transparent',
+          contentCls
+        )}
+      >
         <div className='z-10 mx-6 my-4'>{children}</div>
       </DialogContent>
     </Dialog>

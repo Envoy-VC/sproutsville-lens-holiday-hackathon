@@ -1,5 +1,76 @@
 import { gql } from '~/__generated__';
 
+export const CREATE_APP_MUTATION = gql(`mutation CreateAppMutation(
+$metadataUri: URI!
+$namespace: EvmAddress!
+$admins: [EvmAddress!]
+) {
+  createApp(request: {
+    metadataUri: $metadataUri
+    namespace: $namespace
+    admins: $admins
+  }) {
+    ... on CreateAppResponse {
+      hash
+    }
+  }
+}`);
+
+export const SET_APP_NAMESPACE = gql(`mutation SetAppNamespace(
+$usernameNamespace: EvmAddress!
+$app: EvmAddress!
+) {
+  setAppUsernameNamespace(request: {
+    usernameNamespace: $usernameNamespace
+    app: $app
+  }) {
+... on SponsoredTransactionRequest {
+      reason
+      sponsoredReason
+      raw {
+        nonce
+        to
+        from
+        data
+        type
+        value
+        gasLimit
+        maxFeePerGas
+        maxPriorityFeePerGas
+        customData {
+          customSignature
+          factoryDeps
+          gasPerPubdata
+          paymasterParams {
+            paymaster
+            paymasterInput
+          }
+        }
+        chainId
+      }
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+    ... on SelfFundedTransactionRequest {
+      raw {
+        type
+        to
+        from
+        nonce
+        gasLimit
+        maxPriorityFeePerGas
+        maxFeePerGas
+        data
+        value
+        chainId
+      }
+      reason
+      selfFundedReason
+    }
+  }
+}`);
+
 export const CREATE_NAMESPACE_MUTATION = gql(`mutation CreateUsernameNamespace(
   $metadataUri: URI!
   $namespace: String!

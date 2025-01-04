@@ -6317,6 +6317,80 @@ export type _Service = {
   sdl?: Maybe<Scalars['String']['output']>;
 };
 
+export type CreateAppMutationMutationVariables = Exact<{
+  metadataUri: Scalars['URI']['input'];
+  namespace: Scalars['EvmAddress']['input'];
+  admins?: InputMaybe<
+    Array<Scalars['EvmAddress']['input']> | Scalars['EvmAddress']['input']
+  >;
+}>;
+
+export type CreateAppMutationMutation = {
+  __typename?: 'Mutation';
+  createApp:
+    | { __typename?: 'CreateAppResponse'; hash: any }
+    | { __typename?: 'SelfFundedTransactionRequest' }
+    | { __typename?: 'TransactionWillFail' };
+};
+
+export type SetAppNamespaceMutationVariables = Exact<{
+  usernameNamespace: Scalars['EvmAddress']['input'];
+  app: Scalars['EvmAddress']['input'];
+}>;
+
+export type SetAppNamespaceMutation = {
+  __typename?: 'Mutation';
+  setAppUsernameNamespace:
+    | {
+        __typename?: 'SelfFundedTransactionRequest';
+        reason: string;
+        selfFundedReason?: SelfFundedFallbackReason | null;
+        raw: {
+          __typename?: 'Eip1559TransactionRequest';
+          type: number;
+          to: any;
+          from: any;
+          nonce: number;
+          gasLimit: number;
+          maxPriorityFeePerGas: any;
+          maxFeePerGas: any;
+          data: any;
+          value: any;
+          chainId: number;
+        };
+      }
+    | {
+        __typename?: 'SponsoredTransactionRequest';
+        reason: string;
+        sponsoredReason?: SponsoredFallbackReason | null;
+        raw: {
+          __typename?: 'Eip712TransactionRequest';
+          nonce: number;
+          to: any;
+          from: any;
+          data: any;
+          type: number;
+          value: any;
+          gasLimit: number;
+          maxFeePerGas: any;
+          maxPriorityFeePerGas: any;
+          chainId: number;
+          customData: {
+            __typename?: 'Eip712Meta';
+            customSignature?: any | null;
+            factoryDeps: Array<any>;
+            gasPerPubdata: any;
+            paymasterParams?: {
+              __typename?: 'PaymasterParams';
+              paymaster: any;
+              paymasterInput: any;
+            } | null;
+          };
+        };
+      }
+    | { __typename?: 'TransactionWillFail'; reason: string };
+};
+
 export type CreateUsernameNamespaceMutationVariables = Exact<{
   metadataUri: Scalars['URI']['input'];
   namespace: Scalars['String']['input'];
@@ -6351,6 +6425,428 @@ export type CreateAccountWithUsernameMutation = {
     | { __typename?: 'TransactionWillFail'; reason: string };
 };
 
+export const CreateAppMutationDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateAppMutation' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'metadataUri' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'URI' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'namespace' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'EvmAddress' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'admins' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: {
+                kind: 'NamedType',
+                name: { kind: 'Name', value: 'EvmAddress' },
+              },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createApp' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'metadataUri' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'metadataUri' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'namespace' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'namespace' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'admins' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'admins' },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'CreateAppResponse' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'hash' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateAppMutationMutation,
+  CreateAppMutationMutationVariables
+>;
+export const SetAppNamespaceDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'SetAppNamespace' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'usernameNamespace' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'EvmAddress' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'app' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'EvmAddress' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'setAppUsernameNamespace' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'usernameNamespace' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'usernameNamespace' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'app' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'app' },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: {
+                      kind: 'Name',
+                      value: 'SponsoredTransactionRequest',
+                    },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'reason' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'sponsoredReason' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'raw' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'nonce' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'to' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'from' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'data' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'type' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'value' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'gasLimit' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'maxFeePerGas' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: {
+                                kind: 'Name',
+                                value: 'maxPriorityFeePerGas',
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'customData' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'customSignature',
+                                    },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'factoryDeps',
+                                    },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'gasPerPubdata',
+                                    },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'paymasterParams',
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'paymaster',
+                                          },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'paymasterInput',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'chainId' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'TransactionWillFail' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'reason' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: {
+                      kind: 'Name',
+                      value: 'SelfFundedTransactionRequest',
+                    },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'raw' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'type' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'to' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'from' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'nonce' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'gasLimit' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: {
+                                kind: 'Name',
+                                value: 'maxPriorityFeePerGas',
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'maxFeePerGas' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'data' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'value' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'chainId' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'reason' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'selfFundedReason' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  SetAppNamespaceMutation,
+  SetAppNamespaceMutationVariables
+>;
 export const CreateUsernameNamespaceDocument = {
   kind: 'Document',
   definitions: [

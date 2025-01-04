@@ -15,16 +15,16 @@ export const GameButton = ({
 }: GameButtonProps) => {
   return (
     <button
-      type={type}
       className={cn('hover:translate-y-1', className)}
+      type={type}
       {...props}
     >
       <div className='game-button relative flex h-full w-full cursor-pointer items-center justify-center bg-cover bg-center bg-no-repeat focus:outline-none'>
-        {children && (
+        {children ? (
           <span className={cn('pointer-events-none z-10', innerClassName)}>
             {children}
           </span>
-        )}
+        ) : null}
       </div>
     </button>
   );
