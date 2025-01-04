@@ -1,8 +1,9 @@
-import Phaser from 'phaser';
+/* eslint-disable @typescript-eslint/no-non-null-assertion -- safe */
+import type Phaser from 'phaser';
 
 import { createAnimations } from '../helpers/movement';
 
-import { CreatePlayerProps, UpdateProps } from '~/types/game';
+import type { CreatePlayerProps, UpdateProps } from '~/types/game';
 
 export class Farmer {
   private key: string;
@@ -33,8 +34,7 @@ export class Farmer {
 
       const tileX = Math.floor(worldPoint.x / 16);
       const tileY = Math.floor(worldPoint.y / 16);
-      console.log(`Tile X: ${tileX}, Tile Y: ${tileY}`);
-      this.moveTo(tileX, tileY, 16);
+      void this.moveTo(tileX, tileY, 16);
     });
   }
 
@@ -77,7 +77,7 @@ export class Farmer {
         targets: this.sprite,
         x: targetX,
         y: targetY,
-        duration: duration,
+        duration,
         onComplete: () => resolve(),
       });
 
@@ -103,7 +103,7 @@ export class Farmer {
     }
   }
 
-  update({ delta }: UpdateProps) {
+  update(_props: UpdateProps) {
     this.sprite.setVelocity(0, 0);
   }
 }

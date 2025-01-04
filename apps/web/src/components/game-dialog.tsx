@@ -29,15 +29,7 @@ export const GameDialog = ({
   };
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogTrigger>
-        {trigger ? (
-          trigger
-        ) : (
-          <GameButton innerClassName='font-minecraftia' className='h-16 w-36'>
-            Open
-          </GameButton>
-        )}
-      </DialogTrigger>
+      <DialogTrigger>{trigger ? trigger : null}</DialogTrigger>
       <DialogContent className='game-dialog aspect-video w-full max-w-2xl border-none bg-transparent'>
         <div className='z-10 mx-6 my-4'>{children}</div>
       </DialogContent>

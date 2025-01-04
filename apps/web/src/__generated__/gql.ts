@@ -17,6 +17,8 @@ import * as types from './graphql';
 const documents = {
   'mutation CreateUsernameNamespace(\n  $metadataUri: URI!\n  $namespace: String!\n  $symbol: String!\n  $admins: [EvmAddress!]\n) {\n  createUsernameNamespace(\n    request: {\n      metadataUri: $metadataUri\n      namespace: $namespace\n      symbol: $symbol\n      admins: $admins\n    }\n  ) {\n    ... on CreateNamespaceResponse {\n      hash\n    }\n\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}\n':
     types.CreateUsernameNamespaceDocument,
+  'mutation CreateAccountWithUsername(\n  $localName: String!\n  $metadataUri: URI!\n  $owner: EvmAddress!\n  $namespace: EvmAddress!\n) {\n  createAccountWithUsername(\n    request: {\n      username: {\n        localName: $localName\n        namespace: $namespace\n      }\n      metadataUri: $metadataUri\n      accountManager: [$owner]\n    }\n  ) {\n    ... on CreateAccountResponse {\n      hash\n    }\n\n    ... on InvalidUsername {\n      reason\n    }\n\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}':
+    types.CreateAccountWithUsernameDocument,
 };
 
 /**
@@ -39,6 +41,12 @@ export function gql(source: string): unknown;
 export function gql(
   source: 'mutation CreateUsernameNamespace(\n  $metadataUri: URI!\n  $namespace: String!\n  $symbol: String!\n  $admins: [EvmAddress!]\n) {\n  createUsernameNamespace(\n    request: {\n      metadataUri: $metadataUri\n      namespace: $namespace\n      symbol: $symbol\n      admins: $admins\n    }\n  ) {\n    ... on CreateNamespaceResponse {\n      hash\n    }\n\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}\n'
 ): (typeof documents)['mutation CreateUsernameNamespace(\n  $metadataUri: URI!\n  $namespace: String!\n  $symbol: String!\n  $admins: [EvmAddress!]\n) {\n  createUsernameNamespace(\n    request: {\n      metadataUri: $metadataUri\n      namespace: $namespace\n      symbol: $symbol\n      admins: $admins\n    }\n  ) {\n    ... on CreateNamespaceResponse {\n      hash\n    }\n\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}\n'];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: 'mutation CreateAccountWithUsername(\n  $localName: String!\n  $metadataUri: URI!\n  $owner: EvmAddress!\n  $namespace: EvmAddress!\n) {\n  createAccountWithUsername(\n    request: {\n      username: {\n        localName: $localName\n        namespace: $namespace\n      }\n      metadataUri: $metadataUri\n      accountManager: [$owner]\n    }\n  ) {\n    ... on CreateAccountResponse {\n      hash\n    }\n\n    ... on InvalidUsername {\n      reason\n    }\n\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}'
+): (typeof documents)['mutation CreateAccountWithUsername(\n  $localName: String!\n  $metadataUri: URI!\n  $owner: EvmAddress!\n  $namespace: EvmAddress!\n) {\n  createAccountWithUsername(\n    request: {\n      username: {\n        localName: $localName\n        namespace: $namespace\n      }\n      metadataUri: $metadataUri\n      accountManager: [$owner]\n    }\n  ) {\n    ... on CreateAccountResponse {\n      hash\n    }\n\n    ... on InvalidUsername {\n      reason\n    }\n\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}'];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

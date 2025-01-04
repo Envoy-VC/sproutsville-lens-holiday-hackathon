@@ -3,13 +3,9 @@ import Phaser from 'phaser';
 import Map from 'public/assets/sproutsville-main.json';
 
 import { MusicManager, Pathfinder } from '../classes';
-import { Farmer, Player } from '../entities';
+import { Farmer, InteractionText, Player } from '../entities';
 import { preloadAudio } from '../helpers/audio';
-import {
-  type CursorKeys,
-  createAnimations,
-  createCursorKeys,
-} from '../helpers/movement';
+import { type CursorKeys, createCursorKeys } from '../helpers/movement';
 
 interface GameSceneProps {
   config: {
@@ -26,6 +22,7 @@ export class GameScene extends Phaser.Scene {
   public cursors!: CursorKeys;
   public musicManager!: MusicManager;
   public pathfinder!: Pathfinder;
+  public interactionText!: InteractionText;
 
   public config: GameSceneProps['config'];
 
@@ -50,7 +47,10 @@ export class GameScene extends Phaser.Scene {
     });
 
     for (let i = 1; i <= 20; i++) {
-      this.load.image(`Cloud${i}`, `assets/tileset/clouds/Cloud ${i}.png`);
+      this.load.image(
+        `Cloud${String(i)}`,
+        `assets/tileset/clouds/Cloud ${String(i)}.png`
+      );
     }
     preloadAudio(this);
   }
@@ -86,13 +86,11 @@ export class GameScene extends Phaser.Scene {
           .createLayer(layer.name, tilesets, 0, 0)!
           .setScale(zoom)
           .setAlpha(0);
-        return;
       } else if (layer.name === 'Interaction') {
         this.interactionLayer = map
           .createLayer(layer.name, tilesets, 0, 0)!
           .setScale(zoom)
           .setAlpha(0);
-        return;
       } else if (layer.name.includes('Trees')) {
         map.createLayer(layer.name, tilesets, 0, 0)!.setScale(zoom).setDepth(2);
       } else {
@@ -137,10 +135,14 @@ export class GameScene extends Phaser.Scene {
 
     // Set Pathfinder
     this.pathfinder = new Pathfinder(this.collisionLayer);
+
+    // Set Interaction Text
+    this.interactionText = new InteractionText(this);
   }
 
   update(time: number, delta: number) {
     this.player.update({ scene: this, time, delta });
     this.farmer.update({ scene: this, time, delta });
+    this.interactionText.update({ scene: this, time, delta });
   }
 }

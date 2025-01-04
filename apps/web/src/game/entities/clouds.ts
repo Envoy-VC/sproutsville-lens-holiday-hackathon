@@ -56,7 +56,7 @@ export class CloudsOverlay {
 
       // Add cloud sprite at the left side, just off-screen
       const cloud = scene.add
-        .sprite(startX, startY, `Cloud${cloudIndex}`)
+        .sprite(startX, startY, `Cloud${String(cloudIndex)}`)
         .setScale(randomScale)
         .setAlpha(Phaser.Math.FloatBetween(0.6, 1))
         .setDepth(randomDepth)

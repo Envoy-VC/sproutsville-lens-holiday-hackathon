@@ -5171,7 +5171,7 @@
     {
       "columns": 2,
       "firstgid": 21552,
-      "image": "../../../../../../Personal/phaser-ai-agent-starter/public/assets/tilesets/interaction.png",
+      "image": "tileset/interaction.png",
       "imageheight": 64,
       "imagewidth": 32,
       "margin": 0,

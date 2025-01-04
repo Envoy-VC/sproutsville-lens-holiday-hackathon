@@ -1,7 +1,7 @@
-import { GameScene } from '~/game/scenes';
+import type { GameSceneAbstract } from '~/game/classes/game-scene';
 
 export interface UpdateProps {
-  scene: GameScene;
+  scene: GameSceneAbstract;
   time: number;
   delta: number;
 }
@@ -11,11 +11,11 @@ export interface CreatePlayerProps {
   y: number;
   speed: number;
   sprite: string;
-  scene: GameScene;
+  scene: GameSceneAbstract;
 }
 
 export interface TeleportProps {
   tileX: number;
   tileY: number;
-  scene: GameScene;
+  scene: GameSceneAbstract;
 }

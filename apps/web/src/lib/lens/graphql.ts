@@ -24,3 +24,33 @@ export const CREATE_NAMESPACE_MUTATION = gql(`mutation CreateUsernameNamespace(
   }
 }
 `);
+
+export const CREATE_USERNAME_MUTATION = gql(`mutation CreateAccountWithUsername(
+  $localName: String!
+  $metadataUri: URI!
+  $owner: EvmAddress!
+  $namespace: EvmAddress!
+) {
+  createAccountWithUsername(
+    request: {
+      username: {
+        localName: $localName
+        namespace: $namespace
+      }
+      metadataUri: $metadataUri
+      accountManager: [$owner]
+    }
+  ) {
+    ... on CreateAccountResponse {
+      hash
+    }
+
+    ... on InvalidUsername {
+      reason
+    }
+
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}`);

@@ -12,7 +12,3 @@ export const appMetadata = app({
   privacyPolicy: 'https://sproutsville.vercel.app/privacy',
   platforms: [Platform.WEB],
 });
-
-// lens://235e578abeca6407a6e08928a807e81898e9e81b4c4f73fd439dd2bd0d7ae18b
-// App Address: 0xcd7d41c6503B2556B1443cF80616Ce1eFF49bBbA
-// Namespace Tx Hash: 0x11c55e04731e11c323bea883d0fa586d565626bdecd57cb10b5637b412943627

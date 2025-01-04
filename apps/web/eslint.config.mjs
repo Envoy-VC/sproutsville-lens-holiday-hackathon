@@ -30,6 +30,7 @@ export default [
     },
     ignores: ['src/__generated__'],
     rules: {
+      '@eslint-community/eslint-comments/disable-enable-pair': 'off',
       'no-console': ['off'],
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-confusing-void-expression': [

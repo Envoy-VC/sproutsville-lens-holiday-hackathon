@@ -1,11 +1,11 @@
-import Phaser from 'phaser';
+import type Phaser from 'phaser';
 
 type SFXKeys = 'hurt';
 
 export class MusicManager {
   private scene: Phaser.Scene;
   private soundtrack: Phaser.Sound.BaseSound;
-  private sfx: Record<SFXKeys, Phaser.Sound.BaseSound> = {};
+  private sfx: Record<SFXKeys, Phaser.Sound.BaseSound>;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
@@ -13,9 +13,9 @@ export class MusicManager {
       loop: true,
       volume: 0.5,
     });
-    // this.sfx = {
-    //   hurt: this.scene.sound.add('hurt'),
-    // };
+    this.sfx = {
+      hurt: this.scene.sound.add('soundtrack'),
+    };
   }
 
   playSoundtrack() {

@@ -1,9 +1,4 @@
-import {
-  AStarFinder,
-  DiagonalMovement,
-  Grid,
-  JumpPointFinder,
-} from 'pathfinding';
+import { DiagonalMovement, Grid, JumpPointFinder } from 'pathfinding';
 
 export class Pathfinder {
   private grid: Grid;

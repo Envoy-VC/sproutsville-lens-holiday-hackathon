@@ -2,7 +2,11 @@ import { playerEmitter } from '../event-emitter';
 import { createAnimations, registerMovement } from '../helpers/movement';
 import { CloudsOverlay } from './clouds';
 
-import { CreatePlayerProps, TeleportProps, UpdateProps } from '~/types/game';
+import type {
+  CreatePlayerProps,
+  TeleportProps,
+  UpdateProps,
+} from '~/types/game';
 
 export class Player {
   public scene: TeleportProps['scene'];

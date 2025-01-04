@@ -1,13 +1,20 @@
-import { type SessionClient } from '@lens-protocol/client';
+import { useMutation } from '@apollo/client';
+import { type SessionClient, evmAddress } from '@lens-protocol/client';
 import { currentSession } from '@lens-protocol/client/actions';
 import { type ChallengeRequest } from '@lens-protocol/graphql';
+import { account } from '@lens-protocol/metadata';
 import { useQuery } from '@tanstack/react-query';
-import { useSignMessage } from 'wagmi';
+import { useAccount, useSignMessage } from 'wagmi';
 
 import { client } from '../client';
+import { Constants } from '../constants';
+import { CREATE_USERNAME_MUTATION } from '../graphql';
+import { uploadObject } from '../storage';
 
 export const useLensAccount = () => {
   const { signMessageAsync } = useSignMessage();
+  const { address } = useAccount();
+  const [register] = useMutation(CREATE_USERNAME_MUTATION);
   const { data } = useQuery({
     queryKey: ['currentSession'],
     queryFn: async () => {
@@ -63,5 +70,33 @@ export const useLensAccount = () => {
     return authenticated.value;
   }
 
-  return { login, currentSession: data ?? null };
+  const registerUser = async (localName: string, name: string) => {
+    if (!address) return;
+    await login('onboardingUser', {
+      wallet: evmAddress(address),
+      app: evmAddress(Constants.SPROUTSVILLE_APP_ADDRESS),
+    });
+    const metadata = account({
+      name,
+    });
+
+    const { uri } = await uploadObject(metadata);
+    const res = await register({
+      variables: {
+        localName,
+        metadataUri: uri,
+        owner: address,
+        namespace: evmAddress(Constants.SPROUTSVILLE_NAMESPACE_ADDRESS),
+      },
+    });
+
+    if (
+      res.data?.createAccountWithUsername.__typename === 'CreateAccountResponse'
+    ) {
+      return res.data.createAccountWithUsername.hash as string;
+    }
+    throw new Error('Failed to create account');
+  };
+
+  return { login, currentSession: data ?? null, registerUser };
 };

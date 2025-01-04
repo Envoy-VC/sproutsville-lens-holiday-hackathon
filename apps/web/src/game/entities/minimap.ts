@@ -1,4 +1,4 @@
-import { UpdateProps } from '~/types/game';
+import type { UpdateProps } from '~/types/game';
 
 interface MinimapProps {
   scene: Phaser.Scene;
@@ -11,7 +11,7 @@ export class Minimap {
   public playerPointer: Phaser.GameObjects.Arc;
   public minimap: Phaser.Cameras.Scene2D.Camera;
 
-  constructor({ scene, map, toFollow, zoom = 0.25 }: MinimapProps) {
+  constructor({ scene, toFollow, zoom = 0.25 }: MinimapProps) {
     const minimapWidth = 300;
     const minimapHeight = 150;
     const minimapX = scene.cameras.main.width - minimapWidth - 10;
@@ -73,9 +73,8 @@ export class Minimap {
           return cameraBounds.x - xLimit;
         }
         return playerX;
-      } else {
-        return xLimit;
       }
+      return xLimit;
     };
 
     const getMinimapScrollY = () => {
@@ -84,9 +83,8 @@ export class Minimap {
           return cameraBounds.y - yLimit;
         }
         return playerY;
-      } else {
-        return yLimit;
       }
+      return yLimit;
     };
 
     const miniMapX = getMinimapScrollX();

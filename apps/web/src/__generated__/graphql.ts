@@ -6334,6 +6334,23 @@ export type CreateUsernameNamespaceMutation = {
     | { __typename?: 'TransactionWillFail'; reason: string };
 };
 
+export type CreateAccountWithUsernameMutationVariables = Exact<{
+  localName: Scalars['String']['input'];
+  metadataUri: Scalars['URI']['input'];
+  owner: Scalars['EvmAddress']['input'];
+  namespace: Scalars['EvmAddress']['input'];
+}>;
+
+export type CreateAccountWithUsernameMutation = {
+  __typename?: 'Mutation';
+  createAccountWithUsername:
+    | { __typename?: 'CreateAccountResponse'; hash: any }
+    | { __typename?: 'InvalidUsername'; reason: string }
+    | { __typename?: 'SelfFundedTransactionRequest' }
+    | { __typename?: 'SponsoredTransactionRequest' }
+    | { __typename?: 'TransactionWillFail'; reason: string };
+};
+
 export const CreateUsernameNamespaceDocument = {
   kind: 'Document',
   definitions: [
@@ -6490,4 +6507,188 @@ export const CreateUsernameNamespaceDocument = {
 } as unknown as DocumentNode<
   CreateUsernameNamespaceMutation,
   CreateUsernameNamespaceMutationVariables
+>;
+export const CreateAccountWithUsernameDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateAccountWithUsername' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'localName' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'metadataUri' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'URI' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'owner' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'EvmAddress' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'namespace' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'EvmAddress' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createAccountWithUsername' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'username' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'localName' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'localName' },
+                            },
+                          },
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'namespace' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'namespace' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'metadataUri' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'metadataUri' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'accountManager' },
+                      value: {
+                        kind: 'ListValue',
+                        values: [
+                          {
+                            kind: 'Variable',
+                            name: { kind: 'Name', value: 'owner' },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'CreateAccountResponse' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'hash' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'InvalidUsername' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'reason' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'TransactionWillFail' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'reason' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateAccountWithUsernameMutation,
+  CreateAccountWithUsernameMutationVariables
 >;
