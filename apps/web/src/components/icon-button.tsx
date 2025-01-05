@@ -1,4 +1,4 @@
-import React, { ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 
 import { cn } from '~/lib/utils';
 
@@ -9,9 +9,7 @@ interface IconButtonProps extends ComponentProps<'button'> {
 
 export const IconButton = ({
   className,
-  children,
   type = 'button',
-  innerClassName,
   icon,
   ...props
 }: IconButtonProps) => {
@@ -28,14 +26,15 @@ export const IconButton = ({
 
   return (
     <button
+      // eslint-disable-next-line react/button-has-type -- safe
       type={type}
       className={cn(
-        'cursor-pointer !shadow-2xl hover:translate-y-1',
+        'h-8 w-8 cursor-pointer !shadow-2xl hover:translate-y-1',
         className
       )}
       {...props}
     >
-      <img src={imgUrl} alt={alt} className='h-8 w-8' />
+      <img alt={alt} className='h-full w-full' src={imgUrl} />
       <span className='sr-only'>{alt}</span>
     </button>
   );

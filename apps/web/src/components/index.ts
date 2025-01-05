@@ -6,3 +6,4 @@ export * from './teleport-button';
 export * from './create-lens-app';
 export * from './create-namespace';
 export * from './game-interactions';
+export * from './menu';
