@@ -45,7 +45,7 @@ const DialogContent = React.forwardRef<
     >
       {children}
       {showClose ? (
-        <DialogPrimitive.Close className='absolute top-12 right-12 z-[52] cursor-pointer rounded-sm transition-opacity hover:translate-y-1 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground'>
+        <DialogPrimitive.Close className='absolute top-8 right-16 z-[52] cursor-pointer rounded-sm transition-opacity hover:translate-y-1 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground'>
           <img alt='Close' className='h-8 w-8' src='/ui/close.png' />
           <span className='sr-only'>Close</span>
         </DialogPrimitive.Close>

@@ -4,6 +4,9 @@ import { cn } from '~/lib/utils';
 
 import { GameDialog } from '../game-dialog';
 import { IconButton } from '../icon-button';
+import { Inventory } from './inventory';
+import { PlayerDetails } from './player-details';
+import { Settings } from './settings';
 
 const tabs = [
   {
@@ -27,8 +30,9 @@ const tabs = [
 ] as const;
 
 export const MenuButton = () => {
-  const [open, setOpen] = useState<boolean>(false);
-  const [tab, setTab] = useState<(typeof tabs)[number]['key']>('player');
+  const [open, setOpen] = useState<boolean>(true);
+  const [activeTab, setActiveTab] =
+    useState<(typeof tabs)[number]['key']>('settings');
   const [hoveredTab, setHoveredTab] = useState<
     (typeof tabs)[number]['key'] | null
   >(null);
@@ -40,7 +44,6 @@ export const MenuButton = () => {
         isOpen={open}
         setIsOpen={setOpen}
         showCloseButton={false}
-        trigger={<IconButton className='h-12 w-12' icon='menu' />}
         outsideElement={
           <div className='fixed top-[50%] left-[50%] z-[52] grid aspect-video w-full max-w-5xl translate-x-[-50%] translate-y-[-50%]'>
             <div className='absolute -top-8 left-16 flex flex-row items-center'>
@@ -50,6 +53,7 @@ export const MenuButton = () => {
                     key={tab.key}
                     className={cn(
                       'relative flex h-20 w-32 flex-row items-center justify-center transition-all duration-200 ease-[step(2)]',
+                      activeTab === tab.key ? '-translate-y-8' : '',
                       hoveredTab === tab.key ? '-translate-y-8' : ''
                     )}
                   >
@@ -70,16 +74,19 @@ export const MenuButton = () => {
             </div>
           </div>
         }
+        trigger={
+          <IconButton className='h-12 w-12 cursor-pointer' icon='menu' />
+        }
       >
         <div className='absolute -top-16 left-16 flex flex-row items-center'>
           {tabs.map((tab) => {
             return (
               <button
                 key={tab.key}
-                className='h-20 w-32 border'
+                className='h-20 w-32'
                 type='button'
                 onClick={() => {
-                  setTab(tab.key);
+                  setActiveTab(tab.key);
                 }}
                 onMouseEnter={() => {
                   setHoveredTab(tab.key);
@@ -93,8 +100,10 @@ export const MenuButton = () => {
             );
           })}
         </div>
-        <div className='pt-4 text-center font-minecraftia text-3xl font-black'>
-          Teleport Station
+        <div className='h-full px-8 py-4'>
+          {activeTab === 'player' && <PlayerDetails />}
+          {activeTab === 'inventory' && <Inventory />}
+          {activeTab === 'settings' && <Settings />}
         </div>
       </GameDialog>
     </div>
