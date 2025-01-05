@@ -2,6 +2,7 @@ import { type InteractionType } from '~/game/state';
 
 import { GlobalFeed } from './global-feed';
 import { Onboarding } from './onboarding';
+import { CreatePost } from './post';
 
 export const InteractionContent = ({
   interactionType,
@@ -12,6 +13,8 @@ export const InteractionContent = ({
     return <Onboarding />;
   } else if (interactionType === 'global-feed') {
     return <GlobalFeed />;
+  } else if (interactionType === 'peasant-house') {
+    return <CreatePost />;
   }
   return null;
 };

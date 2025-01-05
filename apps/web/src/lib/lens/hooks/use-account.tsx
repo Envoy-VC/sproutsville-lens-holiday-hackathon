@@ -28,13 +28,6 @@ export const useLensAccount = () => {
     },
   });
 
-  const getCurrentSession = () => {
-    if (client.currentSession.isPublicClient()) {
-      throw new Error('User is not logged in');
-    }
-    return client.currentSession;
-  };
-
   async function login(
     type: 'builder',
     params: ChallengeRequest['builder']
@@ -57,6 +50,7 @@ export const useLensAccount = () => {
       return await signMessageAsync({ message });
     };
     let authenticated;
+
     // if (client.currentSession.isSessionClient().valueOf()) {
     //   const session = await client.resumeSession();
     //   if (session.isErr()) {
@@ -114,11 +108,13 @@ export const useLensAccount = () => {
 
     const accountToLogin = result.value.items[0];
 
-    await login('accountOwner', {
+    const sessionClient = await login('accountOwner', {
       owner: evmAddress(address),
       account: evmAddress(accountToLogin.account.address as string),
       app: evmAddress(Constants.SPROUTSVILLE_APP_ADDRESS),
     });
+
+    return sessionClient;
   };
 
   const registerUser = async (localName: string, name: string) => {
@@ -162,6 +158,5 @@ export const useLensAccount = () => {
     currentSession: data ?? null,
     registerUser,
     accountLogin,
-    getCurrentSession,
   };
 };

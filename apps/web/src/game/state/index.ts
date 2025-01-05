@@ -20,8 +20,8 @@ class GameState {
 
   constructor() {
     makeAutoObservable(this);
-    this.interactionType = 'onboarding';
-    this.isInteractionModalOpen = false;
+    this.interactionType = 'peasant-house';
+    this.isInteractionModalOpen = true;
     this.music = true;
     this.sfx = true;
   }

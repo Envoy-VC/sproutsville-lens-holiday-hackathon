@@ -30,9 +30,9 @@ const tabs = [
 ] as const;
 
 export const MenuButton = () => {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
   const [activeTab, setActiveTab] =
-    useState<(typeof tabs)[number]['key']>('settings');
+    useState<(typeof tabs)[number]['key']>('player');
   const [hoveredTab, setHoveredTab] = useState<
     (typeof tabs)[number]['key'] | null
   >(null);
