@@ -23,6 +23,8 @@ const documents = {
     types.CreateUsernameNamespaceDocument,
   'mutation CreateAccountWithUsername(\n  $localName: String!\n  $metadataUri: URI!\n  $owner: EvmAddress!\n  $namespace: EvmAddress!\n) {\n  createAccountWithUsername(\n    request: {\n      username: {\n        localName: $localName\n        namespace: $namespace\n      }\n      metadataUri: $metadataUri\n      accountManager: [$owner]\n    }\n  ) {\n    ... on CreateAccountResponse {\n      hash\n    }\n\n    ... on InvalidUsername {\n      reason\n    }\n\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}':
     types.CreateAccountWithUsernameDocument,
+  'query Query($account: EvmAddress!, $filter: TimelineFilter, $forFeeds: [EvmAddress!]) {\n  timeline(request: {\n    account: $account\n    filter: $filter\n    forFeeds: $forFeeds\n  }) {\n    items {\n      id\n      primary {\n        author {\n          address\n          createdAt\n          metadata {\n            name\n            picture\n            id\n            coverPicture\n            bio\n          }\n        }\n        metadata {\n          ... on TextOnlyMetadata {\n            content\n            id\n            mainContentFocus\n            locale\n          }\n        }\n        id\n      }\n    }\n    pageInfo {\n      next\n      prev\n    }\n  }\n}':
+    types.QueryDocument,
 };
 
 /**
@@ -63,6 +65,12 @@ export function gql(
 export function gql(
   source: 'mutation CreateAccountWithUsername(\n  $localName: String!\n  $metadataUri: URI!\n  $owner: EvmAddress!\n  $namespace: EvmAddress!\n) {\n  createAccountWithUsername(\n    request: {\n      username: {\n        localName: $localName\n        namespace: $namespace\n      }\n      metadataUri: $metadataUri\n      accountManager: [$owner]\n    }\n  ) {\n    ... on CreateAccountResponse {\n      hash\n    }\n\n    ... on InvalidUsername {\n      reason\n    }\n\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}'
 ): (typeof documents)['mutation CreateAccountWithUsername(\n  $localName: String!\n  $metadataUri: URI!\n  $owner: EvmAddress!\n  $namespace: EvmAddress!\n) {\n  createAccountWithUsername(\n    request: {\n      username: {\n        localName: $localName\n        namespace: $namespace\n      }\n      metadataUri: $metadataUri\n      accountManager: [$owner]\n    }\n  ) {\n    ... on CreateAccountResponse {\n      hash\n    }\n\n    ... on InvalidUsername {\n      reason\n    }\n\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}'];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: 'query Query($account: EvmAddress!, $filter: TimelineFilter, $forFeeds: [EvmAddress!]) {\n  timeline(request: {\n    account: $account\n    filter: $filter\n    forFeeds: $forFeeds\n  }) {\n    items {\n      id\n      primary {\n        author {\n          address\n          createdAt\n          metadata {\n            name\n            picture\n            id\n            coverPicture\n            bio\n          }\n        }\n        metadata {\n          ... on TextOnlyMetadata {\n            content\n            id\n            mainContentFocus\n            locale\n          }\n        }\n        id\n      }\n    }\n    pageInfo {\n      next\n      prev\n    }\n  }\n}'
+): (typeof documents)['query Query($account: EvmAddress!, $filter: TimelineFilter, $forFeeds: [EvmAddress!]) {\n  timeline(request: {\n    account: $account\n    filter: $filter\n    forFeeds: $forFeeds\n  }) {\n    items {\n      id\n      primary {\n        author {\n          address\n          createdAt\n          metadata {\n            name\n            picture\n            id\n            coverPicture\n            bio\n          }\n        }\n        metadata {\n          ... on TextOnlyMetadata {\n            content\n            id\n            mainContentFocus\n            locale\n          }\n        }\n        id\n      }\n    }\n    pageInfo {\n      next\n      prev\n    }\n  }\n}'];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

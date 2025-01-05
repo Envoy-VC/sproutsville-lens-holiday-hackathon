@@ -91,7 +91,7 @@ const Step4 = ({ onNext }: { onNext: () => void }) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
 
-  const { registerUser } = useLensAccount();
+  const { registerUser, accountLogin } = useLensAccount();
 
   const onCreateProfile = async () => {
     if (!name || !username) {
@@ -101,6 +101,17 @@ const Step4 = ({ onNext }: { onNext: () => void }) => {
       const hash = await registerUser(username, name);
       console.log(hash);
       toast.success('Profile created successfully');
+      onNext();
+    } catch (error: unknown) {
+      console.log(error);
+      toast.error((error as Error).message);
+    }
+  };
+
+  const onLogin = async () => {
+    try {
+      await accountLogin();
+      toast.success('Logged in successfully');
       onNext();
     } catch (error: unknown) {
       console.log(error);
@@ -134,13 +145,20 @@ const Step4 = ({ onNext }: { onNext: () => void }) => {
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
-      <div className='mx-auto pt-12'>
+      <div className='mx-auto flex flex-col gap-4 pt-12'>
         <GameButton
           className='h-16 w-72'
           innerClassName='text-base font-minecraftia pt-3'
           onClick={onCreateProfile}
         >
           Create Profile
+        </GameButton>
+        <GameButton
+          className='h-16 w-72'
+          innerClassName='text-base font-minecraftia pt-3'
+          onClick={onLogin}
+        >
+          Login
         </GameButton>
       </div>
     </div>

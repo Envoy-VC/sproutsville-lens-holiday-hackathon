@@ -1,6 +1,9 @@
 import { useMutation } from '@apollo/client';
 import { type SessionClient, evmAddress } from '@lens-protocol/client';
-import { currentSession } from '@lens-protocol/client/actions';
+import {
+  currentSession,
+  fetchAccountsAvailable,
+} from '@lens-protocol/client/actions';
 import { type ChallengeRequest } from '@lens-protocol/graphql';
 import { account } from '@lens-protocol/metadata';
 import { useQuery } from '@tanstack/react-query';
@@ -24,6 +27,13 @@ export const useLensAccount = () => {
       return res.value;
     },
   });
+
+  const getCurrentSession = () => {
+    if (client.currentSession.isPublicClient()) {
+      throw new Error('User is not logged in');
+    }
+    return client.currentSession;
+  };
 
   async function login(
     type: 'builder',
@@ -82,6 +92,35 @@ export const useLensAccount = () => {
     return authenticated.value;
   }
 
+  const accountLogin = async () => {
+    if (!address) {
+      throw new Error('Please connect your wallet');
+    }
+
+    const result = await fetchAccountsAvailable(client, {
+      managedBy: evmAddress(address),
+      includeOwned: true,
+    });
+
+    console.log(result);
+
+    if (result.isErr()) {
+      throw result.error;
+    }
+
+    if (!result.value?.items[0]) {
+      throw new Error('No account found');
+    }
+
+    const accountToLogin = result.value.items[0];
+
+    await login('accountOwner', {
+      owner: evmAddress(address),
+      account: evmAddress(accountToLogin.account.address as string),
+      app: evmAddress(Constants.SPROUTSVILLE_APP_ADDRESS),
+    });
+  };
+
   const registerUser = async (localName: string, name: string) => {
     if (!address) {
       throw new Error('Please connect your wallet');
@@ -118,5 +157,11 @@ export const useLensAccount = () => {
     throw new Error('Failed to create account');
   };
 
-  return { login, currentSession: data ?? null, registerUser };
+  return {
+    login,
+    currentSession: data ?? null,
+    registerUser,
+    accountLogin,
+    getCurrentSession,
+  };
 };

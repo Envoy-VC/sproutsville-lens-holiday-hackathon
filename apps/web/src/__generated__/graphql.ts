@@ -6425,6 +6425,69 @@ export type CreateAccountWithUsernameMutation = {
     | { __typename?: 'TransactionWillFail'; reason: string };
 };
 
+export type QueryQueryVariables = Exact<{
+  account: Scalars['EvmAddress']['input'];
+  filter?: InputMaybe<TimelineFilter>;
+  forFeeds?: InputMaybe<
+    Array<Scalars['EvmAddress']['input']> | Scalars['EvmAddress']['input']
+  >;
+}>;
+
+export type QueryQuery = {
+  __typename?: 'Query';
+  timeline: {
+    __typename?: 'PaginatedTimelineResult';
+    items: Array<{
+      __typename?: 'TimelineItem';
+      id: any;
+      primary: {
+        __typename?: 'Post';
+        id: any;
+        author: {
+          __typename?: 'Account';
+          address: any;
+          createdAt: any;
+          metadata?: {
+            __typename?: 'AccountMetadata';
+            name?: string | null;
+            picture?: any | null;
+            id: string;
+            coverPicture?: any | null;
+            bio?: string | null;
+          } | null;
+        };
+        metadata:
+          | { __typename?: 'ArticleMetadata' }
+          | { __typename?: 'AudioMetadata' }
+          | { __typename?: 'CheckingInMetadata' }
+          | { __typename?: 'EmbedMetadata' }
+          | { __typename?: 'EventMetadata' }
+          | { __typename?: 'ImageMetadata' }
+          | { __typename?: 'LinkMetadata' }
+          | { __typename?: 'LivestreamMetadata' }
+          | { __typename?: 'MintMetadata' }
+          | { __typename?: 'SpaceMetadata' }
+          | { __typename?: 'StoryMetadata' }
+          | {
+              __typename?: 'TextOnlyMetadata';
+              content: any;
+              id: any;
+              mainContentFocus: MainContentFocus;
+              locale: any;
+            }
+          | { __typename?: 'ThreeDMetadata' }
+          | { __typename?: 'TransactionMetadata' }
+          | { __typename?: 'VideoMetadata' };
+      };
+    }>;
+    pageInfo: {
+      __typename?: 'PaginatedResultInfo';
+      next?: any | null;
+      prev?: any | null;
+    };
+  };
+};
+
 export const CreateAppMutationDocument = {
   kind: 'Document',
   definitions: [
@@ -7188,3 +7251,241 @@ export const CreateAccountWithUsernameDocument = {
   CreateAccountWithUsernameMutation,
   CreateAccountWithUsernameMutationVariables
 >;
+export const QueryDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Query' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'account' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'EvmAddress' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'filter' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'TimelineFilter' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'forFeeds' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: {
+                kind: 'NamedType',
+                name: { kind: 'Name', value: 'EvmAddress' },
+              },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'timeline' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'account' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'account' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'filter' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'filter' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'forFeeds' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'forFeeds' },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'primary' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'author' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'address' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'createdAt' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'metadata' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'name' },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'picture',
+                                          },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'id' },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'coverPicture',
+                                          },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'bio' },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'metadata' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'InlineFragment',
+                                    typeCondition: {
+                                      kind: 'NamedType',
+                                      name: {
+                                        kind: 'Name',
+                                        value: 'TextOnlyMetadata',
+                                      },
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'content',
+                                          },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'id' },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'mainContentFocus',
+                                          },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'locale',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'next' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'prev' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<QueryQuery, QueryQueryVariables>;

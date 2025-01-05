@@ -125,3 +125,42 @@ export const CREATE_USERNAME_MUTATION = gql(`mutation CreateAccountWithUsername(
     }
   }
 }`);
+
+export const TIMELINE_QUERY =
+  gql(`query Query($account: EvmAddress!, $filter: TimelineFilter, $forFeeds: [EvmAddress!]) {
+  timeline(request: {
+    account: $account
+    filter: $filter
+    forFeeds: $forFeeds
+  }) {
+    items {
+      id
+      primary {
+        author {
+          address
+          createdAt
+          metadata {
+            name
+            picture
+            id
+            coverPicture
+            bio
+          }
+        }
+        metadata {
+          ... on TextOnlyMetadata {
+            content
+            id
+            mainContentFocus
+            locale
+          }
+        }
+        id
+      }
+    }
+    pageInfo {
+      next
+      prev
+    }
+  }
+}`);

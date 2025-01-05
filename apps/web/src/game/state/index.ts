@@ -2,7 +2,15 @@ import { makeAutoObservable } from 'mobx';
 
 import { musicEmitter } from '../event-emitter';
 
-export type InteractionType = 'onboarding' | 'peasant-house';
+export type InteractionType =
+  | 'onboarding'
+  | 'global-feed'
+  | 'trader-house'
+  | 'bank'
+  | 'storage-hall'
+  | 'peasant-house'
+  | 'home-village-portal'
+  | 'snowy-lands-portal';
 
 class GameState {
   public isInteractionModalOpen: boolean;

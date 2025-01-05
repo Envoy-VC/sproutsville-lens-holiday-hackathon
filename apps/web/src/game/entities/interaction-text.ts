@@ -28,7 +28,6 @@ export class InteractionText {
     );
 
     if ('interactionType' in tile.properties) {
-      console.log(tile);
       return tile;
     }
     return null;
