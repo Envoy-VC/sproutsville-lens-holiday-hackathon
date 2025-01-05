@@ -1,6 +1,6 @@
 import type Phaser from 'phaser';
 
-type SFXKeys = 'hurt';
+type SFXKeys = 'teleport';
 
 export class MusicManager {
   private scene: Phaser.Scene;
@@ -14,7 +14,7 @@ export class MusicManager {
       volume: 0.5,
     });
     this.sfx = {
-      hurt: this.scene.sound.add('soundtrack'),
+      teleport: this.scene.sound.add('teleport'),
     };
   }
 

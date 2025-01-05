@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.12.3",
+    "@electric-sql/pglite": "^0.2.15",
     "@hookform/resolvers": "^3.9.1",
     "@lens-protocol/client": "0.0.0-canary-20241216110702",
     "@lens-protocol/graphql": "0.0.0-canary-20241127131427",

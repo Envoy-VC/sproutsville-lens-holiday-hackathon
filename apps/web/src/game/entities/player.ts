@@ -51,6 +51,7 @@ export class Player {
       // after 4 seconds, teleport the player
       setTimeout(() => {
         this.teleport({ ...props, scene: this.scene });
+        this.scene.musicManager.playSFX('teleport');
       }, 2000);
     });
   }
