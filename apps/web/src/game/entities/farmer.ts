@@ -29,13 +29,13 @@ export class Farmer {
     this.key = sprite;
     this.isMoving = false;
 
-    scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-      const worldPoint = scene.cameras.main.getWorldPoint(pointer.x, pointer.y);
+    // scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+    //   const worldPoint = scene.cameras.main.getWorldPoint(pointer.x, pointer.y);
 
-      const tileX = Math.floor(worldPoint.x / 16);
-      const tileY = Math.floor(worldPoint.y / 16);
-      void this.moveTo(tileX, tileY, 16);
-    });
+    //   const tileX = Math.floor(worldPoint.x / 16);
+    //   const tileY = Math.floor(worldPoint.y / 16);
+    //   void this.moveTo(tileX, tileY, 16);
+    // });
   }
 
   async moveTo(tileX: number, tileY: number, tileSize: number) {

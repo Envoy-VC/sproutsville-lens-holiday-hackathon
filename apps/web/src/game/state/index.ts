@@ -20,7 +20,7 @@ class GameState {
 
   constructor() {
     makeAutoObservable(this);
-    this.interactionType = 'peasant-house';
+    this.interactionType = 'global-feed';
     this.isInteractionModalOpen = true;
     this.music = true;
     this.sfx = true;

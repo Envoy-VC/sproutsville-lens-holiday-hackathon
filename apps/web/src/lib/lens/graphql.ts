@@ -127,40 +127,75 @@ export const CREATE_USERNAME_MUTATION = gql(`mutation CreateAccountWithUsername(
 }`);
 
 export const TIMELINE_QUERY =
-  gql(`query Query($account: EvmAddress!, $filter: TimelineFilter, $forFeeds: [EvmAddress!]) {
-  timeline(request: {
-    account: $account
-    filter: $filter
+  gql(`query Posts($cursor: Cursor, $forFeeds: [EvmAddress!], $filter: PostsFilter) {
+  posts(request: {
+    cursor: $cursor
     forFeeds: $forFeeds
+    filter: $filter
   }) {
     items {
-      id
-      primary {
+      ... on Post {
+        id
         author {
           address
-          createdAt
           metadata {
-            name
-            picture
             id
             coverPicture
-            bio
+            name
+          }
+          username {
+            localName
+            namespace {
+              namespace
+            }
           }
         }
+        timestamp
         metadata {
           ... on TextOnlyMetadata {
-            content
             id
-            mainContentFocus
+            content
             locale
           }
         }
-        id
+        stats {
+          reactions
+          comments
+          collects
+          bookmarks
+          quotes
+          reposts
+        }
       }
     }
     pageInfo {
       next
       prev
+    }
+  }
+}`);
+
+export const ACCOUNTS_AVAILABLE_QUERY =
+  gql(`query AccountsAvailable($managedBy: EvmAddress!) {
+  accountsAvailable(request: {
+    managedBy: $managedBy
+  }) {
+    items {
+      ... on AccountOwned {
+        account {
+          address
+          metadata {
+            name
+            id
+          }
+          username {
+            localName
+            namespace {
+              namespace
+            }
+          }
+        }
+      }
     }
   }
 }`);

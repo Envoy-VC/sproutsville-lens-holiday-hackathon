@@ -41,7 +41,6 @@ export class Pathfinder {
     const finder = JumpPointFinder({
       diagonalMovement: DiagonalMovement.Never,
     });
-    console.log(gridClone);
     return finder.findPath(startX, startY, endX, endY, gridClone);
   }
 }

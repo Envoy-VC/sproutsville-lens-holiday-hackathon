@@ -2,22 +2,25 @@ import { useState } from 'react';
 
 import { useLensAccount } from '~/lib/lens';
 
+import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { useStep } from 'usehooks-ts';
+import { useAccount } from 'wagmi';
 
 import { GameButton } from '../game-button';
 import { IconButton } from '../icon-button';
 
 export const Onboarding = () => {
-  const [step, actions] = useStep(5);
+  const [step, actions] = useStep(6);
 
   return (
     <div className='hide-scrollbar relative mx-auto flex h-full max-w-3xl flex-col gap-4 pt-8'>
       {step === 1 && <Step1 />}
       {step === 2 && <Step2 />}
       {step === 3 && <Step3 />}
-      {step === 4 && <Step4 onNext={actions.goToNextStep} />}
-      {step === 5 && <Step5 />}
+      {step === 4 && <Step4 goTo={actions.setStep} />}
+      {step === 5 && <Step5 goTo={actions.setStep} />}
+      {step === 6 && <Step6 />}
       <div className='absolute top-1/2 flex w-full flex-row items-center justify-between gap-4 px-4'>
         {actions.canGoToPrevStep ? (
           <IconButton
@@ -87,32 +90,29 @@ const Step3 = () => {
   );
 };
 
-const Step4 = ({ onNext }: { onNext: () => void }) => {
+const Step4 = ({ goTo }: { goTo: (step: number) => void }) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
 
-  const { registerUser, accountLogin } = useLensAccount();
+  const { registerUser } = useLensAccount();
 
   const onCreateProfile = async () => {
     if (!name || !username) {
       return;
     }
     try {
-      const hash = await registerUser(username, name);
-      console.log(hash);
+      await registerUser(username, name);
       toast.success('Profile created successfully');
-      onNext();
+      goTo(6);
     } catch (error: unknown) {
       console.log(error);
       toast.error((error as Error).message);
     }
   };
 
-  const onLogin = async () => {
+  const onLogin = () => {
     try {
-      await accountLogin();
-      toast.success('Logged in successfully');
-      onNext();
+      goTo(5);
     } catch (error: unknown) {
       console.log(error);
       toast.error((error as Error).message);
@@ -165,7 +165,42 @@ const Step4 = ({ onNext }: { onNext: () => void }) => {
   );
 };
 
-const Step5 = () => {
+const Step5 = ({ goTo }: { goTo: (step: number) => void }) => {
+  const { getAllAccounts, accountLogin } = useLensAccount();
+  const { address } = useAccount();
+  const { data: accounts } = useQuery({
+    queryKey: ['all-accounts'],
+    queryFn: getAllAccounts,
+    refetchOnWindowFocus: false,
+    enabled: Boolean(address),
+    initialData: [],
+  });
+  return (
+    <div className='mx-auto flex h-full max-w-lg flex-col'>
+      <div className='text-center font-minecraftia text-2xl font-black'>
+        Select your Sproutsville Profile
+      </div>
+
+      <div className='mx-auto flex flex-col gap-4 pt-12'>
+        {accounts.map((acc) => (
+          <GameButton
+            key={acc.address}
+            className='h-16 w-72'
+            innerClassName='text-base font-minecraftia pt-3'
+            onClick={async () => {
+              await accountLogin('accountOwner', acc.address);
+              goTo(6);
+            }}
+          >
+            {acc.completeName}
+          </GameButton>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const Step6 = () => {
   return (
     <div className='flex h-full flex-col items-center justify-center'>
       <div className='max-w-lg items-center text-center font-minecraftia text-lg font-black'>

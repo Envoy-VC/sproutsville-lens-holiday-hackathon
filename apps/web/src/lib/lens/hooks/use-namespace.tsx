@@ -17,16 +17,14 @@ export const useLensNamespace = () => {
   const [createAppMutation] = useMutation(CREATE_APP_MUTATION);
   const [setAppNamespaceMutation] = useMutation(SET_APP_NAMESPACE);
 
-  const { login, currentSession } = useLensAccount();
+  const { accountLogin } = useLensAccount();
 
   const { data: walletClient } = useWalletClient();
 
   const setNamespace = async () => {
     if (!address) return;
     if (!walletClient?.account) return;
-    await login('builder', {
-      address: evmAddress(address),
-    });
+    await accountLogin('builder');
     const res = await setAppNamespaceMutation({
       variables: {
         usernameNamespace: evmAddress(Constants.SPROUTSVILLE_NAMESPACE_ADDRESS),
@@ -40,9 +38,7 @@ export const useLensNamespace = () => {
   const createLensApp = async () => {
     if (!address) return;
     if (!walletClient?.account) return;
-    await login('builder', {
-      address: evmAddress(address),
-    });
+    await accountLogin('builder');
     const result = await createAppMutation({
       variables: {
         metadataUri: Constants.SPROUTSVILLE_METADATA_URI,
@@ -56,10 +52,7 @@ export const useLensNamespace = () => {
 
   const createNamespace = async () => {
     if (!address) return;
-
-    if (!currentSession) {
-      await login('builder', { address: evmAddress(address) });
-    }
+    await accountLogin('builder');
 
     // const metadata = username({
     //   description: 'Username Namespace for SproutsVille',

@@ -17,8 +17,6 @@ export class Minimap {
     const minimapX = scene.cameras.main.width - minimapWidth - 10;
     const minimapY = 10;
 
-    console.log({ minimapX, minimapY });
-
     const blackFrame = scene.add.graphics();
     blackFrame.fillStyle(0x000000, 1);
     blackFrame.fillRect(

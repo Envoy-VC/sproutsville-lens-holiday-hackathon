@@ -1,60 +1,46 @@
 /* eslint-disable */
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T,
-> = { [_ in K]?: never };
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
-    };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  AccessToken: { input: any; output: any };
-  AdvancedContractConditionValue: { input: any; output: any };
-  BigDecimal: { input: any; output: any };
-  BigInt: { input: any; output: any };
-  BlockchainData: { input: any; output: any };
-  ChainId: { input: any; output: any };
-  Cursor: { input: any; output: any };
-  DateTime: { input: any; output: any };
-  Encryptable: { input: any; output: any };
-  EvmAddress: { input: any; output: any };
-  GeneratedNotificationId: { input: any; output: any };
-  IdToken: { input: any; output: any };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  AccessToken: { input: any; output: any; }
+  AdvancedContractConditionValue: { input: any; output: any; }
+  BigDecimal: { input: any; output: any; }
+  BigInt: { input: any; output: any; }
+  BlockchainData: { input: any; output: any; }
+  ChainId: { input: any; output: any; }
+  Cursor: { input: any; output: any; }
+  DateTime: { input: any; output: any; }
+  Encryptable: { input: any; output: any; }
+  EvmAddress: { input: any; output: any; }
+  GeneratedNotificationId: { input: any; output: any; }
+  IdToken: { input: any; output: any; }
   /** A scalar that can represent any JSON value. */
-  JSON: { input: any; output: any };
-  LegacyProfileId: { input: any; output: any };
-  LegacyPublicationId: { input: any; output: any };
-  LegacyRefreshToken: { input: any; output: any };
-  Locale: { input: any; output: any };
-  MetadataId: { input: any; output: any };
-  PostId: { input: any; output: any };
-  RefreshToken: { input: any; output: any };
-  ServerAPIKey: { input: any; output: any };
-  Signature: { input: any; output: any };
-  Tag: { input: any; output: any };
-  TxHash: { input: any; output: any };
-  URI: { input: any; output: any };
-  URL: { input: any; output: any };
+  JSON: { input: any; output: any; }
+  LegacyProfileId: { input: any; output: any; }
+  LegacyPublicationId: { input: any; output: any; }
+  LegacyRefreshToken: { input: any; output: any; }
+  Locale: { input: any; output: any; }
+  MetadataId: { input: any; output: any; }
+  PostId: { input: any; output: any; }
+  RefreshToken: { input: any; output: any; }
+  ServerAPIKey: { input: any; output: any; }
+  Signature: { input: any; output: any; }
+  Tag: { input: any; output: any; }
+  TxHash: { input: any; output: any; }
+  URI: { input: any; output: any; }
+  URL: { input: any; output: any; }
   /**
    * A UUID is a unique 128-bit number, stored as 16 octets. UUIDs are parsed as
    * Strings within GraphQL. UUIDs are used to assign unique identifiers to
@@ -65,9 +51,9 @@ export type Scalars = {
    * * [Wikipedia: Universally Unique Identifier](http://en.wikipedia.org/wiki/Universally_unique_identifier)
    * * [RFC4122: A Universally Unique IDentifier (UUID) URN Namespace](http://tools.ietf.org/html/rfc4122)
    */
-  UUID: { input: any; output: any };
-  UsernameValue: { input: any; output: any };
-  Void: { input: any; output: any };
+  UUID: { input: any; output: any; }
+  UsernameValue: { input: any; output: any; }
+  Void: { input: any; output: any; }
 };
 
 /** The comparison operator to use. In case of boolean functions you can only use EQUAL or NOT_EQUAL */
@@ -77,18 +63,11 @@ export enum AccessConditionComparison {
   GreaterThanOrEqual = 'GREATER_THAN_OR_EQUAL',
   LessThan = 'LESS_THAN',
   LessThanOrEqual = 'LESS_THAN_OR_EQUAL',
-  NotEqual = 'NOT_EQUAL',
+  NotEqual = 'NOT_EQUAL'
 }
 
 /** AccessConditionType */
-export type AccessConditionType =
-  | AdvancedContractCondition
-  | CollectCondition
-  | EoaOwnershipCondition
-  | Erc20OwnershipCondition
-  | FollowCondition
-  | NftOwnershipCondition
-  | ProfileOwnershipCondition;
+export type AccessConditionType = AdvancedContractCondition | CollectCondition | EoaOwnershipCondition | Erc20OwnershipCondition | FollowCondition | NftOwnershipCondition | ProfileOwnershipCondition;
 
 export type Account = {
   __typename?: 'Account';
@@ -115,9 +94,11 @@ export type Account = {
   username?: Maybe<Username>;
 };
 
+
 export type AccountRulesArgs = {
   request?: InputMaybe<RuleInput>;
 };
+
 
 export type AccountUsernameArgs = {
   request?: InputMaybe<AccountUsernameRequest>;
@@ -352,7 +333,7 @@ export type AccountPostReaction = {
 export enum AccountReportReason {
   Impersonation = 'IMPERSONATION',
   Other = 'OTHER',
-  RepetitiveSpam = 'REPETITIVE_SPAM',
+  RepetitiveSpam = 'REPETITIVE_SPAM'
 }
 
 export type AccountReportedNotificationAttributes = {
@@ -458,7 +439,7 @@ export type AccountsFilter = {
 export enum AccountsOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
   Alphabetical = 'ALPHABETICAL',
-  BestMatch = 'BEST_MATCH',
+  BestMatch = 'BEST_MATCH'
 }
 
 export type AccountsRequest = {
@@ -492,10 +473,7 @@ export type AddAccountManagerRequest = {
   permissions: AccountManagerPermissionsInput;
 };
 
-export type AddAccountManagerResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type AddAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddAdminsRequest = {
   /** The graph/app/sponsor/feed/username/group address which manages these admins */
@@ -504,10 +482,7 @@ export type AddAdminsRequest = {
   admins: Array<Scalars['EvmAddress']['input']>;
 };
 
-export type AddAdminsResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type AddAdminsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddAppAuthorizationEndpointRequest = {
   /** The app. */
@@ -523,10 +498,7 @@ export type AddAppFeedsRequest = {
   feeds: Array<Scalars['EvmAddress']['input']>;
 };
 
-export type AddAppFeedsResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type AddAppFeedsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddAppGroupsRequest = {
   /** The app to update */
@@ -535,10 +507,7 @@ export type AddAppGroupsRequest = {
   groups: Array<Scalars['EvmAddress']['input']>;
 };
 
-export type AddAppGroupsResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type AddAppGroupsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddAppSignersRequest = {
   /** The app to update */
@@ -547,10 +516,7 @@ export type AddAppSignersRequest = {
   signers: Array<Scalars['EvmAddress']['input']>;
 };
 
-export type AddAppSignersResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type AddAppSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddReactionFailure = {
   __typename?: 'AddReactionFailure';
@@ -584,7 +550,7 @@ export type AdminsForFilterRequest = {
 
 export enum AdminsForOrderBy {
   LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
 }
 
 export type AdminsForRequest = {
@@ -644,16 +610,7 @@ export type AmountInput = {
 };
 
 /** AccessConditionCriteriaItem */
-export type AnyAccessCondition =
-  | AdvancedContractCondition
-  | BooleanAndCondition
-  | BooleanOrCondition
-  | CollectCondition
-  | EoaOwnershipCondition
-  | Erc20OwnershipCondition
-  | FollowCondition
-  | NftOwnershipCondition
-  | ProfileOwnershipCondition;
+export type AnyAccessCondition = AdvancedContractCondition | BooleanAndCondition | BooleanOrCondition | CollectCondition | EoaOwnershipCondition | Erc20OwnershipCondition | FollowCondition | NftOwnershipCondition | ProfileOwnershipCondition;
 
 /**
  * AnyMedia
@@ -744,7 +701,7 @@ export type AppMetadata = {
 export enum AppMetadataLensPlatformsItem {
   Android = 'ANDROID',
   Ios = 'IOS',
-  Web = 'WEB',
+  Web = 'WEB'
 }
 
 export type AppRequest = {
@@ -775,7 +732,7 @@ export type AppSignersFilterRequest = {
 
 export enum AppSignersOrderBy {
   LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
 }
 
 export type AppSignersRequest = {
@@ -805,7 +762,7 @@ export type AppUsersFilterRequest = {
 export enum AppUsersOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
   Alphabetical = 'ALPHABETICAL',
-  BestMatch = 'BEST_MATCH',
+  BestMatch = 'BEST_MATCH'
 }
 
 export type AppUsersRequest = {
@@ -838,7 +795,7 @@ export type AppsFilter = {
 export enum AppsOrderBy {
   Alphabetical = 'ALPHABETICAL',
   LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
 }
 
 export type AppsRequest = {
@@ -892,11 +849,7 @@ export type AssignUsernameToAccountRequest = {
   username: UsernameInput;
 };
 
-export type AssignUsernameToAccountResult =
-  | AssignUsernameResponse
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type AssignUsernameToAccountResult = AssignUsernameResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AudioMetadata = {
   __typename?: 'AudioMetadata';
@@ -950,11 +903,7 @@ export type AuthenticationChallenge = {
   text: Scalars['String']['output'];
 };
 
-export type AuthenticationResult =
-  | AuthenticationTokens
-  | ExpiredChallengeError
-  | ForbiddenError
-  | WrongSignerError;
+export type AuthenticationResult = AuthenticationTokens | ExpiredChallengeError | ForbiddenError | WrongSignerError;
 
 export type AuthenticationTokens = {
   __typename?: 'AuthenticationTokens';
@@ -973,7 +922,7 @@ export type BlockError = {
 export enum BlockErrorType {
   AlreadyBlocked = 'ALREADY_BLOCKED',
   Unauthorized = 'UNAUTHORIZED',
-  Unknown = 'UNKNOWN',
+  Unknown = 'UNKNOWN'
 }
 
 export type BlockRequest = {
@@ -986,11 +935,7 @@ export type BlockResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type BlockResult =
-  | BlockError
-  | BlockResponse
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest;
+export type BlockResult = BlockError | BlockResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest;
 
 export type BookmarkPostRequest = {
   post: Scalars['PostId']['input'];
@@ -1104,7 +1049,7 @@ export type CommentNotification = {
 export enum ContentWarning {
   Nsfw = 'NSFW',
   Sensitive = 'SENSITIVE',
-  Spoiler = 'SPOILER',
+  Spoiler = 'SPOILER'
 }
 
 export type CreateAccountResponse = {
@@ -1121,12 +1066,7 @@ export type CreateAccountWithUsernameRequest = {
   username: UsernameInput;
 };
 
-export type CreateAccountWithUsernameResult =
-  | CreateAccountResponse
-  | InvalidUsername
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type CreateAccountWithUsernameResult = CreateAccountResponse | InvalidUsername | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type CreateAppRequest = {
   /** Any admins who need to manage this app also */
@@ -1161,10 +1101,7 @@ export type CreateAppResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type CreateAppResult =
-  | CreateAppResponse
-  | SelfFundedTransactionRequest
-  | TransactionWillFail;
+export type CreateAppResult = CreateAppResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateFeedRequest = {
   /** Any admins who need to manage this feed */
@@ -1178,10 +1115,7 @@ export type CreateFeedResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type CreateFeedResult =
-  | CreateFeedResponse
-  | SelfFundedTransactionRequest
-  | TransactionWillFail;
+export type CreateFeedResult = CreateFeedResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateFollowRequest = {
   /** The account to follow. */
@@ -1206,10 +1140,7 @@ export type CreateGraphResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type CreateGraphResult =
-  | CreateGraphResponse
-  | SelfFundedTransactionRequest
-  | TransactionWillFail;
+export type CreateGraphResult = CreateGraphResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateGroupRequest = {
   /** Any admins who need to manage this group */
@@ -1223,10 +1154,7 @@ export type CreateGroupResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type CreateGroupResult =
-  | CreateGroupResponse
-  | SelfFundedTransactionRequest
-  | TransactionWillFail;
+export type CreateGroupResult = CreateGroupResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateNamespaceResponse = {
   __typename?: 'CreateNamespaceResponse';
@@ -1295,10 +1223,7 @@ export type CreateUsernameNamespaceRequest = {
   symbol: Scalars['String']['input'];
 };
 
-export type CreateUsernameNamespaceResult =
-  | CreateNamespaceResponse
-  | SelfFundedTransactionRequest
-  | TransactionWillFail;
+export type CreateUsernameNamespaceResult = CreateNamespaceResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateUsernameRequest = {
   /** If you want to auto assign the username to the account default is true */
@@ -1311,11 +1236,7 @@ export type CreateUsernameResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type CreateUsernameResult =
-  | CreateUsernameResponse
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type CreateUsernameResult = CreateUsernameResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type DebugPostMetadataRequest = {
   json?: InputMaybe<Scalars['String']['input']>;
@@ -1351,11 +1272,7 @@ export type DeletePostResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type DeletePostResult =
-  | DeletePostResponse
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type DeletePostResult = DeletePostResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type DeleteSnsSubscriptionRequest = {
   id: Scalars['UUID']['input'];
@@ -1462,10 +1379,7 @@ export type EmbedMetadata = {
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
 
-export type EnableSignlessResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type EnableSignlessResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type EncryptionStrategy = LitProtocolEncryptionStrategy;
 
@@ -1488,7 +1402,7 @@ export enum EntityType {
   Group = 'GROUP',
   Post = 'POST',
   Sponsorship = 'SPONSORSHIP',
-  UsernameNamespace = 'USERNAME_NAMESPACE',
+  UsernameNamespace = 'USERNAME_NAMESPACE'
 }
 
 /** EoaOwnershipCondition */
@@ -1996,7 +1910,7 @@ export enum EventMetadataLensSchedulingAdjustmentsTimezoneId {
   PacificTongatapu = 'PACIFIC_TONGATAPU',
   PacificTruk = 'PACIFIC_TRUK',
   PacificWake = 'PACIFIC_WAKE',
-  PacificWallis = 'PACIFIC_WALLIS',
+  PacificWallis = 'PACIFIC_WALLIS'
 }
 
 /** The challenge has expired or was not found. */
@@ -2030,6 +1944,7 @@ export type Feed = {
   rules: FeedRulesConfig;
 };
 
+
 export type FeedRulesArgs = {
   request?: InputMaybe<RuleInput>;
 };
@@ -2056,13 +1971,7 @@ export type FeedRequest = {
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
-export type FeedRule =
-  | GroupGatedFeedRule
-  | RestrictedSignersFeedRule
-  | SimplePaymentFeedRule
-  | TokenGatedFeedRule
-  | UnknownFeedRule
-  | UserBlockingRule;
+export type FeedRule = GroupGatedFeedRule | RestrictedSignersFeedRule | SimplePaymentFeedRule | TokenGatedFeedRule | UnknownFeedRule | UserBlockingRule;
 
 export type FeedRulesConfig = {
   __typename?: 'FeedRulesConfig';
@@ -2087,7 +1996,7 @@ export type FeedsFilter = {
 export enum FeedsOrderBy {
   Alphabetical = 'ALPHABETICAL',
   LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
 }
 
 export type FeedsRequest = {
@@ -2137,16 +2046,9 @@ export type FollowResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type FollowResult =
-  | FollowResponse
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type FollowResult = FollowResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
-export type FollowRule =
-  | SimplePaymentFollowRule
-  | TokenGatedFollowRule
-  | UnknownFollowRule;
+export type FollowRule = SimplePaymentFollowRule | TokenGatedFollowRule | UnknownFollowRule;
 
 export type FollowRulesConfig = {
   __typename?: 'FollowRulesConfig';
@@ -2191,7 +2093,7 @@ export type FollowerOnlyPostRule = {
 export enum FollowersOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
   Asc = 'ASC',
-  Desc = 'DESC',
+  Desc = 'DESC'
 }
 
 export type FollowersRequest = {
@@ -2212,7 +2114,7 @@ export type FollowersRequest = {
 
 export enum FollowersYouKnowOrderBy {
   Asc = 'ASC',
-  Desc = 'DESC',
+  Desc = 'DESC'
 }
 
 export type FollowersYouKnowRequest = {
@@ -2244,7 +2146,7 @@ export type Following = {
 export enum FollowingOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
   Asc = 'ASC',
-  Desc = 'DESC',
+  Desc = 'DESC'
 }
 
 export type FollowingRequest = {
@@ -2266,7 +2168,7 @@ export type FollowingRequest = {
 export enum ForYouSource {
   Curated = 'CURATED',
   Following = 'FOLLOWING',
-  Popular = 'POPULAR',
+  Popular = 'POPULAR'
 }
 
 export type ForbiddenError = {
@@ -2296,6 +2198,7 @@ export type Graph = {
   rules: GraphRulesConfig;
 };
 
+
 export type GraphRulesArgs = {
   request?: InputMaybe<RuleInput>;
 };
@@ -2322,11 +2225,7 @@ export type GraphRequest = {
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
-export type GraphRule =
-  | RestrictedSignerGraphRule
-  | TokenGatedGraphRule
-  | UnknownGraphRule
-  | UserBlockingRule;
+export type GraphRule = RestrictedSignerGraphRule | TokenGatedGraphRule | UnknownGraphRule | UserBlockingRule;
 
 export type GraphRulesConfig = {
   __typename?: 'GraphRulesConfig';
@@ -2351,7 +2250,7 @@ export type GraphsFilter = {
 export enum GraphsOrderBy {
   Alphabetical = 'ALPHABETICAL',
   LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
 }
 
 export type GraphsRequest = {
@@ -2372,6 +2271,7 @@ export type Group = {
   rules: GroupRulesConfig;
   timestamp: Scalars['DateTime']['output'];
 };
+
 
 export type GroupRulesArgs = {
   request?: InputMaybe<RuleInput>;
@@ -2399,7 +2299,7 @@ export enum GroupMembersOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
   FirstJoined = 'FIRST_JOINED',
   LastActive = 'LAST_ACTIVE',
-  LastJoined = 'LAST_JOINED',
+  LastJoined = 'LAST_JOINED'
 }
 
 export type GroupMembersRequest = {
@@ -2449,11 +2349,7 @@ export type GroupRequest = {
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
-export type GroupRule =
-  | ApprovalGroupRule
-  | SimplePaymentGroupRule
-  | TokenGatedGroupRule
-  | UnknownGroupRule;
+export type GroupRule = ApprovalGroupRule | SimplePaymentGroupRule | TokenGatedGroupRule | UnknownGroupRule;
 
 export type GroupRulesConfig = {
   __typename?: 'GroupRulesConfig';
@@ -2486,7 +2382,7 @@ export type GroupsFilter = {
 export enum GroupsOrderBy {
   Alphabetical = 'ALPHABETICAL',
   LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
 }
 
 export type GroupsRequest = {
@@ -2560,11 +2456,7 @@ export type JoinGroupResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type JoinGroupResult =
-  | JoinGroupResponse
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type JoinGroupResult = JoinGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type KeyValue = {
   __typename?: 'KeyValue';
@@ -2598,11 +2490,7 @@ export type LeaveGroupResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type LeaveGroupResult =
-  | LeaveGroupResponse
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type LeaveGroupResult = LeaveGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type LengthUsernameNamespaceRule = {
   __typename?: 'LengthUsernameNamespaceRule';
@@ -2728,17 +2616,21 @@ export type LoggedInAccountOperations = {
   isMutedByMe: Scalars['Boolean']['output'];
 };
 
+
 export type LoggedInAccountOperationsCanFollowArgs = {
   request?: InputMaybe<CanFollowRequest>;
 };
+
 
 export type LoggedInAccountOperationsCanUnfollowArgs = {
   request?: InputMaybe<CanUnfollowRequest>;
 };
 
+
 export type LoggedInAccountOperationsIsFollowedByMeArgs = {
   request?: InputMaybe<IsFollowedByMeRequest>;
 };
+
 
 export type LoggedInAccountOperationsIsFollowingMeArgs = {
   request?: InputMaybe<IsFollowingMeRequest>;
@@ -2775,6 +2667,7 @@ export type LoggedInPostOperations = {
   isNotInterested: Scalars['Boolean']['output'];
 };
 
+
 export type LoggedInPostOperationsHasReactedArgs = {
   request?: InputMaybe<HasReactedRequest>;
 };
@@ -2807,13 +2700,13 @@ export enum MainContentFocus {
   TextOnly = 'TEXT_ONLY',
   ThreeD = 'THREE_D',
   Transaction = 'TRANSACTION',
-  Video = 'VIDEO',
+  Video = 'VIDEO'
 }
 
 export enum ManagedAccountsVisibility {
   All = 'ALL',
   HiddenOnly = 'HIDDEN_ONLY',
-  NoneHidden = 'NONE_HIDDEN',
+  NoneHidden = 'NONE_HIDDEN'
 }
 
 export type ManagedBy = {
@@ -2979,7 +2872,7 @@ export enum MediaAudioKind {
   Other = 'OTHER',
   Podcast = 'PODCAST',
   Sound = 'SOUND',
-  VoiceNote = 'VOICE_NOTE',
+  VoiceNote = 'VOICE_NOTE'
 }
 
 /**
@@ -3013,7 +2906,7 @@ export enum MediaAudioType {
   AudioOgg = 'AUDIO_OGG',
   AudioVndWave = 'AUDIO_VND_WAVE',
   AudioWav = 'AUDIO_WAV',
-  AudioWebm = 'AUDIO_WEBM',
+  AudioWebm = 'AUDIO_WEBM'
 }
 
 /**
@@ -3118,7 +3011,7 @@ export enum MediaImageType {
   SvgXml = 'SVG_XML',
   Tiff = 'TIFF',
   Webp = 'WEBP',
-  XMsBmp = 'X_MS_BMP',
+  XMsBmp = 'X_MS_BMP'
 }
 
 export type MediaSnapshotNotificationAttributes = {
@@ -3241,7 +3134,7 @@ export enum MediaVideoType {
   VideoOgv = 'VIDEO_OGV',
   VideoQuicktime = 'VIDEO_QUICKTIME',
   VideoWebm = 'VIDEO_WEBM',
-  VideoXm_4V = 'VIDEO_XM_4V',
+  VideoXm_4V = 'VIDEO_XM_4V'
 }
 
 export type MentionNotification = {
@@ -3268,7 +3161,7 @@ export enum MetadataAttributeType {
   Date = 'DATE',
   Json = 'JSON',
   Number = 'NUMBER',
-  String = 'STRING',
+  String = 'STRING'
 }
 
 export enum MetadataLicenseType {
@@ -3307,7 +3200,7 @@ export enum MetadataLicenseType {
   TbnlNcNdNplLedger = 'TBNL_NC_ND_NPL_LEDGER',
   TbnlNcNdNplLegal = 'TBNL_NC_ND_NPL_LEGAL',
   TbnlNcNdPlLedger = 'TBNL_NC_ND_PL_LEDGER',
-  TbnlNcNdPlLegal = 'TBNL_NC_ND_PL_LEGAL',
+  TbnlNcNdPlLegal = 'TBNL_NC_ND_PL_LEGAL'
 }
 
 export type MetadataSnapshotNotificationAttributes = {
@@ -3775,269 +3668,336 @@ export type Mutation = {
   updateAccountManager: UpdateAccountManagerResult;
 };
 
+
 export type MutationAddAccountManagerArgs = {
   request: AddAccountManagerRequest;
 };
+
 
 export type MutationAddAdminsArgs = {
   request: AddAdminsRequest;
 };
 
+
 export type MutationAddAppAuthorizationEndpointArgs = {
   request: AddAppAuthorizationEndpointRequest;
 };
+
 
 export type MutationAddAppFeedsArgs = {
   request: AddAppFeedsRequest;
 };
 
+
 export type MutationAddAppGroupsArgs = {
   request: AddAppGroupsRequest;
 };
+
 
 export type MutationAddAppSignersArgs = {
   request: AddAppSignersRequest;
 };
 
+
 export type MutationAddReactionArgs = {
   request: AddReactionRequest;
 };
+
 
 export type MutationAssignUsernameToAccountArgs = {
   request: AssignUsernameToAccountRequest;
 };
 
+
 export type MutationAuthenticateArgs = {
   request: SignedAuthChallenge;
 };
+
 
 export type MutationBlockArgs = {
   request: BlockRequest;
 };
 
+
 export type MutationBookmarkPostArgs = {
   request: BookmarkPostRequest;
 };
+
 
 export type MutationChallengeArgs = {
   request: ChallengeRequest;
 };
 
+
 export type MutationCreateAccountWithUsernameArgs = {
   request: CreateAccountWithUsernameRequest;
 };
+
 
 export type MutationCreateAppArgs = {
   request: CreateAppRequest;
 };
 
+
 export type MutationCreateFeedArgs = {
   request: CreateFeedRequest;
 };
+
 
 export type MutationCreateGraphArgs = {
   request: CreateGraphRequest;
 };
 
+
 export type MutationCreateGroupArgs = {
   request: CreateGroupRequest;
 };
+
 
 export type MutationCreateSnsSubscriptionsArgs = {
   request: CreateSnsSubscriptionRequest;
 };
 
+
 export type MutationCreateUsernameArgs = {
   request: CreateUsernameRequest;
 };
+
 
 export type MutationCreateUsernameNamespaceArgs = {
   request: CreateUsernameNamespaceRequest;
 };
 
+
 export type MutationDeletePostArgs = {
   request: DeletePostRequest;
 };
+
 
 export type MutationDeleteSnsSubscriptionArgs = {
   request: DeleteSnsSubscriptionRequest;
 };
 
+
 export type MutationEditPostArgs = {
   request: EditPostRequest;
 };
+
 
 export type MutationFollowArgs = {
   request: CreateFollowRequest;
 };
 
+
 export type MutationGenerateNewAppServerApiKeyArgs = {
   request: GenerateNewAppServerApiKeyRequest;
 };
+
 
 export type MutationHideManagedAccountArgs = {
   request: HideManagedAccountRequest;
 };
 
+
 export type MutationHideReplyArgs = {
   request: HideReplyRequest;
 };
+
 
 export type MutationJoinGroupArgs = {
   request: JoinGroupRequest;
 };
 
+
 export type MutationLeaveGroupArgs = {
   request: LeaveGroupRequest;
 };
+
 
 export type MutationLegacyRolloverRefreshArgs = {
   request: RolloverRefreshRequest;
 };
 
+
 export type MutationMuteArgs = {
   request: MuteRequest;
 };
+
 
 export type MutationPostArgs = {
   request: CreatePostRequest;
 };
 
+
 export type MutationRecommendAccountArgs = {
   request: RecommendAccount;
 };
+
 
 export type MutationRefreshArgs = {
   request: RefreshRequest;
 };
 
+
 export type MutationRemoveAccountManagerArgs = {
   request: RemoveAccountManagerRequest;
 };
+
 
 export type MutationRemoveAdminsArgs = {
   request: RemoveAdminsRequest;
 };
 
+
 export type MutationRemoveAppFeedsArgs = {
   request: RemoveAppFeedsRequest;
 };
+
 
 export type MutationRemoveAppGroupsArgs = {
   request: RemoveAppGroupsRequest;
 };
 
+
 export type MutationRemoveAppSignersArgs = {
   request: RemoveAppSignersRequest;
 };
+
 
 export type MutationReportAccountArgs = {
   request: ReportAccountRequest;
 };
 
+
 export type MutationReportPostArgs = {
   request: ReportPostRequest;
 };
+
 
 export type MutationRepostArgs = {
   request: CreateRepostRequest;
 };
 
+
 export type MutationRevokeAuthenticationArgs = {
   request: RevokeAuthenticationRequest;
 };
+
 
 export type MutationSetAccountMetadataArgs = {
   request: SetAccountMetadataRequest;
 };
 
+
 export type MutationSetAppGraphArgs = {
   request: SetAppGraphRequest;
 };
+
 
 export type MutationSetAppMetadataArgs = {
   request: SetAppMetadataRequest;
 };
 
+
 export type MutationSetAppSponsorshipArgs = {
   request: SetAppSponsorshipRequest;
 };
+
 
 export type MutationSetAppTreasuryArgs = {
   request: SetAppTreasuryRequest;
 };
 
+
 export type MutationSetAppUsernameNamespaceArgs = {
   request: SetAppUsernameNamespaceRequest;
 };
+
 
 export type MutationSetAppVerificationArgs = {
   request: SetAppVerificationRequest;
 };
 
+
 export type MutationSetDefaultAppFeedArgs = {
   request: SetDefaultAppFeedRequest;
 };
+
 
 export type MutationSetFeedMetadataArgs = {
   request: SetFeedMetadataRequest;
 };
 
+
 export type MutationSetGraphMetadataArgs = {
   request: SetGraphMetadataRequest;
 };
+
 
 export type MutationSetGroupMetadataArgs = {
   request: SetGroupMetadataRequest;
 };
 
+
 export type MutationSetNamespaceMetadataArgs = {
   request: SetNamespaceMetadataRequest;
 };
+
 
 export type MutationSwitchAccountArgs = {
   request: SwitchAccountRequest;
 };
 
+
 export type MutationTransferPrimitiveOwnershipArgs = {
   request: TransferPrimitiveOwnershipRequest;
 };
+
 
 export type MutationUnassignUsernameFromAccountArgs = {
   request: UnassignUsernameFromAccountRequest;
 };
 
+
 export type MutationUnblockArgs = {
   request: UnblockRequest;
 };
+
 
 export type MutationUndoBookmarkPostArgs = {
   request: BookmarkPostRequest;
 };
 
+
 export type MutationUndoReactionArgs = {
   request: UndoReactionRequest;
 };
+
 
 export type MutationUndoRecommendedAccountArgs = {
   request: UndoRecommendedAccount;
 };
 
+
 export type MutationUnfollowArgs = {
   request: CreateUnfollowRequest;
 };
+
 
 export type MutationUnhideManagedAccountArgs = {
   request: UnhideManagedAccountRequest;
 };
 
+
 export type MutationUnhideReplyArgs = {
   request: UnhideReplyRequest;
 };
 
+
 export type MutationUnmuteArgs = {
   request: MuteRequest;
 };
+
 
 export type MutationUpdateAccountManagerArgs = {
   request: UpdateAccountManagerRequest;
@@ -4068,7 +4028,7 @@ export type NamespacesFilter = {
 export enum NamespacesOrderBy {
   Alphabetical = 'ALPHABETICAL',
   LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
 }
 
 export type NamespacesRequest = {
@@ -4095,7 +4055,7 @@ export type NetworkAddress = {
 
 export enum NftContractType {
   Erc_721 = 'ERC_721',
-  Erc_1155 = 'ERC_1155',
+  Erc_1155 = 'ERC_1155'
 }
 
 export type NftOwnershipCondition = {
@@ -4118,13 +4078,7 @@ export type NotIndexedYetStatus = {
   txHasMined: Scalars['Boolean']['output'];
 };
 
-export type Notification =
-  | CommentNotification
-  | FollowNotification
-  | MentionNotification
-  | QuoteNotification
-  | ReactionNotification
-  | RepostNotification;
+export type Notification = CommentNotification | FollowNotification | MentionNotification | QuoteNotification | ReactionNotification | RepostNotification;
 
 export type NotificationAccountFollow = {
   __typename?: 'NotificationAccountFollow';
@@ -4158,7 +4112,7 @@ export type NotificationFilter = {
 
 export enum NotificationOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
-  Default = 'DEFAULT',
+  Default = 'DEFAULT'
 }
 
 export type NotificationRequest = {
@@ -4179,7 +4133,7 @@ export enum NotificationType {
   Mentioned = 'MENTIONED',
   Quoted = 'QUOTED',
   Reacted = 'REACTED',
-  Reposted = 'REPOSTED',
+  Reposted = 'REPOSTED'
 }
 
 export type OnboardingUserChallengeRequest = {
@@ -4202,9 +4156,7 @@ export type OperationValidationFailed = {
   unsatisfiedRules?: Maybe<Array<UnsatisfiedRule>>;
 };
 
-export type OperationValidationOutcome =
-  | OperationValidationFailed
-  | OperationValidationPassed;
+export type OperationValidationOutcome = OperationValidationFailed | OperationValidationPassed;
 
 export type OperationValidationPassed = {
   __typename?: 'OperationValidationPassed';
@@ -4214,7 +4166,7 @@ export type OperationValidationPassed = {
 
 export enum PageSize {
   Fifty = 'FIFTY',
-  Ten = 'TEN',
+  Ten = 'TEN'
 }
 
 export type PaginatedAccountManagersResult = {
@@ -4445,6 +4397,7 @@ export type Post = {
   timestamp: Scalars['DateTime']['output'];
 };
 
+
 export type PostRulesArgs = {
   request?: InputMaybe<RuleInput>;
 };
@@ -4457,7 +4410,7 @@ export type PostAccountPair = {
 export type PostAction = SimpleCollectActionSettings | UnknownActionSettings;
 
 export enum PostActionCategoryType {
-  Collect = 'COLLECT',
+  Collect = 'COLLECT'
 }
 
 export type PostActionInput = {
@@ -4467,7 +4420,7 @@ export type PostActionInput = {
 
 export enum PostActionType {
   SimpleCollectAction = 'SIMPLE_COLLECT_ACTION',
-  UnknownAction = 'UNKNOWN_ACTION',
+  UnknownAction = 'UNKNOWN_ACTION'
 }
 
 export type PostActionsRequest = {
@@ -4535,22 +4488,7 @@ export type PostForYou = {
 
 export type PostMention = AccountMention | GroupMention;
 
-export type PostMetadata =
-  | ArticleMetadata
-  | AudioMetadata
-  | CheckingInMetadata
-  | EmbedMetadata
-  | EventMetadata
-  | ImageMetadata
-  | LinkMetadata
-  | LivestreamMetadata
-  | MintMetadata
-  | SpaceMetadata
-  | StoryMetadata
-  | TextOnlyMetadata
-  | ThreeDMetadata
-  | TransactionMetadata
-  | VideoMetadata;
+export type PostMetadata = ArticleMetadata | AudioMetadata | CheckingInMetadata | EmbedMetadata | EventMetadata | ImageMetadata | LinkMetadata | LivestreamMetadata | MintMetadata | SpaceMetadata | StoryMetadata | TextOnlyMetadata | ThreeDMetadata | TransactionMetadata | VideoMetadata;
 
 export type PostMetadataContentWarningFilter = {
   oneOf: Array<ContentWarning>;
@@ -4585,7 +4523,7 @@ export type PostReactionAddedNotificationAttributes = {
 
 export enum PostReactionOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
-  Default = 'DEFAULT',
+  Default = 'DEFAULT'
 }
 
 export type PostReactionRemovedNotificationAttributes = {
@@ -4609,7 +4547,7 @@ export type PostReactionStatusRequest = {
 
 export enum PostReactionType {
   Downvote = 'DOWNVOTE',
-  Upvote = 'UPVOTE',
+  Upvote = 'UPVOTE'
 }
 
 export type PostReactionsFilter = {
@@ -4631,7 +4569,7 @@ export type PostReactionsRequest = {
 export enum PostReferenceType {
   CommentOn = 'COMMENT_ON',
   QuoteOf = 'QUOTE_OF',
-  RepostOf = 'REPOST_OF',
+  RepostOf = 'REPOST_OF'
 }
 
 export type PostReferencesRequest = {
@@ -4665,7 +4603,7 @@ export enum PostReportReason {
   SomethingElse = 'SOMETHING_ELSE',
   UnauthorizedSale = 'UNAUTHORIZED_SALE',
   Unrelated = 'UNRELATED',
-  Violence = 'VIOLENCE',
+  Violence = 'VIOLENCE'
 }
 
 export type PostReportedNotificationAttributes = {
@@ -4688,11 +4626,7 @@ export type PostResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type PostResult =
-  | PostResponse
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type PostResult = PostResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type PostRule = FollowerOnlyPostRule | UnknownPostRule;
 
@@ -4718,13 +4652,14 @@ export type PostStats = {
   reposts: Scalars['Int']['output'];
 };
 
+
 export type PostStatsReactionsArgs = {
   request?: StatsReactionRequest;
 };
 
 export enum PostTagsOrderBy {
   Alphabetical = 'ALPHABETICAL',
-  MostPopular = 'MOST_POPULAR',
+  MostPopular = 'MOST_POPULAR'
 }
 
 export type PostTagsRequest = {
@@ -4739,7 +4674,7 @@ export enum PostType {
   Comment = 'COMMENT',
   Quote = 'QUOTE',
   Repost = 'REPOST',
-  Root = 'ROOT',
+  Root = 'ROOT'
 }
 
 export enum PostVisibilityFilter {
@@ -4748,7 +4683,7 @@ export enum PostVisibilityFilter {
   /** Only the posts that are hidden */
   Hidden = 'HIDDEN',
   /** Only the posts that are visible */
-  Visible = 'VISIBLE',
+  Visible = 'VISIBLE'
 }
 
 export type PostsFilter = {
@@ -4904,225 +4839,281 @@ export type Query = {
   whoReferencedPost: PaginatedAccountsResult;
 };
 
+
 export type QueryAccountArgs = {
   request: AccountRequest;
 };
+
 
 export type QueryAccountFeedsStatsArgs = {
   request: AccountFeedsStatsRequest;
 };
 
+
 export type QueryAccountGraphsStatsArgs = {
   request: AccountGraphsStatsRequest;
 };
+
 
 export type QueryAccountManagersArgs = {
   request: AccountManagersRequest;
 };
 
+
 export type QueryAccountStatsArgs = {
   request: AccountStatsRequest;
 };
+
 
 export type QueryAccountsArgs = {
   request: AccountsRequest;
 };
 
+
 export type QueryAccountsAvailableArgs = {
   request: AccountsAvailableRequest;
 };
+
 
 export type QueryAccountsBlockedArgs = {
   request: AccountsBlockedRequest;
 };
 
+
 export type QueryAccountsBulkArgs = {
   request: AccountsBulkRequest;
 };
+
 
 export type QueryAdminsForArgs = {
   request: AdminsForRequest;
 };
 
+
 export type QueryAppArgs = {
   request: AppRequest;
 };
+
 
 export type QueryAppFeedsArgs = {
   request: AppFeedsRequest;
 };
 
+
 export type QueryAppGroupsArgs = {
   request: AppGroupsRequest;
 };
+
 
 export type QueryAppServerApiKeyArgs = {
   request: AppServerApiKeyRequest;
 };
 
+
 export type QueryAppSignersArgs = {
   request: AppSignersRequest;
 };
+
 
 export type QueryAppUsersArgs = {
   request: AppUsersRequest;
 };
 
+
 export type QueryAppsArgs = {
   request: AppsRequest;
 };
+
 
 export type QueryAuthenticatedSessionsArgs = {
   request: AuthenticatedSessionsRequest;
 };
 
+
 export type QueryDebugMetadataArgs = {
   request: DebugPostMetadataRequest;
 };
+
 
 export type QueryDebugTransactionStatusFailedArgs = {
   request: DebugTransactionStatusRequest;
 };
 
+
 export type QueryFeedArgs = {
   request: FeedRequest;
 };
+
 
 export type QueryFeedsArgs = {
   request: FeedsRequest;
 };
 
+
 export type QueryFollowStatusArgs = {
   request: FollowStatusRequest;
 };
+
 
 export type QueryFollowersArgs = {
   request: FollowersRequest;
 };
 
+
 export type QueryFollowersYouKnowArgs = {
   request: FollowersYouKnowRequest;
 };
+
 
 export type QueryFollowingArgs = {
   request: FollowingRequest;
 };
 
+
 export type QueryGetSnsSubscriptionsArgs = {
   request: GetSnsSubscriptionsRequest;
 };
+
 
 export type QueryGraphArgs = {
   request: GraphRequest;
 };
 
+
 export type QueryGraphsArgs = {
   request: GraphsRequest;
 };
+
 
 export type QueryGroupArgs = {
   request: GroupRequest;
 };
 
+
 export type QueryGroupMembersArgs = {
   request: GroupMembersRequest;
 };
+
 
 export type QueryGroupStatsArgs = {
   request: GroupStatsRequest;
 };
 
+
 export type QueryGroupsArgs = {
   request: GroupsRequest;
 };
+
 
 export type QueryLastLoggedInAccountArgs = {
   request: LastLoggedInAccountRequest;
 };
 
+
 export type QueryMlAccountRecommendationsArgs = {
   request: MlaccountRecommendationsRequest;
 };
+
 
 export type QueryMlPostsExploreArgs = {
   request: MlexplorePostsRequest;
 };
 
+
 export type QueryMlPostsForYouArgs = {
   request: MlpostsForYouRequest;
 };
+
 
 export type QueryNamespaceArgs = {
   request: NamespaceRequest;
 };
 
+
 export type QueryNamespacesArgs = {
   request: NamespacesRequest;
 };
+
 
 export type QueryNotificationsArgs = {
   request: NotificationRequest;
 };
 
+
 export type QueryPostArgs = {
   request: PostRequest;
 };
+
 
 export type QueryPostActionsArgs = {
   request: PostActionsRequest;
 };
 
+
 export type QueryPostBookmarksArgs = {
   request: PostBookmarksRequest;
 };
+
 
 export type QueryPostEditsArgs = {
   request: PostEditsRequest;
 };
 
+
 export type QueryPostReactionStatusArgs = {
   request: PostReactionStatusRequest;
 };
+
 
 export type QueryPostReactionsArgs = {
   request: PostReactionsRequest;
 };
 
+
 export type QueryPostReferencesArgs = {
   request: PostReferencesRequest;
 };
+
 
 export type QueryPostTagsArgs = {
   request: PostTagsRequest;
 };
 
+
 export type QueryPostsArgs = {
   request: PostsRequest;
 };
+
 
 export type QueryTimelineArgs = {
   request: TimelineRequest;
 };
 
+
 export type QueryTimelineHighlightsArgs = {
   request: TimelineHighlightsRequest;
 };
+
 
 export type QueryTransactionStatusArgs = {
   request: TransactionStatusRequest;
 };
 
+
 export type QueryUsernameArgs = {
   request: UsernameRequest;
 };
+
 
 export type QueryUsernamesArgs = {
   request: UsernamesRequest;
 };
 
+
 export type QueryWhoActedOnPostArgs = {
   request: WhoActedOnPostRequest;
 };
+
 
 export type QueryWhoReferencedPostArgs = {
   request: WhoReferencedPostRequest;
@@ -5173,10 +5164,7 @@ export type RemoveAccountManagerRequest = {
   manager: Scalars['EvmAddress']['input'];
 };
 
-export type RemoveAccountManagerResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type RemoveAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveAdminsRequest = {
   /** The graph/app/sponsor/feed/username/group address which manages these admins */
@@ -5185,10 +5173,7 @@ export type RemoveAdminsRequest = {
   admins: Array<Scalars['EvmAddress']['input']>;
 };
 
-export type RemoveAdminsResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type RemoveAdminsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveAppFeedsRequest = {
   /** The app to update */
@@ -5197,10 +5182,7 @@ export type RemoveAppFeedsRequest = {
   feeds: Array<Scalars['EvmAddress']['input']>;
 };
 
-export type RemoveAppFeedsResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type RemoveAppFeedsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveAppGroupsRequest = {
   /** The app to update */
@@ -5209,10 +5191,7 @@ export type RemoveAppGroupsRequest = {
   groups: Array<Scalars['EvmAddress']['input']>;
 };
 
-export type RemoveAppGroupsResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type RemoveAppGroupsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveAppSignersRequest = {
   /** The app to update */
@@ -5221,15 +5200,9 @@ export type RemoveAppSignersRequest = {
   signers: Array<Scalars['EvmAddress']['input']>;
 };
 
-export type RemoveAppSignersResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type RemoveAppSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
-export type RemoveSignlessResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type RemoveSignlessResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type ReportAccountRequest = {
   /** The account to report. */
@@ -5301,7 +5274,7 @@ export type RuleInput = {
 
 export enum SelfFundedFallbackReason {
   CannotSponsor = 'CANNOT_SPONSOR',
-  NotSponsored = 'NOT_SPONSORED',
+  NotSponsored = 'NOT_SPONSORED'
 }
 
 export type SelfFundedTransactionRequest = {
@@ -5326,11 +5299,7 @@ export type SetAccountMetadataResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type SetAccountMetadataResult =
-  | SelfFundedTransactionRequest
-  | SetAccountMetadataResponse
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type SetAccountMetadataResult = SelfFundedTransactionRequest | SetAccountMetadataResponse | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetAppGraphRequest = {
   /** The app to update */
@@ -5339,10 +5308,7 @@ export type SetAppGraphRequest = {
   graph: Scalars['EvmAddress']['input'];
 };
 
-export type SetAppGraphResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type SetAppGraphResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetAppMetadataRequest = {
   /** The app to update */
@@ -5351,10 +5317,7 @@ export type SetAppMetadataRequest = {
   metadataUri: Scalars['String']['input'];
 };
 
-export type SetAppMetadataResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type SetAppMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetAppSponsorshipRequest = {
   /** The app to update */
@@ -5363,10 +5326,7 @@ export type SetAppSponsorshipRequest = {
   sponsorship: Scalars['EvmAddress']['input'];
 };
 
-export type SetAppSponsorshipResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type SetAppSponsorshipResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetAppTreasuryRequest = {
   /** The app to update */
@@ -5375,10 +5335,7 @@ export type SetAppTreasuryRequest = {
   treasury: Scalars['EvmAddress']['input'];
 };
 
-export type SetAppTreasuryResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type SetAppTreasuryResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetAppUsernameNamespaceRequest = {
   /** The app to update */
@@ -5387,10 +5344,7 @@ export type SetAppUsernameNamespaceRequest = {
   usernameNamespace: Scalars['EvmAddress']['input'];
 };
 
-export type SetAppUsernameNamespaceResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type SetAppUsernameNamespaceResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetAppVerificationRequest = {
   /** The app to update */
@@ -5399,10 +5353,7 @@ export type SetAppVerificationRequest = {
   enabled: Scalars['Boolean']['input'];
 };
 
-export type SetAppVerificationResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type SetAppVerificationResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetDefaultAppFeedRequest = {
   /** The app to update */
@@ -5411,10 +5362,7 @@ export type SetDefaultAppFeedRequest = {
   feed: Scalars['EvmAddress']['input'];
 };
 
-export type SetDefaultAppFeedResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type SetDefaultAppFeedResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetFeedMetadataRequest = {
   /** The feed to update */
@@ -5423,10 +5371,7 @@ export type SetFeedMetadataRequest = {
   metadataUri: Scalars['String']['input'];
 };
 
-export type SetFeedMetadataResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type SetFeedMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetGraphMetadataRequest = {
   /** The graph to update */
@@ -5435,10 +5380,7 @@ export type SetGraphMetadataRequest = {
   metadataUri: Scalars['String']['input'];
 };
 
-export type SetGraphMetadataResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type SetGraphMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetGroupMetadataRequest = {
   /** The group to update */
@@ -5447,10 +5389,7 @@ export type SetGroupMetadataRequest = {
   metadataUri: Scalars['String']['input'];
 };
 
-export type SetGroupMetadataResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type SetGroupMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetNamespaceMetadataRequest = {
   /** The namespace metadata to set */
@@ -5459,10 +5398,7 @@ export type SetNamespaceMetadataRequest = {
   namespace: Scalars['EvmAddress']['input'];
 };
 
-export type SetNamespaceMetadataResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type SetNamespaceMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SignedAuthChallenge = {
   id: Scalars['UUID']['input'];
@@ -5553,7 +5489,7 @@ export enum SnsNotificationType {
   PostReactionRemoved = 'POST_REACTION_REMOVED',
   PostReported = 'POST_REPORTED',
   QuoteCreated = 'QUOTE_CREATED',
-  RepostCreated = 'REPOST_CREATED',
+  RepostCreated = 'REPOST_CREATED'
 }
 
 export type SnsSubscription = {
@@ -5629,12 +5565,12 @@ export enum SponsorLimitType {
   Day = 'DAY',
   Hour = 'HOUR',
   Month = 'MONTH',
-  Week = 'WEEK',
+  Week = 'WEEK'
 }
 
 export enum SponsoredFallbackReason {
   SignlessDisabled = 'SIGNLESS_DISABLED',
-  SignlessFailed = 'SIGNLESS_FAILED',
+  SignlessFailed = 'SIGNLESS_FAILED'
 }
 
 export type SponsoredTransactionRequest = {
@@ -5731,7 +5667,7 @@ export enum ThreeDAssetFormat {
   Fbx = 'FBX',
   GLtfGlb = 'G_LTF_GLB',
   Obj = 'OBJ',
-  Vrm = 'VRM',
+  Vrm = 'VRM'
 }
 
 export type ThreeDMetadata = {
@@ -5762,7 +5698,7 @@ export enum TimelineEventItemType {
   Comment = 'COMMENT',
   Post = 'POST',
   Quote = 'QUOTE',
-  Repost = 'REPOST',
+  Repost = 'REPOST'
 }
 
 export type TimelineFilter = {
@@ -5858,7 +5794,7 @@ export type TokenGatedUsernameNamespaceRule = {
 export enum TokenStandard {
   Erc_20 = 'ERC_20',
   Erc_721 = 'ERC_721',
-  Erc_1155 = 'ERC_1155',
+  Erc_1155 = 'ERC_1155'
 }
 
 /** AccessCondition */
@@ -5900,16 +5836,12 @@ export type TransactionStatusRequest = {
   txHash: Scalars['TxHash']['input'];
 };
 
-export type TransactionStatusResult =
-  | FailedTransactionStatus
-  | FinishedTransactionStatus
-  | NotIndexedYetStatus
-  | PendingTransactionStatus;
+export type TransactionStatusResult = FailedTransactionStatus | FinishedTransactionStatus | NotIndexedYetStatus | PendingTransactionStatus;
 
 export enum TransactionType {
   Erc_20 = 'ERC_20',
   Erc_721 = 'ERC_721',
-  Other = 'OTHER',
+  Other = 'OTHER'
 }
 
 export type TransactionWillFail = {
@@ -5924,10 +5856,7 @@ export type TransferPrimitiveOwnershipRequest = {
   newOwner: Scalars['EvmAddress']['input'];
 };
 
-export type TransferPrimitiveOwnershipResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type TransferPrimitiveOwnershipResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UnassignUsernameFromAccountRequest = {
   namespace?: Scalars['EvmAddress']['input'];
@@ -5938,11 +5867,7 @@ export type UnassignUsernameResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type UnassignUsernameToAccountResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail
-  | UnassignUsernameResponse;
+export type UnassignUsernameToAccountResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UnassignUsernameResponse;
 
 export type UnblockError = {
   __typename?: 'UnblockError';
@@ -5952,7 +5877,7 @@ export type UnblockError = {
 export enum UnblockErrorType {
   NotBlocked = 'NOT_BLOCKED',
   Unauthorized = 'UNAUTHORIZED',
-  Unknown = 'UNKNOWN',
+  Unknown = 'UNKNOWN'
 }
 
 export type UnblockRequest = {
@@ -5965,11 +5890,7 @@ export type UnblockResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type UnblockResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | UnblockError
-  | UnblockResponse;
+export type UnblockResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | UnblockError | UnblockResponse;
 
 export type UndoReactionFailure = {
   __typename?: 'UndoReactionFailure';
@@ -6000,11 +5921,7 @@ export type UnfollowResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type UnfollowResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail
-  | UnfollowResponse;
+export type UnfollowResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UnfollowResponse;
 
 export type UnhideManagedAccountRequest = {
   /** The account to unhide. */
@@ -6112,10 +6029,7 @@ export type UpdateAccountManagerRequest = {
   permissions: AccountManagerPermissionsInput;
 };
 
-export type UpdateAccountManagerResult =
-  | SelfFundedTransactionRequest
-  | SponsoredTransactionRequest
-  | TransactionWillFail;
+export type UpdateAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UserBlockingRule = {
   __typename?: 'UserBlockingRule';
@@ -6162,6 +6076,7 @@ export type UsernameNamespace = {
   stats: UsernameNamespaceStats;
 };
 
+
 export type UsernameNamespaceRulesArgs = {
   request?: InputMaybe<RuleInput>;
 };
@@ -6177,12 +6092,7 @@ export type UsernameNamespaceMetadata = {
   id: Scalars['String']['output'];
 };
 
-export type UsernameNamespaceRule =
-  | CharsetUsernameNamespaceRule
-  | LengthUsernameNamespaceRule
-  | SimplePaymentUsernameNamespaceRule
-  | TokenGatedUsernameNamespaceRule
-  | UnknownUsernameNamespaceRule;
+export type UsernameNamespaceRule = CharsetUsernameNamespaceRule | LengthUsernameNamespaceRule | SimplePaymentUsernameNamespaceRule | TokenGatedUsernameNamespaceRule | UnknownUsernameNamespaceRule;
 
 export type UsernameNamespaceRulesConfig = {
   __typename?: 'UsernameNamespaceRulesConfig';
@@ -6229,7 +6139,7 @@ export type UsernamesFilter = {
 
 export enum UsernamesOrderBy {
   FirstMinted = 'FIRST_MINTED',
-  LastMinted = 'LAST_MINTED',
+  LastMinted = 'LAST_MINTED'
 }
 
 export type UsernamesRequest = {
@@ -6274,7 +6184,7 @@ export type WhoActedOnPostFilter = {
 export enum WhoActedOnPostOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
   FirstActioned = 'FIRST_ACTIONED',
-  LastActioned = 'LAST_ACTIONED',
+  LastActioned = 'LAST_ACTIONED'
 }
 
 export type WhoActedOnPostRequest = {
@@ -6291,7 +6201,7 @@ export type WhoActedOnPostRequest = {
 export enum WhoReferencedPostOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
   MostRecent = 'MOST_RECENT',
-  Oldest = 'OLDEST',
+  Oldest = 'OLDEST'
 }
 
 export type WhoReferencedPostRequest = {
@@ -6320,93 +6230,29 @@ export type _Service = {
 export type CreateAppMutationMutationVariables = Exact<{
   metadataUri: Scalars['URI']['input'];
   namespace: Scalars['EvmAddress']['input'];
-  admins?: InputMaybe<
-    Array<Scalars['EvmAddress']['input']> | Scalars['EvmAddress']['input']
-  >;
+  admins?: InputMaybe<Array<Scalars['EvmAddress']['input']> | Scalars['EvmAddress']['input']>;
 }>;
 
-export type CreateAppMutationMutation = {
-  __typename?: 'Mutation';
-  createApp:
-    | { __typename?: 'CreateAppResponse'; hash: any }
-    | { __typename?: 'SelfFundedTransactionRequest' }
-    | { __typename?: 'TransactionWillFail' };
-};
+
+export type CreateAppMutationMutation = { __typename?: 'Mutation', createApp: { __typename?: 'CreateAppResponse', hash: any } | { __typename?: 'SelfFundedTransactionRequest' } | { __typename?: 'TransactionWillFail' } };
 
 export type SetAppNamespaceMutationVariables = Exact<{
   usernameNamespace: Scalars['EvmAddress']['input'];
   app: Scalars['EvmAddress']['input'];
 }>;
 
-export type SetAppNamespaceMutation = {
-  __typename?: 'Mutation';
-  setAppUsernameNamespace:
-    | {
-        __typename?: 'SelfFundedTransactionRequest';
-        reason: string;
-        selfFundedReason?: SelfFundedFallbackReason | null;
-        raw: {
-          __typename?: 'Eip1559TransactionRequest';
-          type: number;
-          to: any;
-          from: any;
-          nonce: number;
-          gasLimit: number;
-          maxPriorityFeePerGas: any;
-          maxFeePerGas: any;
-          data: any;
-          value: any;
-          chainId: number;
-        };
-      }
-    | {
-        __typename?: 'SponsoredTransactionRequest';
-        reason: string;
-        sponsoredReason?: SponsoredFallbackReason | null;
-        raw: {
-          __typename?: 'Eip712TransactionRequest';
-          nonce: number;
-          to: any;
-          from: any;
-          data: any;
-          type: number;
-          value: any;
-          gasLimit: number;
-          maxFeePerGas: any;
-          maxPriorityFeePerGas: any;
-          chainId: number;
-          customData: {
-            __typename?: 'Eip712Meta';
-            customSignature?: any | null;
-            factoryDeps: Array<any>;
-            gasPerPubdata: any;
-            paymasterParams?: {
-              __typename?: 'PaymasterParams';
-              paymaster: any;
-              paymasterInput: any;
-            } | null;
-          };
-        };
-      }
-    | { __typename?: 'TransactionWillFail'; reason: string };
-};
+
+export type SetAppNamespaceMutation = { __typename?: 'Mutation', setAppUsernameNamespace: { __typename?: 'SelfFundedTransactionRequest', reason: string, selfFundedReason?: SelfFundedFallbackReason | null, raw: { __typename?: 'Eip1559TransactionRequest', type: number, to: any, from: any, nonce: number, gasLimit: number, maxPriorityFeePerGas: any, maxFeePerGas: any, data: any, value: any, chainId: number } } | { __typename?: 'SponsoredTransactionRequest', reason: string, sponsoredReason?: SponsoredFallbackReason | null, raw: { __typename?: 'Eip712TransactionRequest', nonce: number, to: any, from: any, data: any, type: number, value: any, gasLimit: number, maxFeePerGas: any, maxPriorityFeePerGas: any, chainId: number, customData: { __typename?: 'Eip712Meta', customSignature?: any | null, factoryDeps: Array<any>, gasPerPubdata: any, paymasterParams?: { __typename?: 'PaymasterParams', paymaster: any, paymasterInput: any } | null } } } | { __typename?: 'TransactionWillFail', reason: string } };
 
 export type CreateUsernameNamespaceMutationVariables = Exact<{
   metadataUri: Scalars['URI']['input'];
   namespace: Scalars['String']['input'];
   symbol: Scalars['String']['input'];
-  admins?: InputMaybe<
-    Array<Scalars['EvmAddress']['input']> | Scalars['EvmAddress']['input']
-  >;
+  admins?: InputMaybe<Array<Scalars['EvmAddress']['input']> | Scalars['EvmAddress']['input']>;
 }>;
 
-export type CreateUsernameNamespaceMutation = {
-  __typename?: 'Mutation';
-  createUsernameNamespace:
-    | { __typename?: 'CreateNamespaceResponse'; hash: any }
-    | { __typename?: 'SelfFundedTransactionRequest' }
-    | { __typename?: 'TransactionWillFail'; reason: string };
-};
+
+export type CreateUsernameNamespaceMutation = { __typename?: 'Mutation', createUsernameNamespace: { __typename?: 'CreateNamespaceResponse', hash: any } | { __typename?: 'SelfFundedTransactionRequest' } | { __typename?: 'TransactionWillFail', reason: string } };
 
 export type CreateAccountWithUsernameMutationVariables = Exact<{
   localName: Scalars['String']['input'];
@@ -6415,1077 +6261,29 @@ export type CreateAccountWithUsernameMutationVariables = Exact<{
   namespace: Scalars['EvmAddress']['input'];
 }>;
 
-export type CreateAccountWithUsernameMutation = {
-  __typename?: 'Mutation';
-  createAccountWithUsername:
-    | { __typename?: 'CreateAccountResponse'; hash: any }
-    | { __typename?: 'InvalidUsername'; reason: string }
-    | { __typename?: 'SelfFundedTransactionRequest' }
-    | { __typename?: 'SponsoredTransactionRequest' }
-    | { __typename?: 'TransactionWillFail'; reason: string };
-};
 
-export type QueryQueryVariables = Exact<{
-  account: Scalars['EvmAddress']['input'];
-  filter?: InputMaybe<TimelineFilter>;
-  forFeeds?: InputMaybe<
-    Array<Scalars['EvmAddress']['input']> | Scalars['EvmAddress']['input']
-  >;
+export type CreateAccountWithUsernameMutation = { __typename?: 'Mutation', createAccountWithUsername: { __typename?: 'CreateAccountResponse', hash: any } | { __typename?: 'InvalidUsername', reason: string } | { __typename?: 'SelfFundedTransactionRequest' } | { __typename?: 'SponsoredTransactionRequest' } | { __typename?: 'TransactionWillFail', reason: string } };
+
+export type PostsQueryVariables = Exact<{
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  forFeeds?: InputMaybe<Array<Scalars['EvmAddress']['input']> | Scalars['EvmAddress']['input']>;
+  filter?: InputMaybe<PostsFilter>;
 }>;
 
-export type QueryQuery = {
-  __typename?: 'Query';
-  timeline: {
-    __typename?: 'PaginatedTimelineResult';
-    items: Array<{
-      __typename?: 'TimelineItem';
-      id: any;
-      primary: {
-        __typename?: 'Post';
-        id: any;
-        author: {
-          __typename?: 'Account';
-          address: any;
-          createdAt: any;
-          metadata?: {
-            __typename?: 'AccountMetadata';
-            name?: string | null;
-            picture?: any | null;
-            id: string;
-            coverPicture?: any | null;
-            bio?: string | null;
-          } | null;
-        };
-        metadata:
-          | { __typename?: 'ArticleMetadata' }
-          | { __typename?: 'AudioMetadata' }
-          | { __typename?: 'CheckingInMetadata' }
-          | { __typename?: 'EmbedMetadata' }
-          | { __typename?: 'EventMetadata' }
-          | { __typename?: 'ImageMetadata' }
-          | { __typename?: 'LinkMetadata' }
-          | { __typename?: 'LivestreamMetadata' }
-          | { __typename?: 'MintMetadata' }
-          | { __typename?: 'SpaceMetadata' }
-          | { __typename?: 'StoryMetadata' }
-          | {
-              __typename?: 'TextOnlyMetadata';
-              content: any;
-              id: any;
-              mainContentFocus: MainContentFocus;
-              locale: any;
-            }
-          | { __typename?: 'ThreeDMetadata' }
-          | { __typename?: 'TransactionMetadata' }
-          | { __typename?: 'VideoMetadata' };
-      };
-    }>;
-    pageInfo: {
-      __typename?: 'PaginatedResultInfo';
-      next?: any | null;
-      prev?: any | null;
-    };
-  };
-};
 
-export const CreateAppMutationDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateAppMutation' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'metadataUri' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'URI' } },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'namespace' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'EvmAddress' },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'admins' },
-          },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NonNullType',
-              type: {
-                kind: 'NamedType',
-                name: { kind: 'Name', value: 'EvmAddress' },
-              },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createApp' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'metadataUri' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'metadataUri' },
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'namespace' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'namespace' },
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'admins' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'admins' },
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'CreateAppResponse' },
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'hash' } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  CreateAppMutationMutation,
-  CreateAppMutationMutationVariables
->;
-export const SetAppNamespaceDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'SetAppNamespace' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'usernameNamespace' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'EvmAddress' },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'app' } },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'EvmAddress' },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'setAppUsernameNamespace' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'usernameNamespace' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'usernameNamespace' },
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'app' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'app' },
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: {
-                      kind: 'Name',
-                      value: 'SponsoredTransactionRequest',
-                    },
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'reason' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'sponsoredReason' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'raw' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'to' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'from' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'data' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'type' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'value' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'gasLimit' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'maxFeePerGas' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'maxPriorityFeePerGas',
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'customData' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'customSignature',
-                                    },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'factoryDeps',
-                                    },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'gasPerPubdata',
-                                    },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'paymasterParams',
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'paymaster',
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'paymasterInput',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'TransactionWillFail' },
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'reason' },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: {
-                      kind: 'Name',
-                      value: 'SelfFundedTransactionRequest',
-                    },
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'raw' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'type' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'to' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'from' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'gasLimit' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'maxPriorityFeePerGas',
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'maxFeePerGas' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'data' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'value' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'reason' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'selfFundedReason' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  SetAppNamespaceMutation,
-  SetAppNamespaceMutationVariables
->;
-export const CreateUsernameNamespaceDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateUsernameNamespace' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'metadataUri' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'URI' } },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'namespace' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'symbol' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'admins' },
-          },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NonNullType',
-              type: {
-                kind: 'NamedType',
-                name: { kind: 'Name', value: 'EvmAddress' },
-              },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createUsernameNamespace' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'metadataUri' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'metadataUri' },
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'namespace' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'namespace' },
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'symbol' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'symbol' },
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'admins' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'admins' },
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'CreateNamespaceResponse' },
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'hash' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'TransactionWillFail' },
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'reason' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  CreateUsernameNamespaceMutation,
-  CreateUsernameNamespaceMutationVariables
->;
-export const CreateAccountWithUsernameDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateAccountWithUsername' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'localName' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'metadataUri' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'URI' } },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'owner' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'EvmAddress' },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'namespace' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'EvmAddress' },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createAccountWithUsername' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'username' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'localName' },
-                            value: {
-                              kind: 'Variable',
-                              name: { kind: 'Name', value: 'localName' },
-                            },
-                          },
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'namespace' },
-                            value: {
-                              kind: 'Variable',
-                              name: { kind: 'Name', value: 'namespace' },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'metadataUri' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'metadataUri' },
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'accountManager' },
-                      value: {
-                        kind: 'ListValue',
-                        values: [
-                          {
-                            kind: 'Variable',
-                            name: { kind: 'Name', value: 'owner' },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'CreateAccountResponse' },
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'hash' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'InvalidUsername' },
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'reason' },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'TransactionWillFail' },
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'reason' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  CreateAccountWithUsernameMutation,
-  CreateAccountWithUsernameMutationVariables
->;
-export const QueryDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Query' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'account' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'EvmAddress' },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'TimelineFilter' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'forFeeds' },
-          },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NonNullType',
-              type: {
-                kind: 'NamedType',
-                name: { kind: 'Name', value: 'EvmAddress' },
-              },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'timeline' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'account' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'account' },
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'filter' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'filter' },
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'forFeeds' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'forFeeds' },
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'primary' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'author' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'address' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'createdAt' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'metadata' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'name' },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'picture',
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'id' },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'coverPicture',
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'bio' },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'metadata' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: {
-                                        kind: 'Name',
-                                        value: 'TextOnlyMetadata',
-                                      },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'content',
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'id' },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'mainContentFocus',
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'locale',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'next' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'prev' } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<QueryQuery, QueryQueryVariables>;
+export type PostsQuery = { __typename?: 'Query', posts: { __typename?: 'PaginatedAnyPostsResult', items: Array<{ __typename?: 'Post', id: any, timestamp: any, author: { __typename?: 'Account', address: any, metadata?: { __typename?: 'AccountMetadata', id: string, coverPicture?: any | null, name?: string | null } | null, username?: { __typename?: 'Username', localName: string, namespace: { __typename?: 'UsernameNamespace', namespace: string } } | null }, metadata: { __typename?: 'ArticleMetadata' } | { __typename?: 'AudioMetadata' } | { __typename?: 'CheckingInMetadata' } | { __typename?: 'EmbedMetadata' } | { __typename?: 'EventMetadata' } | { __typename?: 'ImageMetadata' } | { __typename?: 'LinkMetadata' } | { __typename?: 'LivestreamMetadata' } | { __typename?: 'MintMetadata' } | { __typename?: 'SpaceMetadata' } | { __typename?: 'StoryMetadata' } | { __typename?: 'TextOnlyMetadata', id: any, content: any, locale: any } | { __typename?: 'ThreeDMetadata' } | { __typename?: 'TransactionMetadata' } | { __typename?: 'VideoMetadata' }, stats: { __typename?: 'PostStats', reactions: number, comments: number, collects: number, bookmarks: number, quotes: number, reposts: number } } | { __typename?: 'Repost' }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null, prev?: any | null } } };
+
+export type AccountsAvailableQueryVariables = Exact<{
+  managedBy: Scalars['EvmAddress']['input'];
+}>;
+
+
+export type AccountsAvailableQuery = { __typename?: 'Query', accountsAvailable: { __typename?: 'PaginatedAccountsAvailableResult', items: Array<{ __typename?: 'AccountManaged' } | { __typename?: 'AccountOwned', account: { __typename?: 'Account', address: any, metadata?: { __typename?: 'AccountMetadata', name?: string | null, id: string } | null, username?: { __typename?: 'Username', localName: string, namespace: { __typename?: 'UsernameNamespace', namespace: string } } | null } }> } };
+
+
+export const CreateAppMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateAppMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"metadataUri"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"URI"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"namespace"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EvmAddress"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"admins"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EvmAddress"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createApp"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"metadataUri"},"value":{"kind":"Variable","name":{"kind":"Name","value":"metadataUri"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"namespace"},"value":{"kind":"Variable","name":{"kind":"Name","value":"namespace"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"admins"},"value":{"kind":"Variable","name":{"kind":"Name","value":"admins"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CreateAppResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}}]}}]}}]} as unknown as DocumentNode<CreateAppMutationMutation, CreateAppMutationMutationVariables>;
+export const SetAppNamespaceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetAppNamespace"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"usernameNamespace"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EvmAddress"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"app"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EvmAddress"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setAppUsernameNamespace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"usernameNamespace"},"value":{"kind":"Variable","name":{"kind":"Name","value":"usernameNamespace"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"app"},"value":{"kind":"Variable","name":{"kind":"Name","value":"app"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"sponsoredReason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"chainId"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"chainId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"selfFundedReason"}}]}}]}}]}}]} as unknown as DocumentNode<SetAppNamespaceMutation, SetAppNamespaceMutationVariables>;
+export const CreateUsernameNamespaceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateUsernameNamespace"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"metadataUri"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"URI"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"namespace"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"symbol"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"admins"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EvmAddress"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createUsernameNamespace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"metadataUri"},"value":{"kind":"Variable","name":{"kind":"Name","value":"metadataUri"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"namespace"},"value":{"kind":"Variable","name":{"kind":"Name","value":"namespace"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"symbol"},"value":{"kind":"Variable","name":{"kind":"Name","value":"symbol"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"admins"},"value":{"kind":"Variable","name":{"kind":"Name","value":"admins"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CreateNamespaceResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode<CreateUsernameNamespaceMutation, CreateUsernameNamespaceMutationVariables>;
+export const CreateAccountWithUsernameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateAccountWithUsername"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"localName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"metadataUri"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"URI"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"owner"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EvmAddress"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"namespace"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EvmAddress"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createAccountWithUsername"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"username"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"localName"},"value":{"kind":"Variable","name":{"kind":"Name","value":"localName"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"namespace"},"value":{"kind":"Variable","name":{"kind":"Name","value":"namespace"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"metadataUri"},"value":{"kind":"Variable","name":{"kind":"Name","value":"metadataUri"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"accountManager"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"owner"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CreateAccountResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"InvalidUsername"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode<CreateAccountWithUsernameMutation, CreateAccountWithUsernameMutationVariables>;
+export const PostsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Posts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Cursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"forFeeds"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EvmAddress"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PostsFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"posts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"forFeeds"},"value":{"kind":"Variable","name":{"kind":"Name","value":"forFeeds"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"coverPicture"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"username"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"localName"}},{"kind":"Field","name":{"kind":"Name","value":"namespace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"namespace"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextOnlyMetadata"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"locale"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"stats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reactions"}},{"kind":"Field","name":{"kind":"Name","value":"comments"}},{"kind":"Field","name":{"kind":"Name","value":"collects"}},{"kind":"Field","name":{"kind":"Name","value":"bookmarks"}},{"kind":"Field","name":{"kind":"Name","value":"quotes"}},{"kind":"Field","name":{"kind":"Name","value":"reposts"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"next"}},{"kind":"Field","name":{"kind":"Name","value":"prev"}}]}}]}}]}}]} as unknown as DocumentNode<PostsQuery, PostsQueryVariables>;
+export const AccountsAvailableDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AccountsAvailable"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"managedBy"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EvmAddress"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accountsAvailable"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"managedBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"managedBy"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountOwned"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"account"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"username"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"localName"}},{"kind":"Field","name":{"kind":"Name","value":"namespace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"namespace"}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<AccountsAvailableQuery, AccountsAvailableQueryVariables>;
