@@ -5,8 +5,9 @@ import * as t from 'drizzle-orm/pg-core';
 import { allCrops, allSeeds } from '~/types/farming';
 
 const cropsEnum = pgEnum('cropType', allCrops);
+const itemsEnum = pgEnum('itemType', [...allCrops, ...allSeeds, 'coin']);
 
-const itemsEnum = pgEnum('itemType', [...allCrops, ...allSeeds]);
+export type ItemType = (typeof itemsEnum.enumValues)[number];
 
 // Tables for the game
 export const players = pgTable('players', {
@@ -44,7 +45,7 @@ export const traderShop = pgTable('trader_shop', {
 
 export const dailyClaims = pgTable('daily_claims', {
   id: t.uuid().defaultRandom().notNull().primaryKey(),
-  playerId: t.integer('playerId').notNull(),
+  playerId: t.uuid('playerId').notNull(),
   dayNumber: t.integer().default(0).notNull(),
   claimedAt: t.timestamp().defaultNow().notNull(),
 });

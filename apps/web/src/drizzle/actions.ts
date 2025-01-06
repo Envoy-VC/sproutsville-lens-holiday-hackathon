@@ -1,10 +1,17 @@
 import Phaser from 'phaser';
 import { cropDetails } from '~/data/crops';
+import { lootTable } from '~/data/loot';
 
 import { db } from '.';
-import { crops, inventory, players } from './schema';
+import {
+  type ItemType,
+  crops,
+  dailyClaims,
+  inventory,
+  players,
+} from './schema';
 
-import type { CropType, SeedType } from '~/types/farming';
+import type { CropType } from '~/types/farming';
 
 export const plantCrop = async (
   address: string,
@@ -64,10 +71,7 @@ export const getOrCreatePlayer = async (address: string) => {
   return res;
 };
 
-export const getOrCreateItem = async (
-  address: string,
-  itemId: CropType | SeedType
-) => {
+export const getOrCreateItem = async (address: string, itemId: ItemType) => {
   const player = await getOrCreatePlayer(address);
 
   const res = await db.query.inventory.findFirst({
@@ -104,7 +108,7 @@ export const getPendingCrops = async (address: string) => {
 
 export const updateItemQuantity = async (
   address: string,
-  itemId: CropType | SeedType,
+  itemId: ItemType,
   quantity: number
 ) => {
   const item = await getOrCreateItem(address, itemId);
@@ -160,5 +164,47 @@ export const harvestCrop = async (address: string, crop: CropType) => {
   await db.update(crops).set({
     ...cropToHarvest,
     harvestAt: new Date(),
+  });
+};
+
+export const getPreviousRewardClaim = async (address: string) => {
+  const player = await getOrCreatePlayer(address);
+
+  const res = await db.query.dailyClaims.findMany({
+    where: (claim, { eq, and }) => and(eq(claim.playerId, player.id)),
+    orderBy: (dailyClaims, { desc }) => [desc(dailyClaims.claimedAt)],
+    limit: 7,
+  });
+
+  res.sort((a, b) => a.claimedAt.getTime() - b.claimedAt.getTime());
+  return res;
+};
+
+export const claimDailyReward = async (address: string) => {
+  const player = await getOrCreatePlayer(address);
+  const previousClaims = await getPreviousRewardClaim(address);
+  let nextClaimDay;
+  if (!previousClaims[0]) {
+    nextClaimDay = 0;
+  } else {
+    if (previousClaims[0].claimedAt.getTime() - Date.now() < 86400000) {
+      throw new Error('Already claimed today');
+    }
+
+    nextClaimDay =
+      previousClaims[0].dayNumber + 1 === 6
+        ? 0
+        : previousClaims[0].dayNumber + 1;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- safe
+  const loot = lootTable[nextClaimDay]!;
+  for (const item of loot) {
+    await updateItemQuantity(address, item.item, item.quantity);
+  }
+
+  await db.insert(dailyClaims).values({
+    playerId: player.id,
+    dayNumber: nextClaimDay,
+    claimedAt: new Date(),
   });
 };
