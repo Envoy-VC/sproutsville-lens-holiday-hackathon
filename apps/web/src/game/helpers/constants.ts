@@ -61,3 +61,9 @@ export const Position = {
     description: 'This is the teleport to the player village.',
   },
 };
+
+export const Tile = {
+  carrots: [2062, 2048],
+  tomatoes: [2090, 2076],
+  potatoes: [2118, 2104],
+} as const;

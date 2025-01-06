@@ -1,26 +1,8 @@
-export const allCrops = [
-  'wheat',
-  'rice',
-  'barley',
-  'peas',
-  'carrots',
-  'tomatoes',
-  'potatoes',
-  'cabbage',
-  'onions',
-  'cauliflower',
-] as const;
+export const allCrops = ['carrots', 'tomatoes', 'potatoes'] as const;
 export const allSeeds = [
-  'wheat_seed',
-  'rice_seed',
-  'barley_seed',
-  'peas_seed',
   'carrots_seed',
   'tomatoes_seed',
   'potatoes_seed',
-  'cabbage_seed',
-  'onions_seed',
-  'cauliflower_seed',
 ] as const;
 
 export const allSeasons = ['spring', 'summer', 'autumn', 'winter'] as const;

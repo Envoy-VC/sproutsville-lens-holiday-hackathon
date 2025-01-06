@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions -- safe */
 import mitt from 'mitt';
 
+import type { CropType } from '~/types/farming';
+
 type PlayerEmitterEvents = {
   teleport: { tileX: number; tileY: number };
+  placeCrops: { type: CropType; tiles: number }[];
 };
 
 type MusicEmitterEvents = {

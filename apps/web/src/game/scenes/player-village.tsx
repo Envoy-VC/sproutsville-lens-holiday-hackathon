@@ -5,9 +5,12 @@ import Map from 'public/assets/sproutsville-player-village.json';
 import { type GameSceneAbstract, MusicManager, Pathfinder } from '../classes';
 import { type NPCAbstract } from '../classes/npc';
 import { InteractionText, Player } from '../entities';
+import { playerEmitter } from '../event-emitter';
+import { Tile } from '../helpers/constants';
 import { type CursorKeys, createCursorKeys } from '../helpers/movement';
 import { gameState } from '../state';
 
+import { type CropType } from '~/types/farming';
 import type { GameSceneProps } from '~/types/game';
 
 export class PlayerVillageScene
@@ -24,6 +27,10 @@ export class PlayerVillageScene
   public pathfinder!: Pathfinder;
   public interactionText!: InteractionText;
   public previousModalState: boolean;
+  public cropLayerBase!: Phaser.Tilemaps.TilemapLayer;
+  public cropLayerTop!: Phaser.Tilemaps.TilemapLayer;
+  public totalFarmTiles: number;
+  public usedTiles: { x: number; y: number }[] = [];
 
   public config: GameSceneProps['config'];
 
@@ -31,6 +38,7 @@ export class PlayerVillageScene
     super({ key: 'PlayerVillageScene' });
     this.config = props.config;
     this.previousModalState = false;
+    this.totalFarmTiles = 0;
   }
 
   create() {
@@ -74,9 +82,29 @@ export class PlayerVillageScene
           .setScale(zoom)
           .setAlpha(0);
       } else if (layer.name.includes('Trees')) {
-        map.createLayer(layer.name, tilesets, 0, 0)!.setScale(zoom).setDepth(2);
+        map
+          .createLayer(layer.name, tilesets, 0, 0)!
+          .setScale(zoom)
+          .setDepth(10);
       } else {
         map.createLayer(layer.name, tilesets, 0, 0)!.setScale(zoom).setDepth(0);
+      }
+    });
+
+    // all tiles with 2033 in interaction layer make crop layer
+    this.cropLayerBase = map
+      .createBlankLayer('Crop Base', 'crops')!
+      .setScale(zoom)
+      .setDepth(1);
+    this.cropLayerTop = map
+      .createBlankLayer('Crop Top', 'crops')!
+      .setScale(zoom)
+      .setDepth(2);
+    this.interactionLayer.forEachTile((tile) => {
+      if (tile.index === 2033) {
+        this.totalFarmTiles++;
+        this.cropLayerTop.putTileAt(2033, tile.x, tile.y);
+        this.cropLayerBase.putTileAt(2033, tile.x, tile.y);
       }
     });
 
@@ -115,6 +143,45 @@ export class PlayerVillageScene
 
     // Set Interaction Text
     this.interactionText = new InteractionText(this);
+
+    playerEmitter.on('placeCrops', (props) => {
+      this.plantCrops(props);
+    });
+  }
+
+  plantCrops(props: { type: CropType; tiles: number }[]) {
+    console.log('Planting crops', props);
+    const required = props.reduce((a, b) => a + b.tiles, 0);
+    if (required > this.totalFarmTiles) {
+      console.log('Not enough tiles');
+      return;
+    }
+
+    props.forEach((crop) => {
+      const tiles = this.chooseEmptyFarmTiles(crop.tiles, this.usedTiles);
+      console.log(tiles);
+      tiles.forEach((tile) => {
+        this.cropLayerBase.putTileAt(Tile[crop.type][0], tile.x, tile.y);
+        this.cropLayerTop.putTileAt(Tile[crop.type][1], tile.x, tile.y - 1);
+      });
+    });
+  }
+
+  chooseEmptyFarmTiles(amount: number, used: { x: number; y: number }[]) {
+    const tiles: { x: number; y: number }[] = [];
+    let current = 0;
+    this.cropLayerBase.forEachTile((tile) => {
+      if (
+        tile.index === 2033 &&
+        current < amount &&
+        !used.find((t) => t.x === tile.x && t.y === tile.y)
+      ) {
+        tiles.push({ x: tile.x, y: tile.y });
+        current++;
+      }
+    });
+    this.usedTiles = this.usedTiles.concat(tiles);
+    return tiles;
   }
 
   update(time: number, delta: number) {

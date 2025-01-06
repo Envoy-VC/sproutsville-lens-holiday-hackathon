@@ -71,7 +71,10 @@ export class GameScene extends Phaser.Scene implements GameSceneAbstract {
           .setScale(zoom)
           .setAlpha(0);
       } else if (layer.name.includes('Trees')) {
-        map.createLayer(layer.name, tilesets, 0, 0)!.setScale(zoom).setDepth(2);
+        map
+          .createLayer(layer.name, tilesets, 0, 0)!
+          .setScale(zoom)
+          .setDepth(10);
       } else {
         map.createLayer(layer.name, tilesets, 0, 0)!.setScale(zoom).setDepth(0);
       }

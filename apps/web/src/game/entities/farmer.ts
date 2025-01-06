@@ -17,7 +17,7 @@ export class Farmer implements NPCAbstract {
     this.sprite = scene.physics.add
       .sprite(x, y, sprite)
       .setScale(1.3)
-      .setDepth(1)
+      .setDepth(9)
       .setBodySize(32, 42)
       .setOffset(16, 24);
 
