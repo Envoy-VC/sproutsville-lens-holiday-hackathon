@@ -21,7 +21,7 @@ class GameState {
 
   constructor() {
     makeAutoObservable(this);
-    this.interactionType = 'global-feed';
+    this.interactionType = 'bank';
     this.isInteractionModalOpen = true;
     this.music = true;
     this.sfx = true;

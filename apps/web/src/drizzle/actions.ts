@@ -1,8 +1,10 @@
+import { and, eq } from 'drizzle-orm';
 import Phaser from 'phaser';
 import { cropDetails } from '~/data/crops';
 import { lootTable } from '~/data/loot';
 
 import { db } from '.';
+import { MIGRATIONS } from './migration';
 import {
   type ItemType,
   crops,
@@ -13,11 +15,22 @@ import {
 
 import type { CropType } from '~/types/farming';
 
+const initialize = async () => {
+  const initialized = window.localStorage.getItem('migrations-done') === 'yes';
+  if (initialized) return;
+  const promises = MIGRATIONS.map(async (migration) => {
+    await db.execute(migration);
+  });
+  await Promise.all(promises);
+  window.localStorage.setItem('migrations-done', 'yes');
+};
+
 export const plantCrop = async (
   address: string,
   crop: CropType,
   tiles: { x: number; y: number }[]
 ) => {
+  await initialize();
   // Get all crops that the player has planted but not harvested
   const seeds = await getOrCreateItem(address, `${crop}_seed`);
 
@@ -115,10 +128,14 @@ export const updateItemQuantity = async (
   const newQuantity =
     item.quantity + quantity >= 0 ? item.quantity + quantity : 0;
 
-  await db.update(inventory).set({
-    ...item,
-    quantity: newQuantity,
-  });
+  await db
+    .update(inventory)
+    .set({
+      quantity: newQuantity,
+    })
+    .where(
+      and(eq(inventory.playerId, item.playerId), eq(inventory.itemId, itemId))
+    );
 };
 
 export const harvestCrop = async (address: string, crop: CropType) => {
@@ -161,10 +178,12 @@ export const harvestCrop = async (address: string, crop: CropType) => {
   // Update inventory
   await updateItemQuantity(address, crop, totalYield);
   // Mark crop as harvested
-  await db.update(crops).set({
-    ...cropToHarvest,
-    harvestAt: new Date(),
-  });
+  await db
+    .update(crops)
+    .set({
+      harvestAt: new Date(),
+    })
+    .where(eq(crops.id, cropToHarvest.id));
 };
 
 export const getPreviousRewardClaim = async (address: string) => {
@@ -181,6 +200,7 @@ export const getPreviousRewardClaim = async (address: string) => {
 };
 
 export const claimDailyReward = async (address: string) => {
+  await initialize();
   const player = await getOrCreatePlayer(address);
   const previousClaims = await getPreviousRewardClaim(address);
   let nextClaimDay;
@@ -207,4 +227,16 @@ export const claimDailyReward = async (address: string) => {
     dayNumber: nextClaimDay,
     claimedAt: new Date(),
   });
+};
+
+export const getInventory = async (address: string) => {
+  await initialize();
+
+  const player = await getOrCreatePlayer(address);
+
+  const res = await db.query.inventory.findMany({
+    where: (item, { eq }) => eq(item.playerId, player.id),
+  });
+
+  return res;
 };

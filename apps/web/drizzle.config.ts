@@ -5,9 +5,10 @@ config({ path: '.env.local' });
 
 export default defineConfig({
   out: './drizzle',
-  schema: './src/lib/drizzle/schema.ts',
+  schema: './src/drizzle/schema.ts',
+  driver: 'pglite',
   dialect: 'postgresql',
   dbCredentials: {
-    url: process.env.VITE_POSTGRES_URL!,
+    url: './db',
   },
 });

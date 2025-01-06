@@ -6,7 +6,14 @@ import { MusicManager } from '../classes';
 import { preloadAudio } from '../helpers/audio';
 import { createAnimations } from '../helpers/movement';
 
-const spriteSheets = ['elf', 'farmer', 'trader'];
+const spriteSheets = [
+  'botanist',
+  'farmer',
+  'trader',
+  'girl',
+  'traveler',
+  'wizard',
+];
 
 export class BootScene extends Phaser.Scene {
   public musicManager!: MusicManager;
@@ -50,12 +57,12 @@ export class BootScene extends Phaser.Scene {
     spriteSheets.forEach((spriteSheet) => {
       createAnimations(this, spriteSheet);
     });
-    this.scene.start('PlayerVillageScene', {
-      playerPosition: {
-        x: 50,
-        y: 175,
-      },
-    });
+    // this.scene.start('PlayerVillageScene', {
+    //   playerPosition: {
+    //     x: 50,
+    //     y: 175,
+    //   },
+    // });
     this.scene.start('GameScene');
   }
 }

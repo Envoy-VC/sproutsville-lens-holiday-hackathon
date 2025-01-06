@@ -3,7 +3,8 @@ import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import path from 'node:path';
 import { defineConfig } from 'vite';
-import { nodePolyfills } from 'vite-plugin-node-polyfills';
+
+// import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 export default defineConfig({
   envPrefix: ['VITE_'],
@@ -11,8 +12,11 @@ export default defineConfig({
     TanStackRouterVite({}),
     react(),
     tailwindcss(),
-    nodePolyfills({ protocolImports: true }),
+    // nodePolyfills({ protocolImports: true }),
   ],
+  optimizeDeps: {
+    exclude: ['@electric-sql/pglite'],
+  },
   server: { port: 3000 },
   publicDir: 'public',
   resolve: {

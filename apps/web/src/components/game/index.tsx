@@ -17,15 +17,15 @@ export const GameContainer = () => {
         type: Phaser.AUTO,
         scene: [
           new BootScene(),
-          // new GameScene({
-          //   config: {
-          //     mapSize: { x: mapWidth, y: mapHeight },
-          //     playerPosition: {
-          //       x: 50,
-          //       y: 1650,
-          //     },
-          //   },
-          // }),
+          new GameScene({
+            config: {
+              mapSize: { x: mapWidth, y: mapHeight },
+              playerPosition: {
+                x: 50,
+                y: 1650,
+              },
+            },
+          }),
           new PlayerVillageScene({
             config: {
               mapSize: { x: 30, y: 20 },

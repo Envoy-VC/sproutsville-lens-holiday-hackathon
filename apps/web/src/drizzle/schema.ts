@@ -1,17 +1,17 @@
 import { relations } from 'drizzle-orm';
-import { pgEnum, pgTable } from 'drizzle-orm/pg-core';
+import { pgEnum, pgTable, serial } from 'drizzle-orm/pg-core';
 import * as t from 'drizzle-orm/pg-core';
 
 import { allCrops, allSeeds } from '~/types/farming';
 
-const cropsEnum = pgEnum('cropType', allCrops);
-const itemsEnum = pgEnum('itemType', [...allCrops, ...allSeeds, 'coin']);
+export const cropsEnum = pgEnum('cropType', allCrops);
+export const itemsEnum = pgEnum('itemType', [...allCrops, ...allSeeds, 'coin']);
 
 export type ItemType = (typeof itemsEnum.enumValues)[number];
 
 // Tables for the game
 export const players = pgTable('players', {
-  id: t.uuid().defaultRandom().notNull().primaryKey(),
+  id: serial('id').primaryKey(),
   name: t.varchar('name', { length: 256 }).notNull(),
   address: t.varchar('address').unique().notNull(),
   health: t.integer().default(100).notNull(),
@@ -20,15 +20,15 @@ export const players = pgTable('players', {
 });
 
 export const inventory = pgTable('inventory', {
-  id: t.uuid().defaultRandom().notNull().primaryKey(),
-  playerId: t.uuid('playerId').notNull(),
+  id: serial('id').primaryKey(),
+  playerId: t.integer('player_id').notNull(),
   itemId: itemsEnum().notNull(),
   quantity: t.integer().default(0).notNull(),
 });
 
 export const crops = pgTable('crops', {
-  id: t.uuid().defaultRandom().notNull().primaryKey(),
-  playerId: t.uuid('playerId').notNull(),
+  id: serial('id').primaryKey(),
+  playerId: t.integer('player_id').notNull(),
   cropId: cropsEnum().notNull(),
   plantedAt: t.timestamp().defaultNow().notNull(),
   tiles: t.point({ mode: 'xy' }).array().notNull(),
@@ -36,16 +36,9 @@ export const crops = pgTable('crops', {
   watering: t.timestamp().array().notNull(),
 });
 
-export const traderShop = pgTable('trader_shop', {
-  id: t.uuid().defaultRandom().notNull().primaryKey(),
-  itemId: itemsEnum().notNull(),
-  stock: t.integer().default(0).notNull(),
-  price: t.integer().default(0).notNull(),
-});
-
 export const dailyClaims = pgTable('daily_claims', {
-  id: t.uuid().defaultRandom().notNull().primaryKey(),
-  playerId: t.uuid('playerId').notNull(),
+  id: serial('id').primaryKey(),
+  playerId: t.integer('player_id').notNull(),
   dayNumber: t.integer().default(0).notNull(),
   claimedAt: t.timestamp().defaultNow().notNull(),
 });
@@ -54,14 +47,14 @@ export const dailyClaims = pgTable('daily_claims', {
 
 // One Player has many Inventory, many Crops
 export const playerRelations = relations(players, ({ many }) => ({
-  posts: many(inventory),
   crops: many(crops),
   dailyClaims: many(dailyClaims),
+  inventory: many(inventory),
 }));
 
 // One Inventory belongs to one Player
 export const inventoryRelation = relations(inventory, ({ one }) => ({
-  author: one(players, {
+  players: one(players, {
     fields: [inventory.playerId],
     references: [players.id],
   }),
@@ -69,7 +62,7 @@ export const inventoryRelation = relations(inventory, ({ one }) => ({
 
 // One Crop belongs to one Player
 export const cropsRelation = relations(crops, ({ one }) => ({
-  author: one(players, {
+  players: one(players, {
     fields: [crops.playerId],
     references: [players.id],
   }),
@@ -77,7 +70,7 @@ export const cropsRelation = relations(crops, ({ one }) => ({
 
 // One DailyClaim belongs to one Player
 export const dailyClaimsRelation = relations(dailyClaims, ({ one }) => ({
-  author: one(players, {
+  players: one(players, {
     fields: [dailyClaims.playerId],
     references: [players.id],
   }),
