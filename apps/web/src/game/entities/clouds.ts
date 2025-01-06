@@ -80,6 +80,9 @@ export class CloudsOverlay {
               x: endX,
               duration: 3000,
               ease: 'Sine.easeInOut',
+              onComplete: () => {
+                cloud.destroy();
+              },
             });
           });
         },

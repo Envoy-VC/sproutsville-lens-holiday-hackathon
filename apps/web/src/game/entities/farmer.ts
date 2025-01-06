@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion -- safe */
 import type Phaser from 'phaser';
 
-import { createAnimations } from '../helpers/movement';
+import { type NPCAbstract } from '../classes/npc';
 
 import type { CreatePlayerProps, UpdateProps } from '~/types/game';
 
-export class Farmer {
-  private key: string;
+export class Farmer implements NPCAbstract {
+  public key: string;
   public scene: CreatePlayerProps['scene'];
   public sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   public speed: number;
-  private currentDirection: string;
-  private isMoving: boolean;
+  public currentDirection: string;
+  public isMoving: boolean;
 
   constructor({ x, y, sprite, speed, scene }: CreatePlayerProps) {
     this.sprite = scene.physics.add
@@ -20,7 +20,6 @@ export class Farmer {
       .setDepth(1)
       .setBodySize(32, 42)
       .setOffset(16, 24);
-    createAnimations(scene, sprite);
 
     this.sprite.setCollideWorldBounds(true);
     this.speed = speed;

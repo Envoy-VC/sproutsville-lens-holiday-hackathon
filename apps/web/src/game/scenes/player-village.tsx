@@ -1,20 +1,19 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion -- safe */
 import Phaser from 'phaser';
-import Map from 'public/assets/sproutsville-main.json';
+import Map from 'public/assets/sproutsville-player-village.json';
 
-import {
-  type GameSceneAbstract,
-  MusicManager,
-  type NPCAbstract,
-  Pathfinder,
-} from '../classes';
-import { Farmer, InteractionText, Player } from '../entities';
+import { type GameSceneAbstract, MusicManager, Pathfinder } from '../classes';
+import { type NPCAbstract } from '../classes/npc';
+import { InteractionText, Player } from '../entities';
 import { type CursorKeys, createCursorKeys } from '../helpers/movement';
 import { gameState } from '../state';
 
 import type { GameSceneProps } from '~/types/game';
 
-export class GameScene extends Phaser.Scene implements GameSceneAbstract {
+export class PlayerVillageScene
+  extends Phaser.Scene
+  implements GameSceneAbstract
+{
   public map!: Phaser.Tilemaps.Tilemap;
   public collisionLayer!: Phaser.Tilemaps.TilemapLayer;
   public interactionLayer!: Phaser.Tilemaps.TilemapLayer;
@@ -29,12 +28,16 @@ export class GameScene extends Phaser.Scene implements GameSceneAbstract {
   public config: GameSceneProps['config'];
 
   constructor(props: GameSceneProps) {
-    super({ key: 'GameScene' });
+    super({ key: 'PlayerVillageScene' });
     this.config = props.config;
     this.previousModalState = false;
   }
 
   create() {
+    const data = this.scene.settings.data as {
+      playerPosition: { x: number; y: number };
+    };
+
     const mapWidth = this.config.mapSize.x * 16;
     const mapHeight = this.config.mapSize.y * 16;
     this.cameras.main.setZoom(2);
@@ -48,7 +51,7 @@ export class GameScene extends Phaser.Scene implements GameSceneAbstract {
     );
 
     const map = this.make.tilemap({
-      key: 'world',
+      key: 'player-world',
       tileHeight: 16,
       tileWidth: 16,
     });
@@ -77,30 +80,14 @@ export class GameScene extends Phaser.Scene implements GameSceneAbstract {
       }
     });
 
-    const data = this.scene.settings.data as {
-      playerPosition?: { x: number; y: number };
-    };
-
-    console.log(data);
-
     this.player = new Player({
-      x: data.playerPosition?.x ?? this.config.playerPosition.x,
-      y: data.playerPosition?.y ?? this.config.playerPosition.y,
+      x: data.playerPosition.x,
+      y: data.playerPosition.y,
       sprite: 'trader',
       speed: 50,
       scene: this,
     });
-
     this.npcs = [];
-    this.npcs.push(
-      new Farmer({
-        x: 100,
-        y: 1650,
-        sprite: 'farmer',
-        speed: 50,
-        scene: this,
-      })
-    );
 
     this.npcs.forEach((npc) => {
       this.physics.add.collider(this.player.sprite, npc.sprite);
@@ -135,7 +122,6 @@ export class GameScene extends Phaser.Scene implements GameSceneAbstract {
     this.npcs.forEach((npc) => {
       npc.update({ scene: this, time, delta });
     });
-
     this.interactionText.update({ scene: this, time, delta });
 
     if (gameState.isInteractionModalOpen !== this.previousModalState) {

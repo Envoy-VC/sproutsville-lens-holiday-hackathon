@@ -10,13 +10,14 @@ export type InteractionType =
   | 'storage-hall'
   | 'peasant-house'
   | 'home-village-portal'
-  | 'snowy-lands-portal';
+  | 'main-village-portal';
 
 class GameState {
   public isInteractionModalOpen: boolean;
   public interactionType: InteractionType;
   public music: boolean;
   public sfx: boolean;
+  public currentScene: 'main-village' | 'player-village';
 
   constructor() {
     makeAutoObservable(this);
@@ -24,6 +25,7 @@ class GameState {
     this.isInteractionModalOpen = true;
     this.music = true;
     this.sfx = true;
+    this.currentScene = 'main-village';
   }
 
   public setInteractionModalOpen(isOpen: boolean, type: InteractionType) {
@@ -39,6 +41,10 @@ class GameState {
   public toggleSfx() {
     this.sfx = !this.sfx;
     musicEmitter.emit('set-sfx-volume', this.sfx ? 1 : 0);
+  }
+
+  public setCurrentScene(scene: 'main-village' | 'player-village') {
+    this.currentScene = scene;
   }
 }
 

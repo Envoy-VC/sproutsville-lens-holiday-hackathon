@@ -1,5 +1,5 @@
 import { playerEmitter } from '../event-emitter';
-import { createAnimations, registerMovement } from '../helpers/movement';
+import { registerMovement } from '../helpers/movement';
 import { CloudsOverlay } from './clouds';
 
 import type {
@@ -21,7 +21,6 @@ export class Player {
       .setDepth(1)
       .setBodySize(32, 42)
       .setOffset(16, 24);
-    createAnimations(scene, sprite);
 
     this.sprite.setCollideWorldBounds(true);
     this.speed = speed;

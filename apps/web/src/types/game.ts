@@ -1,5 +1,12 @@
 import type { GameSceneAbstract } from '~/game/classes/game-scene';
 
+export interface GameSceneProps {
+  config: {
+    playerPosition: { x: number; y: number };
+    mapSize: { x: number; y: number };
+  };
+}
+
 export interface UpdateProps {
   scene: GameSceneAbstract;
   time: number;

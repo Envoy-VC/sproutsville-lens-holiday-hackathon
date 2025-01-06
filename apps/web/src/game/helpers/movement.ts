@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-import { CreatePlayerProps } from '~/types/game';
+import type { CreatePlayerProps } from '~/types/game';
 
 export interface CursorKeys {
   up: Phaser.Input.Keyboard.Key;

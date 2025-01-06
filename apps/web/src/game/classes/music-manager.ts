@@ -37,6 +37,9 @@ export class MusicManager {
   }
 
   playSoundtrack() {
+    if (this.soundtrack.isPlaying) {
+      return;
+    }
     this.soundtrack.play(undefined, { volume: 0.5 });
   }
 
