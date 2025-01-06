@@ -135,8 +135,8 @@ const Step4 = ({ goTo }: { goTo: (step: number) => void }) => {
         />
       </div>
       <div className='mx-auto flex flex-row items-center font-minecraftia text-[#6B5052]'>
-        <div className='rounded-l-xl border-t-2 border-b-2 border-l-2 border-[#6B5052] bg-[#C3AC90] pt-2 pl-4 font-black'>
-          sproutsville/
+        <div className='w-[8rem] rounded-l-xl border-t-2 border-b-2 border-l-2 border-[#6B5052] bg-[#C3AC90] pt-2 pl-4 text-end font-black'>
+          lens/
         </div>
         <input
           className='w-[10rem] rounded-r-xl border-t-2 border-r-2 border-b-2 border-[#6B5052] bg-[#C3AC90] pt-2'
@@ -171,9 +171,8 @@ const Step5 = ({ goTo }: { goTo: (step: number) => void }) => {
   const { data: accounts } = useQuery({
     queryKey: ['all-accounts'],
     queryFn: getAllAccounts,
-    refetchOnWindowFocus: false,
     enabled: Boolean(address),
-    initialData: [],
+    refetchInterval: 1000,
   });
   return (
     <div className='mx-auto flex h-full max-w-lg flex-col'>
@@ -182,7 +181,7 @@ const Step5 = ({ goTo }: { goTo: (step: number) => void }) => {
       </div>
 
       <div className='mx-auto flex flex-col gap-4 pt-12'>
-        {accounts.map((acc) => (
+        {accounts?.map((acc) => (
           <GameButton
             key={acc.address}
             className='h-16 w-72'

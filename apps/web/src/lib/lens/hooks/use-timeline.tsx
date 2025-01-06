@@ -17,6 +17,7 @@ export const useTimeline = () => {
     error,
   } = useQuery({
     queryKey: ['timeline', address],
+    refetchInterval: 3000,
     queryFn: async () => {
       const posts = await apollo.query({
         query: TIMELINE_QUERY,
@@ -50,11 +51,11 @@ export const useTimeline = () => {
             };
             const content =
               post.metadata.__typename === 'TextOnlyMetadata'
-                ? post.metadata.content
+                ? (post.metadata.content as string)
                 : '';
 
             return {
-              id: post.id,
+              id: post.id as string,
               author,
               content,
               createdAt: post.timestamp,

@@ -1,23 +1,31 @@
 import { useApolloClient } from '@apollo/client';
-import { evmAddress, txHash } from '@lens-protocol/client';
+import {
+  type ChallengeRequest,
+  type SelfFundedTransactionRequest,
+  type SponsoredTransactionRequest,
+  type TransactionWillFail,
+  evmAddress,
+  txHash,
+} from '@lens-protocol/client';
 import {
   createAccountWithUsername,
+  enableSignless,
   fetchAccount,
 } from '@lens-protocol/client/actions';
-import { type ChallengeRequest } from '@lens-protocol/graphql';
 import { account } from '@lens-protocol/metadata';
+import { getWalletClient, waitForTransactionReceipt } from '@wagmi/core';
 import { useAccount, useSignMessage } from 'wagmi';
+import { config } from '~/providers/web3-provider';
 
 import { client } from '../client';
 import { Constants } from '../constants';
 import { ACCOUNTS_AVAILABLE_QUERY } from '../graphql';
 import { uploadObject } from '../storage';
 
-import type { AuthData } from '~/types/lens';
-
 export const useLensAccount = () => {
   const { signMessageAsync } = useSignMessage();
   const { address } = useAccount();
+
   const apolloClient = useApolloClient();
 
   const signMessage = async (message: string) => {
@@ -93,7 +101,8 @@ export const useLensAccount = () => {
     const res = await createAccountWithUsername(sessionClient, {
       accountManager: [evmAddress(address)],
       username: {
-        namespace: evmAddress(Constants.SPROUTSVILLE_NAMESPACE_ADDRESS),
+        // TODO: Custom namespace are not working
+        // namespace: evmAddress(Constants.SPROUTSVILLE_NAMESPACE_ADDRESS),
         localName,
       },
       metadataUri: uri,
@@ -119,10 +128,8 @@ export const useLensAccount = () => {
       throw new Error('No hash');
     }
     await sessionClient.waitForTransaction(txHash(hash));
-
     const accountRes = await fetchAccount(sessionClient, {
-      txHash:
-        '0x7751cfa57b23db4fa2faa9964494932be0270a11dff10715e275ab795f5eb428',
+      txHash: hash,
     });
 
     if (accountRes.isErr()) {
@@ -130,42 +137,34 @@ export const useLensAccount = () => {
     }
 
     await accountLogin('accountOwner', accountRes.value?.address as string);
+
+    const enableSignlessRes = await enableSignless(sessionClient);
+    if (enableSignlessRes.isErr()) {
+      throw enableSignlessRes.error;
+    }
+
+    const details = await sendTx(enableSignlessRes.value);
+    return details;
   };
 
   const getSessionClient = async (type?: keyof ChallengeRequest) => {
     let sessionClient;
-
-    // Check for Existing
-    if (client.currentSession.isSessionClient()) {
-      const existing = client.currentSession;
-      console.log(existing);
-      // Check if expired
-      const { metadata } = JSON.parse(
-        (await client.context.storage.getItem('lens.testnet.credentials')) ??
-          `{}`
-      ) as AuthData;
-      const needsRefresh =
-        new Date().getTime() - metadata.updatedAt > 10 * 60 * 1000;
-      console.log('needsRefresh', needsRefresh);
-      if (needsRefresh) {
-        const res = await client.resumeSession();
-        if (res.isErr()) {
-          throw res.error;
-        }
-        sessionClient = res.value;
-      } else {
-        sessionClient = existing;
-      }
-    } else {
-      console.log('No existing session');
+    const c = await client.resumeSession();
+    if (c.isErr()) {
       sessionClient = await accountLogin(type);
+    } else {
+      sessionClient = c.value;
     }
 
     return sessionClient;
   };
 
   const getAllAccounts = async () => {
-    if (!address) return [];
+    console.log('Run');
+    if (!address) {
+      console.error('No address');
+      return [];
+    }
     const result = await apolloClient.query({
       query: ACCOUNTS_AVAILABLE_QUERY,
       variables: {
@@ -179,12 +178,12 @@ export const useLensAccount = () => {
 
     const res = result.data.accountsAvailable.items
       .map((acc) => {
-        if (acc.__typename === 'AccountOwned') {
-          const localName = acc.account.username?.localName ?? null;
-          const namespace = acc.account.username?.namespace.namespace ?? null;
+        if (acc.__typename === 'AccountOwned' && acc.account.username) {
+          const localName = acc.account.username.localName;
+          const namespace = acc.account.username.namespace.namespace;
           const completeName =
             localName && namespace
-              ? `${localName}/${namespace}`
+              ? `${namespace}/${localName}`
               : (acc.account.metadata?.name ?? '');
 
           return {
@@ -201,10 +200,28 @@ export const useLensAccount = () => {
     return res;
   };
 
+  const sendTx = async (
+    tx:
+      | SponsoredTransactionRequest
+      | SelfFundedTransactionRequest
+      | TransactionWillFail
+  ) => {
+    const walletClient = await getWalletClient(config);
+    if (tx.__typename === 'TransactionWillFail') {
+      throw new Error('Transaction will fail');
+    }
+
+    // @ts-expect-error -- safe to ignore
+    const hash = await walletClient.sendTransaction(tx.raw);
+    const receipt = await waitForTransactionReceipt(config, { hash });
+    return receipt;
+  };
+
   return {
     registerUser,
     accountLogin,
     getSessionClient,
     getAllAccounts,
+    sendTx,
   };
 };

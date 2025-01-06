@@ -20,7 +20,8 @@ const getToken = async () => {
   const res = await lensClient.context.storage.getItem(
     'lens.testnet.credentials'
   );
-  const data = JSON.parse(res ?? '{}') as
+  if (!res) return 'null';
+  const data = JSON.parse(res) as
     | {
         data: {
           accessToken: string;

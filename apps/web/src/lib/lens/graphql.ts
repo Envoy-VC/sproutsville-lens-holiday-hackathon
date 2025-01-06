@@ -192,6 +192,7 @@ export const ACCOUNTS_AVAILABLE_QUERY =
             localName
             namespace {
               namespace
+              address
             }
           }
         }

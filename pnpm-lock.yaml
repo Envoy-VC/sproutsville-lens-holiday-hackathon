@@ -41,9 +41,12 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.1
         version: 3.9.1(react-hook-form@7.53.2(react@18.3.1))
+      '@lens-network/sdk':
+        specifier: 0.0.0-canary-20241203140504
+        version: 0.0.0-canary-20241203140504(viem@2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))
       '@lens-protocol/client':
         specifier: 0.0.0-canary-20241216110702
-        version: 0.0.0-canary-20241216110702(graphql@16.10.0)(typescript@5.6.3)(viem@2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))
+        version: 0.0.0-canary-20241216110702(@lens-network/sdk@0.0.0-canary-20241203140504(viem@2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8)))(graphql@16.10.0)(typescript@5.6.3)(viem@2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))
       '@lens-protocol/graphql':
         specifier: 0.0.0-canary-20241127131427
         version: 0.0.0-canary-20241127131427(typescript@5.6.3)
@@ -83,6 +86,9 @@ importers:
       '@types/pathfinding':
         specifier: ^0.0.9
         version: 0.0.9
+      '@wagmi/core':
+        specifier: ^2.16.3
+        version: 2.16.3(@tanstack/query-core@5.61.4)(@types/react@18.3.12)(react@18.3.1)(typescript@5.6.3)(use-sync-external-store@1.2.0(react@18.3.1))(viem@2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -263,13 +269,13 @@ importers:
         version: 0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.8)(handlebars@4.7.8)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)
       '@ai16z/client-direct':
         specifier: v0.1.4-alpha.3
-        version: 0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(handlebars@4.7.8)(jiti@2.4.0)(postcss@8.4.49)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(tsx@4.19.2)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(yaml@2.6.1)
+        version: 0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.8)(handlebars@4.7.8)(jiti@2.4.0)(postcss@8.4.49)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(tsx@4.19.2)(typescript@5.6.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(yaml@2.6.1)
       '@ai16z/eliza':
         specifier: v0.1.4-alpha.3
         version: 0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.8)(handlebars@4.7.8)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)
       '@ai16z/plugin-bootstrap':
         specifier: v0.1.4-alpha.3
-        version: 0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(handlebars@4.7.8)(jiti@2.4.0)(postcss@8.4.49)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(tsx@4.19.2)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(yaml@2.6.1)
+        version: 0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.8)(handlebars@4.7.8)(jiti@2.4.0)(postcss@8.4.49)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(tsx@4.19.2)(typescript@5.6.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(yaml@2.6.1)
       '@ai16z/plugin-node':
         specifier: v0.1.4-alpha.3
         version: 0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.8)(canvas@2.11.2)(handlebars@4.7.8)(onnxruntime-node@1.20.1)(puppeteer-core@19.11.1(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10))(puppeteer@19.11.1(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10))(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(typescript@5.6.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(zod@3.23.8)
@@ -2462,6 +2468,21 @@ packages:
     peerDependencies:
       '@langchain/core': '>=0.2.21 <0.4.0'
 
+  '@lens-network/sdk@0.0.0-canary-20241203140504':
+    resolution: {integrity: sha512-w5mNEXQTP0pSkCq6b8sgM2/87dad1gFTP7hbaDxy4lXnM1fBrVA5OzxWRfCIJJY8/NGdw4RYhEzJoXf4IRR97w==}
+    engines: {node: '>=18', pnpm: '>=9.1.2'}
+    peerDependencies:
+      ethers: ^6.12.1
+      viem: ^2.12.0
+      zksync-ethers: ^6.7.1
+    peerDependenciesMeta:
+      ethers:
+        optional: true
+      viem:
+        optional: true
+      zksync-ethers:
+        optional: true
+
   '@lens-protocol/client@0.0.0-canary-20241216110702':
     resolution: {integrity: sha512-Y2cBUPhU8F6cGYV9USm7FcFhnXrvUJH/jINXpqT9oLvuoCe5MBq7KdlII+udjMJEKi6YJ1eQeIj+nOJQQykzhA==}
     peerDependencies:
@@ -4314,6 +4335,18 @@ packages:
 
   '@wagmi/core@2.16.0':
     resolution: {integrity: sha512-sy4n7Jv6YCbT2jp4zQ/9H6l0A8StsN7P8mm2BRuODgW2w6Fj4j6h2xgYJD2tIjJHkLU/nvPJ7audZ55X7XQU/g==}
+    peerDependencies:
+      '@tanstack/query-core': '>=5.0.0'
+      typescript: '>=5.0.4'
+      viem: 2.x
+    peerDependenciesMeta:
+      '@tanstack/query-core':
+        optional: true
+      typescript:
+        optional: true
+
+  '@wagmi/core@2.16.3':
+    resolution: {integrity: sha512-SVovoWHaQ2AIkmGf+ucNijT6AHXcTMffFcLmcFF6++y21x+ge7Gkh3UoJiU91SDDv8n08eTQ9jbyia3GEgU5jQ==}
     peerDependencies:
       '@tanstack/query-core': '>=5.0.0'
       typescript: '>=5.0.4'
@@ -11229,10 +11262,10 @@ snapshots:
       - utf-8-validate
       - vue
 
-  '@ai16z/client-direct@0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(handlebars@4.7.8)(jiti@2.4.0)(postcss@8.4.49)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(tsx@4.19.2)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(yaml@2.6.1)':
+  '@ai16z/client-direct@0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.8)(handlebars@4.7.8)(jiti@2.4.0)(postcss@8.4.49)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(tsx@4.19.2)(typescript@5.6.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(yaml@2.6.1)':
     dependencies:
       '@ai16z/eliza': 0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.8)(handlebars@4.7.8)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)
-      '@ai16z/plugin-image-generation': 0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(handlebars@4.7.8)(jiti@2.4.0)(postcss@8.4.49)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(tsx@4.19.2)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(yaml@2.6.1)
+      '@ai16z/plugin-image-generation': 0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.8)(handlebars@4.7.8)(jiti@2.4.0)(postcss@8.4.49)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(tsx@4.19.2)(typescript@5.6.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(yaml@2.6.1)
       '@types/body-parser': 1.19.5
       '@types/cors': 2.8.17
       '@types/express': 5.0.0
@@ -11255,6 +11288,7 @@ snapshots:
       - '@microsoft/api-extractor'
       - '@swc/core'
       - axios
+      - bufferutil
       - cheerio
       - encoding
       - handlebars
@@ -11269,6 +11303,7 @@ snapshots:
       - tsx
       - typeorm
       - typescript
+      - utf-8-validate
       - vue
       - yaml
 
@@ -11327,7 +11362,7 @@ snapshots:
       - vue
       - whatwg-url
 
-  '@ai16z/plugin-bootstrap@0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(handlebars@4.7.8)(jiti@2.4.0)(postcss@8.4.49)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(tsx@4.19.2)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(yaml@2.6.1)':
+  '@ai16z/plugin-bootstrap@0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.8)(handlebars@4.7.8)(jiti@2.4.0)(postcss@8.4.49)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(tsx@4.19.2)(typescript@5.6.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(yaml@2.6.1)':
     dependencies:
       '@ai16z/eliza': 0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.8)(handlebars@4.7.8)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)
       tsup: 8.3.5(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)(yaml@2.6.1)
@@ -11346,6 +11381,7 @@ snapshots:
       - '@microsoft/api-extractor'
       - '@swc/core'
       - axios
+      - bufferutil
       - cheerio
       - encoding
       - handlebars
@@ -11360,10 +11396,11 @@ snapshots:
       - tsx
       - typeorm
       - typescript
+      - utf-8-validate
       - vue
       - yaml
 
-  '@ai16z/plugin-image-generation@0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(handlebars@4.7.8)(jiti@2.4.0)(postcss@8.4.49)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(tsx@4.19.2)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(yaml@2.6.1)':
+  '@ai16z/plugin-image-generation@0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.8)(handlebars@4.7.8)(jiti@2.4.0)(postcss@8.4.49)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(tsx@4.19.2)(typescript@5.6.3)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)(yaml@2.6.1)':
     dependencies:
       '@ai16z/eliza': 0.1.4-alpha.3(@google-cloud/vertexai@1.9.2)(@langchain/core@0.3.27(openai@4.69.0(zod@3.23.8)))(axios@1.7.9)(bufferutil@4.0.8)(handlebars@4.7.8)(react@18.3.1)(sswr@2.1.0(svelte@5.3.0))(svelte@5.3.0)(utf-8-validate@5.0.10)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.0)
       tsup: 8.3.5(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)(yaml@2.6.1)
@@ -11382,6 +11419,7 @@ snapshots:
       - '@microsoft/api-extractor'
       - '@swc/core'
       - axios
+      - bufferutil
       - cheerio
       - encoding
       - handlebars
@@ -11396,6 +11434,7 @@ snapshots:
       - tsx
       - typeorm
       - typescript
+      - utf-8-validate
       - vue
       - yaml
 
@@ -13888,7 +13927,11 @@ snapshots:
       '@langchain/core': 0.3.27(openai@4.69.0(zod@3.23.8))
       js-tiktoken: 1.0.16
 
-  '@lens-protocol/client@0.0.0-canary-20241216110702(graphql@16.10.0)(typescript@5.6.3)(viem@2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))':
+  '@lens-network/sdk@0.0.0-canary-20241203140504(viem@2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))':
+    optionalDependencies:
+      viem: 2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8)
+
+  '@lens-protocol/client@0.0.0-canary-20241216110702(@lens-network/sdk@0.0.0-canary-20241203140504(viem@2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8)))(graphql@16.10.0)(typescript@5.6.3)(viem@2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))':
     dependencies:
       '@lens-protocol/env': 0.0.0-canary-20241216110702
       '@lens-protocol/graphql': 0.0.0-canary-20241216110702(typescript@5.6.3)
@@ -13899,6 +13942,7 @@ snapshots:
       jwt-decode: 4.0.0
       loglevel: 1.9.2
     optionalDependencies:
+      '@lens-network/sdk': 0.0.0-canary-20241203140504(viem@2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))
       viem: 2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8)
     transitivePeerDependencies:
       - '@gql.tada/svelte-support'
@@ -16168,6 +16212,21 @@ snapshots:
       - zod
 
   '@wagmi/core@2.16.0(@tanstack/query-core@5.61.4)(@types/react@18.3.12)(react@18.3.1)(typescript@5.6.3)(use-sync-external-store@1.2.0(react@18.3.1))(viem@2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))':
+    dependencies:
+      eventemitter3: 5.0.1
+      mipd: 0.0.7(typescript@5.6.3)
+      viem: 2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8)
+      zustand: 5.0.0(@types/react@18.3.12)(react@18.3.1)(use-sync-external-store@1.2.0(react@18.3.1))
+    optionalDependencies:
+      '@tanstack/query-core': 5.61.4
+      typescript: 5.6.3
+    transitivePeerDependencies:
+      - '@types/react'
+      - immer
+      - react
+      - use-sync-external-store
+
+  '@wagmi/core@2.16.3(@tanstack/query-core@5.61.4)(@types/react@18.3.12)(react@18.3.1)(typescript@5.6.3)(use-sync-external-store@1.2.0(react@18.3.1))(viem@2.21.55(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))':
     dependencies:
       eventemitter3: 5.0.1
       mipd: 0.0.7(typescript@5.6.3)
