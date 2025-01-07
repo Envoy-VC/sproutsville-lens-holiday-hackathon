@@ -25,7 +25,7 @@ export const HomeMenu = () => {
     {
       name: 'Profile',
       key: 'profile',
-      onClick: () => {},
+      onClick: () => true,
     },
     {
       name: 'Settings',
@@ -45,8 +45,8 @@ export const HomeMenu = () => {
 
   if (!address)
     return (
-      <div className='mx-auto w-fit border'>
-        <ConnectKitButton />
+      <div className='mx-auto w-fit cursor-pointer'>
+        <ConnectKitButton mode='light' theme='retro' />
       </div>
     );
 
