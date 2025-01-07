@@ -1,5 +1,5 @@
 <p align="center">
-<img src="./apps/web/public/logo-text.png" alt=""  width="200px"/></p>
+<img src="./apps/web/public/logo-text.png" alt=""  width="500px"/></p>
 
 Sproutsville is a 2D top-down farming game built with Phaser and designed to onboard new players into the Lens Protocol ecosystem, particularly Lens v3. The game blends fun farming mechanics with social interactions, creating an engaging experience that encourages players to "touch grass" in both the virtual and blockchain sense.
 
