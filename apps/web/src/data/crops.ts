@@ -19,8 +19,8 @@ export const cropDetails: Record<CropType, Crop> = {
       growthSpeedMultiplier: 1.2,
     },
     growthStages: {
-      growing: [0, 6 * ONE_MINUTE], // Growing phase lasts 6 minutes
-      readyToHarvest: [6 * ONE_MINUTE, 7 * ONE_HOUR], // Harvestable for 7 hours
+      growing: [0, ONE_MINUTE], // Growing phase lasts 6 minutes
+      readyToHarvest: [ONE_MINUTE, 7 * ONE_HOUR], // Harvestable for 7 hours
       dead: [7 * ONE_HOUR, Infinity], // Dead after 7 hours
     },
     wateringRequirement: {
