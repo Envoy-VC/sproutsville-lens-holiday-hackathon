@@ -124,10 +124,10 @@ export function getRandomTileNear(
   const map = collisionLayer.tilemap;
 
   // Define the boundaries of the rectangle around the given tile
-  const minX = Math.max(tileX - range, 0);
-  const maxX = Math.min(tileX + range, map.width * 2 - 1);
-  const minY = Math.max(tileY - range, 0);
-  const maxY = Math.min(tileY + range, map.height * 2 - 1);
+  const minX = Math.max(tileX - range, 1);
+  const maxX = Math.min(tileX + range, map.width * 2 - 2);
+  const minY = Math.max(tileY - range, 1);
+  const maxY = Math.min(tileY + range, map.height * 2 - 2);
 
   // Collect all valid non-colliding tiles
   const validTiles: { x: number; y: number }[] = [];

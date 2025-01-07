@@ -13,7 +13,7 @@ export class MusicManager {
     this.scene = scene;
     this.soundtrack = this.scene.sound.add('soundtrack', {
       loop: true,
-      volume: 0.5,
+      volume: 0.3,
     }) as Phaser.Sound.WebAudioSound;
 
     this.sfx = {
@@ -40,7 +40,7 @@ export class MusicManager {
     if (this.soundtrack.isPlaying) {
       return;
     }
-    this.soundtrack.play(undefined, { volume: 0.5 });
+    this.soundtrack.play(undefined, { volume: 0.3 });
   }
 
   setSfx(volume: number) {

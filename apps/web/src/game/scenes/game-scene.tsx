@@ -97,42 +97,55 @@ export class GameScene extends Phaser.Scene implements GameSceneAbstract {
     });
 
     this.npcs = [];
-    // this.npcs.push(
-    //   new NPC({
-    //     nearTo: {
-    //       x: Position.Farm.x,
-    //       y: Position.Farm.y,
-    //       radius: 50,
-    //     },
-    //     sprite: 'farmer',
-    //     speed: 50,
-    //     scene: this,
-    //   })
-    // );
+    this.npcs.push(
+      new NPC({
+        nearTo: {
+          x: Position.Farm.x,
+          y: Position.Farm.y,
+          radius: 10,
+        },
+        sprite: 'farmer',
+        speed: 20,
+        scene: this,
+      })
+    );
+
     this.npcs.push(
       new NPC({
         nearTo: {
           x: Position.Onboarding.x,
           y: Position.Onboarding.y,
-          radius: 20,
+          radius: 30,
         },
         sprite: 'girl',
         speed: 50,
         scene: this,
       })
     );
-    // this.npcs.push(
-    //   new NPC({
-    //     nearTo: {
-    //       x: Position.Onboarding.x,
-    //       y: Position.Onboarding.y,
-    //       radius: 50,
-    //     },
-    //     sprite: 'traveler',
-    //     speed: 50,
-    //     scene: this,
-    //   })
-    // );
+    this.npcs.push(
+      new NPC({
+        nearTo: {
+          x: Position.PlayerVillageTeleport.x,
+          y: Position.PlayerVillageTeleport.y,
+          radius: 40,
+        },
+        sprite: 'botanist',
+        speed: 50,
+        scene: this,
+      })
+    );
+    this.npcs.push(
+      new NPC({
+        nearTo: {
+          x: Position.MainHall.x,
+          y: Position.MainHall.y,
+          radius: 40,
+        },
+        sprite: 'traveler',
+        speed: 50,
+        scene: this,
+      })
+    );
 
     this.npcs.forEach((npc) => {
       this.physics.add.collider(this.player.sprite, npc.sprite);

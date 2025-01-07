@@ -3,7 +3,6 @@ import Phaser from 'phaser';
 
 import { type NPCAbstract } from '../classes/npc';
 import { taskManagerEmitter } from '../event-emitter';
-import { Position } from '../helpers/constants';
 import { getRandomTileNear } from '../helpers/movement';
 
 import type { CreateNPCProps, UpdateProps } from '~/types/game';
@@ -41,11 +40,11 @@ export class NPC implements NPCAbstract {
     this.isMoving = false;
 
     taskManagerEmitter.on('start-task', (task) => {
-      if (task === 'moveToRandom') {
+      if (task.type === 'moveToRandom' && task.entityId === this.key) {
         const random = getRandomTileNear(
-          Position.Onboarding.x,
-          Position.Onboarding.y,
-          10,
+          nearTo.x,
+          nearTo.y,
+          nearTo.radius,
           scene.collisionLayer
         );
         if (random) {
@@ -54,13 +53,19 @@ export class NPC implements NPCAbstract {
             await new Promise((resolve) => {
               setTimeout(resolve, randomWait);
             });
-            taskManagerEmitter.emit('start-task', 'moveToRandom');
+            taskManagerEmitter.emit('start-task', {
+              type: 'moveToRandom',
+              entityId: this.key,
+            });
           });
         }
       }
     });
 
-    taskManagerEmitter.emit('start-task', 'moveToRandom');
+    taskManagerEmitter.emit('start-task', {
+      type: 'moveToRandom',
+      entityId: this.key,
+    });
 
     // scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
     //   const worldPoint = scene.cameras.main.getWorldPoint(pointer.x, pointer.y);

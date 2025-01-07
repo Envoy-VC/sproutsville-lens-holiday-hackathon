@@ -20,7 +20,10 @@ type MusicEmitterEvents = {
   'set-music-volume': number;
 };
 
-type TaskType = 'moveToRandom' | 'moveTo';
+type TaskType = {
+  type: 'moveToRandom' | 'moveTo';
+  entityId: string;
+};
 
 type TaskManagerEmitterEvents = {
   'task-completed': TaskType;

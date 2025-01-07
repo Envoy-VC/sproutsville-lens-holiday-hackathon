@@ -38,7 +38,7 @@ class GameState {
 
   public toggleMusic() {
     this.music = !this.music;
-    musicEmitter.emit('set-music-volume', this.music ? 0.5 : 0);
+    musicEmitter.emit('set-music-volume', this.music ? 0.3 : 0);
   }
 
   public toggleSfx() {
