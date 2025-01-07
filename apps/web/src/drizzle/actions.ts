@@ -15,6 +15,10 @@ import {
 
 import type { CropType } from '~/types/farming';
 
+const isBetween = (x: number, [a, b]: [number, number]) => {
+  return x >= a && x <= b;
+};
+
 const initialize = async () => {
   const initialized = window.localStorage.getItem('migrations-done') === 'yes';
   if (initialized) return;
@@ -31,6 +35,7 @@ export const plantCrop = async (
   tiles: { x: number; y: number }[]
 ) => {
   await initialize();
+  if (tiles.length === 0) return;
   // Get all crops that the player has planted but not harvested
   const seeds = await getOrCreateItem(address, `${crop}_seed`);
 
@@ -138,45 +143,57 @@ export const updateItemQuantity = async (
     );
 };
 
-export const harvestCrop = async (address: string, crop: CropType) => {
+export const harvestCrop = async (address: string, id: number) => {
   const pendingCrops = await getPendingCrops(address);
 
-  const cropToHarvest = pendingCrops.find((c) => c.cropId === crop);
+  const cropToHarvest = pendingCrops.find((c) => c.id === id);
   if (!cropToHarvest) {
     throw new Error('Crop not found');
   }
+  const crop = cropToHarvest.cropId;
+  console.log('Crop to harvest', cropToHarvest);
 
-  const minHarvestTime =
-    cropToHarvest.plantedAt.getTime() +
-    cropDetails[crop].growthStages.readyToHarvest[0];
-  const isDead =
-    cropToHarvest.plantedAt.getTime() + cropDetails[crop].growthStages.dead[1] >
-    Date.now();
+  const plantedAt = cropToHarvest.plantedAt.getTime();
+  const now = Date.now();
+  const growTime = cropDetails[cropToHarvest.cropId].growthStages.growing[1];
+  const harvestTime =
+    plantedAt +
+    cropDetails[cropToHarvest.cropId].growthStages.readyToHarvest[1];
+  const isReady = isBetween(now, [plantedAt + growTime, harvestTime]);
+  const isDead = isBetween(now, [harvestTime, Infinity]);
 
-  const canHarvest = Date.now() >= minHarvestTime;
-
-  if (!canHarvest) {
+  if (!isReady) {
     throw new Error('Crop not ready to harvest');
   }
 
-  let totalYield = 0;
+  let totalCropYield = 0;
+  let totalSeedYield = 0;
   if (isDead) {
-    totalYield = 0;
+    totalCropYield = 0;
+    totalSeedYield = 0;
   } else {
     const totalSeeds = cropToHarvest.tiles.length;
     for (let i = 0; i < totalSeeds; i++) {
       // Get random number between min and max
-      totalYield +=
+      totalCropYield +=
         cropDetails[crop].yieldVariance.min +
         Phaser.Math.Between(
           cropDetails[crop].yieldVariance.min,
           cropDetails[crop].yieldVariance.max
         );
+      totalSeedYield += Phaser.Math.Between(
+        cropDetails[crop].yieldVariance.min,
+        cropDetails[crop].yieldVariance.max
+      );
     }
   }
 
+  console.log('Total Crop yield', totalCropYield);
+  console.log('Total Seed yield', totalSeedYield);
+
   // Update inventory
-  await updateItemQuantity(address, crop, totalYield);
+  await updateItemQuantity(address, crop, totalCropYield);
+  await updateItemQuantity(address, `${crop}_seed`, totalSeedYield);
   // Mark crop as harvested
   await db
     .update(crops)

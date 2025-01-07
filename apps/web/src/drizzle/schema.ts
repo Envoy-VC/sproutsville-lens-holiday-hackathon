@@ -36,6 +36,8 @@ export const crops = pgTable('crops', {
   watering: t.timestamp().array().notNull(),
 });
 
+export type Crop = typeof crops.$inferSelect;
+
 export const dailyClaims = pgTable('daily_claims', {
   id: serial('id').primaryKey(),
   playerId: t.integer('player_id').notNull(),

@@ -8,7 +8,8 @@ import {
   type NPCAbstract,
   Pathfinder,
 } from '../classes';
-import { Farmer, InteractionText, Player } from '../entities';
+import { InteractionText, NPC, Player } from '../entities';
+import { Position } from '../helpers/constants';
 import { type CursorKeys, createCursorKeys } from '../helpers/movement';
 import { gameState } from '../state';
 
@@ -80,11 +81,12 @@ export class GameScene extends Phaser.Scene implements GameSceneAbstract {
       }
     });
 
+    // Set Pathfinder
+    this.pathfinder = new Pathfinder(this.collisionLayer);
+
     const data = this.scene.settings.data as {
       playerPosition?: { x: number; y: number };
     };
-
-    console.log(data);
 
     this.player = new Player({
       x: data.playerPosition?.x ?? this.config.playerPosition.x,
@@ -95,15 +97,42 @@ export class GameScene extends Phaser.Scene implements GameSceneAbstract {
     });
 
     this.npcs = [];
+    // this.npcs.push(
+    //   new NPC({
+    //     nearTo: {
+    //       x: Position.Farm.x,
+    //       y: Position.Farm.y,
+    //       radius: 50,
+    //     },
+    //     sprite: 'farmer',
+    //     speed: 50,
+    //     scene: this,
+    //   })
+    // );
     this.npcs.push(
-      new Farmer({
-        x: 100,
-        y: 1650,
-        sprite: 'farmer',
+      new NPC({
+        nearTo: {
+          x: Position.Onboarding.x,
+          y: Position.Onboarding.y,
+          radius: 20,
+        },
+        sprite: 'girl',
         speed: 50,
         scene: this,
       })
     );
+    // this.npcs.push(
+    //   new NPC({
+    //     nearTo: {
+    //       x: Position.Onboarding.x,
+    //       y: Position.Onboarding.y,
+    //       radius: 50,
+    //     },
+    //     sprite: 'traveler',
+    //     speed: 50,
+    //     scene: this,
+    //   })
+    // );
 
     this.npcs.forEach((npc) => {
       this.physics.add.collider(this.player.sprite, npc.sprite);
@@ -125,9 +154,6 @@ export class GameScene extends Phaser.Scene implements GameSceneAbstract {
 
     // Set Music Manager
     this.musicManager = new MusicManager(this);
-
-    // Set Pathfinder
-    this.pathfinder = new Pathfinder(this.collisionLayer);
 
     // Set Interaction Text
     this.interactionText = new InteractionText(this);

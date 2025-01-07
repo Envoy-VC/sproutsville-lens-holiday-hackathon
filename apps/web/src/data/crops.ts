@@ -1,7 +1,7 @@
 import type { Crop, CropType } from '~/types/farming';
 
 const ONE_SECOND = 1000;
-const ONE_MINUTE = 60 * ONE_SECOND;
+const ONE_MINUTE = ONE_SECOND * 60;
 const ONE_HOUR = 60 * ONE_MINUTE;
 
 export const cropDetails: Record<CropType, Crop> = {

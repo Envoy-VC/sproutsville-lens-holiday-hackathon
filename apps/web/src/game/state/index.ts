@@ -10,7 +10,8 @@ export type InteractionType =
   | 'storage-hall'
   | 'peasant-house'
   | 'home-village-portal'
-  | 'main-village-portal';
+  | 'main-village-portal'
+  | 'farm-land';
 
 class GameState {
   public isInteractionModalOpen: boolean;
@@ -18,14 +19,16 @@ class GameState {
   public music: boolean;
   public sfx: boolean;
   public currentScene: 'main-village' | 'player-village';
+  public availableFarmTiles: { x: number; y: number }[];
 
   constructor() {
     makeAutoObservable(this);
-    this.interactionType = 'bank';
+    this.interactionType = 'farm-land';
     this.isInteractionModalOpen = true;
     this.music = true;
     this.sfx = true;
     this.currentScene = 'main-village';
+    this.availableFarmTiles = [];
   }
 
   public setInteractionModalOpen(isOpen: boolean, type: InteractionType) {
@@ -45,6 +48,10 @@ class GameState {
 
   public setCurrentScene(scene: 'main-village' | 'player-village') {
     this.currentScene = scene;
+  }
+
+  public setAvailableFarmTiles(tiles: { x: number; y: number }[]) {
+    this.availableFarmTiles = tiles;
   }
 }
 

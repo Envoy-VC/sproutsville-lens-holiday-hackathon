@@ -1,11 +1,22 @@
 import { useMemo } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import { useAccount } from 'wagmi';
+import { cropDetails } from '~/data/crops';
 import * as Actions from '~/drizzle/actions';
+import { playerEmitter } from '~/game/event-emitter';
+import { gameState } from '~/game/state';
+
+import type { CropType } from '../types/farming';
+
+const isBetween = (x: number, [a, b]: [number, number]) => {
+  return x >= a && x <= b;
+};
 
 export const usePlayer = () => {
   const { address } = useAccount();
+
   const { data: previousClaims, refetch: refetchPreviousClaims } = useQuery({
     queryKey: ['previous-claim', address],
     queryFn: async () => {
@@ -16,6 +27,88 @@ export const usePlayer = () => {
     },
     enabled: Boolean(address),
     initialData: [],
+  });
+
+  const { data: plantedCrops, refetch: refetchPlantedCrops } = useQuery({
+    queryKey: ['plantedCrops', address],
+    queryFn: async () => {
+      if (!address) {
+        throw new Error('No address found');
+      }
+      const pending = await Actions.getPendingCrops(address);
+
+      const crops = pending.map((crop) => {
+        let status: 'growing' | 'ready' | 'dead';
+        const plantedAt = crop.plantedAt.getTime();
+        const now = Date.now();
+        const growTime = cropDetails[crop.cropId].growthStages.growing[1];
+        const isGrowing = isBetween(now, [plantedAt, plantedAt + growTime]);
+
+        const harvestTime =
+          plantedAt + cropDetails[crop.cropId].growthStages.readyToHarvest[1];
+        const isReady = isBetween(now, [plantedAt + growTime, harvestTime]);
+        const isDead = isBetween(now, [harvestTime, Infinity]);
+
+        if (isDead) {
+          status = 'dead';
+        } else if (isReady) {
+          status = 'ready';
+        } else if (isGrowing) {
+          status = 'growing';
+        } else {
+          status = 'growing';
+        }
+
+        let nextPhaseIn;
+        if (status === 'growing') {
+          nextPhaseIn =
+            crop.plantedAt.getTime() +
+            cropDetails[crop.cropId].growthStages.growing[1] -
+            Date.now();
+        } else if (status === 'ready') {
+          nextPhaseIn =
+            crop.plantedAt.getTime() +
+            cropDetails[crop.cropId].growthStages.readyToHarvest[1] -
+            Date.now();
+        } else {
+          nextPhaseIn = 0;
+        }
+
+        return {
+          ...crop,
+          status,
+          nextPhaseIn,
+        };
+      });
+
+      const readyCrops = crops.filter((crop) => crop.status === 'ready');
+      const notReadyCrops = crops.filter((crop) => crop.status === 'growing');
+      const deadCrops = crops.filter((crop) => crop.status === 'dead');
+
+      // TODO: Emit
+      playerEmitter.emit(
+        'placeCrops',
+        readyCrops.map((crop) => {
+          return {
+            type: crop.cropId,
+            tiles: crop.tiles,
+          };
+        })
+      );
+      return {
+        all: crops,
+        ready: readyCrops,
+        notReady: notReadyCrops,
+        dead: deadCrops,
+      };
+    },
+    enabled: Boolean(address),
+    initialData: {
+      all: [],
+      ready: [],
+      notReady: [],
+      dead: [],
+    },
   });
 
   const { data: inventory, refetch: refetchInventory } = useQuery({
@@ -54,6 +147,23 @@ export const usePlayer = () => {
     };
   }, [previousClaims]);
 
+  const plantCrop = async (crop: {
+    type: CropType;
+    tiles: { x: number; y: number }[];
+  }) => {
+    try {
+      if (!address) {
+        throw new Error('No address found');
+      }
+      await Actions.plantCrop(address, crop.type, crop.tiles);
+      gameState.setAvailableFarmTiles([]);
+      await refetchPlantedCrops();
+      await refetchInventory();
+    } catch (error) {
+      toast.error((error as Error).message);
+    }
+  };
+
   const claimDailyReward = async () => {
     if (!address) return;
     await Actions.claimDailyReward(address);
@@ -61,5 +171,31 @@ export const usePlayer = () => {
     await refetchInventory();
   };
 
-  return { claims, claimDailyReward, inventory };
+  const harvestCrop = async (id: number) => {
+    try {
+      if (!address) {
+        throw new Error('No address found');
+      }
+      await Actions.harvestCrop(address, id);
+      await refresh();
+    } catch (error) {
+      toast.error((error as Error).message);
+    }
+  };
+
+  const refresh = async () => {
+    await refetchPreviousClaims();
+    await refetchPlantedCrops();
+    await refetchInventory();
+  };
+
+  return {
+    claims,
+    claimDailyReward,
+    inventory,
+    plantedCrops,
+    plantCrop,
+    harvestCrop,
+    refresh,
+  };
 };

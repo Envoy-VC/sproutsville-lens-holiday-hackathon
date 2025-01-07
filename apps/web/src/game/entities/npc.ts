@@ -1,21 +1,33 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion -- safe */
-import type Phaser from 'phaser';
+import Phaser from 'phaser';
 
 import { type NPCAbstract } from '../classes/npc';
+import { taskManagerEmitter } from '../event-emitter';
+import { Position } from '../helpers/constants';
+import { getRandomTileNear } from '../helpers/movement';
 
-import type { CreatePlayerProps, UpdateProps } from '~/types/game';
+import type { CreateNPCProps, UpdateProps } from '~/types/game';
 
-export class Farmer implements NPCAbstract {
+export class NPC implements NPCAbstract {
   public key: string;
-  public scene: CreatePlayerProps['scene'];
+  public scene: CreateNPCProps['scene'];
   public sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   public speed: number;
   public currentDirection: string;
   public isMoving: boolean;
 
-  constructor({ x, y, sprite, speed, scene }: CreatePlayerProps) {
+  constructor({ sprite, speed, scene, nearTo }: CreateNPCProps) {
+    const tile = getRandomTileNear(
+      nearTo.x,
+      nearTo.y,
+      nearTo.radius,
+      scene.collisionLayer
+    );
+    if (!tile) {
+      throw new Error('Could not find a suitable tile');
+    }
     this.sprite = scene.physics.add
-      .sprite(x, y, sprite)
+      .sprite(tile.x * 16, tile.y * 16, sprite)
       .setScale(1.3)
       .setDepth(9)
       .setBodySize(32, 42)
@@ -27,6 +39,28 @@ export class Farmer implements NPCAbstract {
     this.currentDirection = 'south';
     this.key = sprite;
     this.isMoving = false;
+
+    taskManagerEmitter.on('start-task', (task) => {
+      if (task === 'moveToRandom') {
+        const random = getRandomTileNear(
+          Position.Onboarding.x,
+          Position.Onboarding.y,
+          10,
+          scene.collisionLayer
+        );
+        if (random) {
+          void this.moveTo(random.x, random.y, 16).then(async () => {
+            const randomWait = Phaser.Math.Between(3000, 8000);
+            await new Promise((resolve) => {
+              setTimeout(resolve, randomWait);
+            });
+            taskManagerEmitter.emit('start-task', 'moveToRandom');
+          });
+        }
+      }
+    });
+
+    taskManagerEmitter.emit('start-task', 'moveToRandom');
 
     // scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
     //   const worldPoint = scene.cameras.main.getWorldPoint(pointer.x, pointer.y);

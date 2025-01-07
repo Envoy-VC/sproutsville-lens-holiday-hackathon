@@ -147,23 +147,33 @@ export class PlayerVillageScene
     playerEmitter.on('placeCrops', (props) => {
       this.plantCrops(props);
     });
+
+    playerEmitter.on('getEmptyFarmTiles', ({ amount, used }) => {
+      const tiles = this.chooseEmptyFarmTiles(amount, used);
+      gameState.setAvailableFarmTiles(tiles);
+    });
   }
 
-  plantCrops(props: { type: CropType; tiles: number }[]) {
-    console.log('Planting crops', props);
-    const required = props.reduce((a, b) => a + b.tiles, 0);
-    if (required > this.totalFarmTiles) {
-      console.log('Not enough tiles');
-      return;
-    }
-
+  plantCrops(props: { type: CropType; tiles: { x: number; y: number }[] }[]) {
+    this.resetCropLayers();
     props.forEach((crop) => {
-      const tiles = this.chooseEmptyFarmTiles(crop.tiles, this.usedTiles);
-      console.log(tiles);
-      tiles.forEach((tile) => {
+      crop.tiles.forEach((tile) => {
         this.cropLayerBase.putTileAt(Tile[crop.type][0], tile.x, tile.y);
         this.cropLayerTop.putTileAt(Tile[crop.type][1], tile.x, tile.y - 1);
       });
+    });
+  }
+
+  resetCropLayers() {
+    this.cropLayerBase.forEachTile((tile) => {
+      if (tile.index !== -1) {
+        this.cropLayerBase.putTileAt(2033, tile.x, tile.y);
+      }
+    });
+    this.cropLayerTop.forEachTile((tile) => {
+      if (tile.index !== -1) {
+        this.cropLayerTop.putTileAt(2033, tile.x, tile.y);
+      }
     });
   }
 

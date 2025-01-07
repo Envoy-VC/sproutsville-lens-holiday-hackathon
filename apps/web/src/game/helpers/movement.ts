@@ -114,3 +114,51 @@ export const registerMovement = (
     }
   }
 };
+
+export function getRandomTileNear(
+  tileX: number,
+  tileY: number,
+  range: number,
+  collisionLayer: Phaser.Tilemaps.TilemapLayer
+): { x: number; y: number } | null {
+  const map = collisionLayer.tilemap;
+
+  // Define the boundaries of the rectangle around the given tile
+  const minX = Math.max(tileX - range, 0);
+  const maxX = Math.min(tileX + range, map.width * 2 - 1);
+  const minY = Math.max(tileY - range, 0);
+  const maxY = Math.min(tileY + range, map.height * 2 - 1);
+
+  // Collect all valid non-colliding tiles
+  const validTiles: { x: number; y: number }[] = [];
+  for (let x = minX; x <= maxX; x++) {
+    for (let y = minY; y <= maxY; y++) {
+      const tile = collisionLayer.getTileAt(
+        x,
+        y
+      ) as Phaser.Tilemaps.Tile | null;
+      let isColliding = false;
+      if (!tile) {
+        isColliding = false;
+      } else {
+        isColliding =
+          'collides' in tile.properties
+            ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- safe
+              Boolean(tile.properties.collides)
+            : false;
+      }
+
+      if (!isColliding) {
+        validTiles.push({ x, y });
+      }
+    }
+  }
+
+  // If there are no valid tiles, return null
+  if (validTiles.length === 0) return null;
+
+  // Select a random valid tile
+  const randomIndex = Math.floor(Math.random() * validTiles.length);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- safe
+  return validTiles[randomIndex]!;
+}

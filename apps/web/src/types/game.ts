@@ -21,6 +21,13 @@ export interface CreatePlayerProps {
   scene: GameSceneAbstract;
 }
 
+export interface CreateNPCProps {
+  nearTo: { x: number; y: number; radius: number };
+  speed: number;
+  sprite: string;
+  scene: GameSceneAbstract;
+}
+
 export interface TeleportProps {
   tileX: number;
   tileY: number;

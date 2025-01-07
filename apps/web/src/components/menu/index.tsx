@@ -5,16 +5,10 @@ import { cn } from '~/lib/utils';
 import { GameDialog } from '../game-dialog';
 import { IconButton } from '../icon-button';
 import { Inventory } from './inventory';
-import { PlayerDetails } from './player-details';
+// import { PlayerDetails } from './player-details';
 import { Settings } from './settings';
 
 const tabs = [
-  {
-    key: 'player',
-    title: 'Player',
-    icon: 'heart',
-    iconCls: 'h-20 w-20',
-  },
   {
     key: 'inventory',
     title: 'Inventory',
@@ -32,7 +26,7 @@ const tabs = [
 export const MenuButton = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [activeTab, setActiveTab] =
-    useState<(typeof tabs)[number]['key']>('player');
+    useState<(typeof tabs)[number]['key']>('inventory');
   const [hoveredTab, setHoveredTab] = useState<
     (typeof tabs)[number]['key'] | null
   >(null);
@@ -90,18 +84,16 @@ export const MenuButton = () => {
                 }}
                 onMouseEnter={() => {
                   setHoveredTab(tab.key);
-                  console.log('hoveredTab', hoveredTab);
                 }}
                 onMouseLeave={() => {
                   setHoveredTab(null);
-                  console.log('hoveredTab', hoveredTab);
                 }}
               />
             );
           })}
         </div>
         <div className='h-full px-8 py-4'>
-          {activeTab === 'player' && <PlayerDetails />}
+          {/* {activeTab === 'player' && <PlayerDetails />} */}
           {activeTab === 'inventory' && <Inventory />}
           {activeTab === 'settings' && <Settings />}
         </div>
