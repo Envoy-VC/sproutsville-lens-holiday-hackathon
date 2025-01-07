@@ -23,8 +23,8 @@ class GameState {
 
   constructor() {
     makeAutoObservable(this);
-    this.interactionType = 'farm-land';
-    this.isInteractionModalOpen = true;
+    this.interactionType = 'onboarding';
+    this.isInteractionModalOpen = false;
     this.music = true;
     this.sfx = true;
     this.currentScene = 'main-village';

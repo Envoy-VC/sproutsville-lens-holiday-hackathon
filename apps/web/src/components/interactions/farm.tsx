@@ -7,9 +7,9 @@ import { type Crop } from '~/drizzle/schema';
 import { playerEmitter } from '~/game/event-emitter';
 import { usePlayer } from '~/hooks';
 
+import { GameButton } from '~/components/game-button';
 import { Slider } from '~/components/ui/slider';
 
-import { GameButton } from '..';
 import { gameState } from '../../game/state/index';
 
 import type { CropType } from '~/types/farming';

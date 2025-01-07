@@ -45,7 +45,6 @@ export const GameContainer = () => {
         physics: {
           default: 'arcade',
           arcade: {
-            debug: import.meta.env.MODE === 'development',
             gravity: { y: 0, x: 1 },
           },
         },

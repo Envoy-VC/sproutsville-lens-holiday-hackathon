@@ -57,12 +57,12 @@ export class BootScene extends Phaser.Scene {
     spriteSheets.forEach((spriteSheet) => {
       createAnimations(this, spriteSheet);
     });
-    this.scene.start('PlayerVillageScene', {
-      playerPosition: {
-        x: 50,
-        y: 575,
-      },
-    });
-    // this.scene.start('GameScene');
+    // this.scene.start('PlayerVillageScene', {
+    //   playerPosition: {
+    //     x: 50,
+    //     y: 575,
+    //   },
+    // });
+    this.scene.start('GameScene');
   }
 }

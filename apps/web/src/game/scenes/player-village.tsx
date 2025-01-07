@@ -207,9 +207,11 @@ export class PlayerVillageScene
       if (gameState.isInteractionModalOpen) {
         // Disable keyboard input when the modal is open
         this.input.keyboard?.disableGlobalCapture();
+        this.input.keyboard!.enabled = false;
       } else {
         // Enable keyboard input when the modal is closed
         this.input.keyboard?.enableGlobalCapture();
+        this.input.keyboard!.enabled = true;
       }
     }
   }

@@ -22,5 +22,9 @@ export const InteractionContent = ({
   } else if (interactionType === 'farm-land') {
     return <FarmInteraction />;
   }
-  return null;
+  return (
+    <div className='flex h-full w-full items-center justify-center text-center font-minecraftia text-5xl'>
+      Coming Soon
+    </div>
+  );
 };
